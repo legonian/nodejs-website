@@ -1,0 +1,108 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 970px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.header {
+    max-width: 100%;
+    height: 3rem;
+    border-bottom: 1px solid lightgrey;
+    text-align: center;
+    line-height: 50px;  
+    margin-bottom: 50px;
+    
+}
+
+.wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0 15px;
+}
+
+.sign-in {
+    display: block;
+    background-color: white;
+    outline: white;
+    border: none;
+    cursor: pointer;
+    padding: 3px 15px;
+}
+
+.sign-in:hover{
+    transition: 0.2s;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);   
+}
+
+.modal-background {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modal-login {
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+}
+
+.profile-card {
+    display: flex;
+    padding: 20px;
+    max-width: 100%;
+    min-height: 500px;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);   
+}
+
+.img {
+    width: 250px;
+    height: 250px;
+    background-color: grey;
+    border-radius: 50%;
+    
+}
+.profile-name {
+    display: block;
+    text-align: center;
+
+}
+
+.metrics {
+    display: flex;
+    width: 60%;
+    justify-content: space-around;
+}
+
+.metrics-bar {
+    min-height: 50px;
+    line-height: 50px;
+    text-align: center;
+}
+
+@media (max-width:450px) {
+    .metrics {
+        flex-direction: column;
+    }
+}
