@@ -1,22 +1,40 @@
-console.log('123')
+/*
+let topics = [
+    { suptitle : 1, subtitle : 2, topics : 3, posts : 4, nickname : 5, timestamp : 6 },
+]
+*/
 
-let data
-let request = new XMLHttpRequest()
-request.open('GET', '/javascripts/test.json', true)
-
-request.onload = function() {
-  if (request.status >= 200 && request.status < 400) {
-    // Success!
-    data = JSON.parse(request.responseText)
-    console.log(data)
-  } else {
-    // We reached our target server, but it returned an error
-
-  }
-};
-
-request.onerror = function() {
-  // There was a connection error of some sort
+function createTopic(topics) {
+    return `
+        <div class="forum-topic">
+            <div class="forum-name">
+                <a class="suptitle" href="">${topics.suptitle}</a>
+                    <br>
+                <span class="subtitle subtext">
+                    ${topics.subtitle}
+                </span>
+            </div>
+            <div class="forum-topic-number">${topics.topics}</div>
+            <div class="forum-posts ">${topics.posts}</div>
+            <div class="forum-last-post">
+                <div class="last-post-icon"></div>
+                <span class="forum-last-post-name">
+                    ${topics.nickname}
+                </span> 
+                    <br>
+                <span class="forum-last-post-timestamp subtext">
+                    ${topics.timestamp}
+                </span>
+            </div>
+        </div>
+    `
 }
 
-request.send()
+const templates = topics.map( topic => createTopic(topic))
+
+const html = templates.join(' ');
+
+document.getElementById("topic").innerHTML = html;
+
+
+

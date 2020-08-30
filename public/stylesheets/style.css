@@ -81,6 +81,11 @@ body {
     font-size: 0.9rem;
 }
 
+.mod {
+    display: block;
+    padding: 0 5px;
+    
+}
 .last-post-icon {
     width: 40px;
     height: 40px;
@@ -89,4 +94,10 @@ body {
     float: left;
     vertical-align: middle;
     margin-right: 10px;
+}
+
+@media (max-width: 860px) {
+    .last-post-icon {
+        display: none;
+    }
 }
