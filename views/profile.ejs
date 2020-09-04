@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <title>Profile</title>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+           <div class="wrapper">
+                <a id="signIn" class="sign-in">Sing In</a>
+                <div class="btn"></div>
+           </div>
+        </div>
+    </header>
+
+    <div class="modal-background">
+        <div class="modal-login">
+            <span class="modal-close">&#10005;</span>
+            <form action="" method="post">
+                <input type="login" placeholder="Enter login"> <br>
+                <input type="password" placeholder="Enter password"> <br>
+                <input type="submit" value="Sign in">
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="profile-card">
+            <div class="img"></div>
+            <span class="profile-name"><%-name%></span>
+            <div class="metrics">
+                <div class="posts metrics-bar"><%-post%></div>
+                <div class="country metrics-bar">Ukraine</div>
+                <div class="rating metrics-bar">26 rating</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/javascripts/login.js"></script>
+</body>
+</html>
