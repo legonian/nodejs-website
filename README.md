@@ -1,10 +1,14 @@
 # test_server
 To run localy type in console:
 ```
-npm install
-npm start
+npm i
+npm run dev
 ```
 To access server type in browser:
 ```
-localhost:3000
+http://localhost:3000
+```
+or
+```
+http://localhost:3000/profile
 ```
