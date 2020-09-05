@@ -11,6 +11,8 @@ const profileRouter = require('./routes/profile')
 
 const app = express()
 
+app.set('trust proxy', 1)
+
 app.use(session({
   name: 'sid',
   secret: 'hatsthsththts',
@@ -19,8 +21,8 @@ app.use(session({
   cookie: {
     maxAge: 3600000, // 1 hour
     sameSite: true,
-    secure: true,
-    //secure: process.env.NODE_ENV === 'production',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
   }
 }))
 
