@@ -12,11 +12,17 @@
     <div class="modal-background">
         <div class="modal-login">
             <span class="modal-close">&#10005;</span>
-            <form action="" method="post">
-                Enter login
-                <input type="login"> <br>
-                Enter password
-                <input type="password"> <br>
+            <form action="/login" method="post">
+                <div>
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username">
+                </div>
+
+                <div>
+                    <label for="pass">Password (8 characters minimum):</label>
+                    <input type="password" id="pass" name="password"
+                           minlength="8" required>
+                </div>
                 <input type="submit" value="Sign in">
             </form>
         </div>

@@ -11,6 +11,29 @@ const profileRouter = require('./routes/profile')
 
 const app = express()
 
+app.use(session({
+  name: 'sid',
+  secret: 'hatsthsththts',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 3600000, // 1 hour
+    sameSite: true,
+    secure: process.env.NODE_ENV === 'production',
+  }
+}))
+
+app.use(function(req, res, next){
+  const err = req.session.error;
+  const msg = req.session.success;
+  delete req.session.error;
+  delete req.session.success;
+  res.locals.message = '';
+  if (err) res.locals.message = '<p class="msg error">' + err + '</p>';
+  if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>';
+  next();
+})
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
