@@ -33,7 +33,7 @@ function authenticate(name, pass, fn) {
 
 router.post('/login', function(req, res) {
   authenticate(req.body.username, req.body.password, function(user){
-    console.log('User = ', user)
+    console.log('User =', user)
     if(user){
       req.session.regenerate(function(){
         req.session.user = user
