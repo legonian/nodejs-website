@@ -10,15 +10,6 @@ body {
     background-color: #FBFBFC;
 }
 
-.header {
-    max-width: 100%;
-    height: 3rem;
-    border-bottom: 1px solid lightgrey;
-    text-align: center;
-    line-height: 50px;  
-    margin-bottom: 50px;
-}
-
 .container {
     max-width: 970px;
     margin: 0 auto;
