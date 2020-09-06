@@ -23,7 +23,7 @@
 .header a {
     display: inline-block;
     cursor: pointer;
-    padding: 5px 15px;
+    padding: 5px 10px;
     
 }
 
@@ -47,13 +47,39 @@
 
 .modal-login {
     background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
+    margin: 30vh auto; /* 15% from the top and centered */
+    padding: 5px;
     border: 1px solid #888;
-    width: 30%; /* Could be more or less, depending on screen size */
-}
+    max-width: 600px;
+/*     width: 60%; /* Could be more or less, depending on screen size */
+ */}
 
 .modal-close {
-    float: right;
+    margin-top: 30px;
     cursor: pointer;
+    padding-right: 10px;
+    text-align: center;
+}
+.wrap {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+.login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: middle;
+    justify-content: center;
+    width: 90%;
+}
+
+.input {
+    display: block;
+    height: 2rem;
+}
+
+
+.input-validation {
+    height: 2rem;
 }

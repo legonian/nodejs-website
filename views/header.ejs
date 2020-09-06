@@ -1,32 +1,32 @@
 
-
 <header class="header">
-        <div class="header-container">
-           <div class="wrapper">
-                <a id="sign-in">Sing In</a>
-                <div class="btn"></div>
-           </div>
-        </div>
-    </header>
-
-    <div class="modal-background">
-        <div class="modal-login">
-            <span class="modal-close">&#10005;</span>
-            <form action="/login" method="post">
-                <div>
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username">
-                </div>
-
-                <div>
-                    <label for="pass">Password (8 characters minimum):</label>
-                    <input type="password" id="pass" name="password"
-                           minlength="8" required>
-                </div>
-                <input type="submit" value="Sign in">
-            </form>
-        </div>
+  <div class="header-container">
+    <div class="wrapper">
+      <% if (name) { %>
+        <a id="username" href="/profile"><%= name %></a>
+        <a id="log_out" href="/log_out">Log out</a>
+      <% } else {%>
+        <a id="sign_up">Sign Up</a>
+        <a id="log_in">Log In</a>
+      <% }%>
     </div>
+  </div>
+</header>
+
+<div class="modal-background">
+  <div class="modal-login">
+    <div class="wrap">
+      <form action="" method="post" class="login-form">
+        <input name="username" type="text" placeholder="Enter login" class="input"> 
+          <span class="login-validation input-validation"></span>
+        <input name="password" type="password" placeholder="Enter password" class="input"> 
+          <span class="password-validation input-validation"></span>
+        <input type="submit" value="" id="submit" class="input" minlength="8" required>
+        <span class="modal-close">Close</span>
+      </form>
+    </div>
+  </div>
+</div>
 
 <link rel="stylesheet" href="/stylesheets/header.css">
 <script src="javascripts/header.js"></script>
