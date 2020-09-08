@@ -1,8 +1,9 @@
 /*
 let topics = [
-    { suptitle : 1, subtitle : 2, topics : 3, posts : 4, nickname : 5, timestamp : 6 },
-]
+    { suptitle, subtitle, topics, posts, nickname, timestamp }]
 */
+
+const topics = JSON.parse(document.getElementById('data_js').textContent)
 
 function createTopic(topics) {
     return `
@@ -32,9 +33,6 @@ function createTopic(topics) {
 
 const templates = topics.map( topic => createTopic(topic))
 
-const html = templates.join(' ');
+const html = templates.join(' ')
 
-document.getElementById("topic").innerHTML = html;
-
-
-
+document.getElementById("topic").innerHTML = html

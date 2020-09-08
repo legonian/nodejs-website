@@ -5,6 +5,7 @@ const express = require('express')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
+const helmet = require('helmet')
 
 const indexRouter = require('./routes/index')
 const profileRouter = require('./routes/profile')
@@ -12,9 +13,10 @@ const profileRouter = require('./routes/profile')
 const app = express()
 
 app.set('trust proxy', 1)
+app.use(helmet())
 
 app.use(session({
-  name: 'sid',
+  name: 'sessionId',
   secret: 'hatsthsththts',
   resave: false,
   saveUninitialized: false,
