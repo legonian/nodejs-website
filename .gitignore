@@ -60,5 +60,7 @@ typings/
 # next.js build output
 .next
 
+# mine
 0/
 heroku_cmds.txt
+.env

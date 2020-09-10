@@ -1,14 +1,11 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
+const User = require('../models/user')
 
 function rand() {
     let rand = Math.round(Math.random() * (50 - 1) + 1);
     return rand
 }
-
-let users = {user1: {name: '111', pass: '123123123'},
-             user2: {name: '222', pass: '456456456'},
-            }
 
 router.get('/', function(req, res, next) {
   let top_topics = [
@@ -22,66 +19,47 @@ router.get('/', function(req, res, next) {
   ]
   
   if (req.session.user){
-    res.locals.name = req.session.user.name
+    res.locals.nickname = req.session.user.nickname
   }
   else{
-    res.locals.name = false
+    res.locals.nickname = false
   }
   
   res.render('index', {topics: JSON.stringify(top_topics)});
 })
 
-function authenticate(name, pass, fn) {
-  console.log('authenticating %s:%s', name, pass)
-  let user = users[name]
-  if (!user) return fn(false)
-  if (pass === user.pass) return fn(user)
-  fn(false)
-}
+router.post('/login', async function(req, res) {
+  const temp_user = new User({name: req.body.username, pass: req.body.password})
+  const db_user = await temp_user.auth()
 
-function add_new_user(name1, pass1, fn){
-  Object.keys(users).forEach(u => {
-    if (u.name === name1){
-      return fn(false)
-    }
-  })
-  let user = {name: name1, pass: pass1}
-  fn(user)
-}
-
-router.post('/login', function(req, res) {
-  console.log('loginloginloginlogin', req.body)
-  authenticate(req.body.username, req.body.password, function(user){
-    console.log('User =', user)
-    if(user){
-      req.session.regenerate(function(){
-        req.session.user = user
-        req.session.success = 'Authenticated as ' + user.name
-        res.redirect('/profile')
-      })
-    }
-    else{
-      req.session.error = 'Authentication failed, please check your '
-        + ' username and password.'
-      res.redirect('/')
-    }
-  })
+  if(db_user){
+    req.session.regenerate(function(){
+      req.session.user = db_user
+      req.session.success = 'Authenticated as ' + db_user.nickname
+      res.redirect('/profile')
+    })
+  }
+  else{
+    req.session.error = 'Authentication failed, please check your '
+      + ' username and password.'
+    res.redirect('/')
+  }
 })
 
-router.post('/signup', function(req, res) {
-  console.log('loginloginloginlogin')
-  add_new_user(req.body.username, req.body.password, function(user){
-    if(user){
-      req.session.regenerate(function(){
-        req.session.user = user
-        req.session.success = 'Authenticated as ' + user.name
+router.post('/signup', async function(req, res) {
+  const temp_user = new User({name: req.body.username, 
+                              pass: req.body.password, 
+                              first_name: req.body.first_name})
+  const db_user = await temp_user.sign_up()
+  if(db_user){
+    req.session.regenerate(function(){
+        req.session.user = db_user
+        req.session.success = 'Authenticated as ' + db_user.nickname
         res.redirect('/profile')
       })
-    }
-    else{
-      res.redirect('/')
-    }
-  })
+  }else{
+    res.redirect('/')
+  }
 })
 
 router.get('/log_out', function(req, res, next) {

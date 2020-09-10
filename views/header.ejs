@@ -2,8 +2,8 @@
 <header class="header">
   <div class="header-container">
     <div class="wrapper">
-      <% if (name) { %>
-        <a id="username" href="/profile"><%= name %></a>
+      <% if (nickname) { %>
+        <a id="username" href="/profile"><%= nickname %></a>
         <a id="log_out" href="/log_out">Log out</a>
       <% } else {%>
         <a id="sign_up">Sign Up</a>
@@ -17,12 +17,19 @@
   <div class="modal-login">
     <div class="wrap">
       <form action="" method="post" class="login-form">
-        <input name="username" type="text" placeholder="Enter login" class="input"> 
-          <span class="login-validation input-validation"></span>
-        <input name="password" type="password" placeholder="Enter password" class="input"> 
-          <span class="password-validation input-validation"></span>
-        <input type="submit" value="" id="submit" class="input" minlength="8" required>
+
+        <input name="username" type="text" placeholder="Enter login" class="input" maxlength="20" required>
+        <span class="login-validation input-validation"></span>
+
+        <input name="password" type="password" placeholder="Enter password" class="input" maxlength="60" minlength="8" required> 
+        <span class="password-validation input-validation"></span>
+
+        <input name="first_name" type="text" placeholder="Enter Name" class="input on_sign_up" maxlength="30" required> 
+        <span class="login-validation input-validation on_sign_up"></span>
+
+        <input type="submit" value="" id="submit" class="input">
         <span class="modal-close">Close</span>
+
       </form>
     </div>
   </div>

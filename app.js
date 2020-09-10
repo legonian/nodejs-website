@@ -7,8 +7,12 @@ const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const helmet = require('helmet')
 
+
 const indexRouter = require('./routes/index')
 const profileRouter = require('./routes/profile')
+const poolModel = require('./models/pool')
+//const userModel = require('./models/user')
+//const postModel = require('./models/post')
 
 const app = express()
 
@@ -16,12 +20,15 @@ app.set('trust proxy', 1)
 app.use(helmet())
 
 app.use(session({
-  name: 'sessionId',
-  secret: 'hatsthsththts',
+  store: new (require('connect-pg-simple')(session))({
+  	pool : poolModel,
+  }),
+  name: 'sid',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 3600000, // 1 hour
+    maxAge: 36000000, // 10 hour
     sameSite: true,
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
