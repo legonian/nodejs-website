@@ -19,6 +19,17 @@ const app = express()
 app.set('trust proxy', 1)
 app.use(helmet())
 
+app.use(helmet.contentSecurityPolicy({ directives:{
+  "default-src": ["'self'",
+                  "https://fonts.gstatic.com/",
+                  "https://www.google.com/",
+                  "https://fonts.googleapis.com/"],
+  "script-src": ["'self'", 
+                 "https://www.google.com/",
+                 "https://www.gstatic.com/",],
+  "object-src": ["'none'"], 
+}}))
+
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
   	pool : poolModel,

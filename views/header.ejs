@@ -11,6 +11,7 @@
       <% }%>
     </div>
   </div>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </header>
 
 <div class="modal-background">
@@ -26,6 +27,9 @@
 
         <input name="first_name" type="text" placeholder="Enter Name" class="input on_sign_up" maxlength="30" required> 
         <span class="login-validation input-validation on_sign_up"></span>
+  
+        <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
+        <br/>
 
         <input type="submit" value="" id="submit" class="input">
         <span class="modal-close">Close</span>

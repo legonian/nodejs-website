@@ -29,6 +29,7 @@ router.get('/', function(req, res, next) {
 })
 
 router.post('/login', async function(req, res) {
+  console.log('req.body =', req.body)
   const temp_user = new User({name: req.body.username, pass: req.body.password})
   const db_user = await temp_user.auth()
 
