@@ -70,29 +70,35 @@ router.get('/', function(req, res, next) {
 })
 
 router.post('/login', async function(req, res) {
-  console.log('req.body[g-recaptcha-response] =', req.body['g-recaptcha-response'])
-
   const captcha_res = req.body['g-recaptcha-response']
+  if(captcha_res){
+    const api_res = await captchaAPI(captcha_res)
+    if (api_res.success){
+      const temp_user = new User({name: req.body.username, pass: req.body.password})
+      const db_user = await temp_user.auth()
 
-  const api_res = await captchaAPI(captcha_res)
-
-  console.log('api_res =', api_res)
-
-  const temp_user = new User({name: req.body.username, pass: req.body.password})
-  const db_user = await temp_user.auth()
-
-  if(db_user){
-    req.session.regenerate(function(){
-      req.session.user = db_user
-      req.session.success = 'Authenticated as ' + db_user.nickname
-      res.redirect('/profile')
-    })
-  }
-  else{
-    req.session.error = 'Authentication failed, please check your '
-      + ' username and password.'
+      if(db_user){
+        req.session.regenerate(function(){
+          req.session.user = db_user
+          req.session.success = 'Authenticated as ' + db_user.nickname
+          res.redirect('/profile')
+        })
+      }
+      else{
+        req.session.error = 'Authentication failed, please check your '
+          + ' username and password.'
+        res.redirect('/')
+      }
+    }else{
+      req.session.error = 'Authentication failed, please check captcha'
+      res.redirect('/')
+    }
+  }else{
+    req.session.error = 'Authentication failed, please check captcha'
     res.redirect('/')
   }
+
+  
 })
 
 router.post('/signup', async function(req, res) {
