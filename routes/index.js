@@ -1,10 +1,51 @@
 const express = require('express')
 const router = express.Router()
 const User = require('../models/user')
+const https = require('https')
+const querystring = require('querystring')
 
 function rand() {
     let rand = Math.round(Math.random() * (50 - 1) + 1);
     return rand
+}
+
+function captchaAPI(captcha_res){
+  return new Promise((resolve, reject) => {
+    const data = querystring.stringify({
+      secret: process.env.RECAPTCHA_SECRET,
+      response: captcha_res
+    })
+
+    const options = {
+      hostname: 'google.com',
+      path: '/recaptcha/api/siteverify',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Content-Length': Buffer.byteLength(data),
+      },
+    }
+
+    const req = https.request(options, (res) => {
+      res.setEncoding('utf8')
+      let responseBody = ''
+
+      res.on('data', (chunk) => {
+        responseBody += chunk
+      })
+
+      res.on('end', () => {
+        resolve(JSON.parse(responseBody))
+      })
+    })
+
+    req.on('error', (error) => {
+      reject(error)
+    })
+
+    req.write(data)
+    req.end()
+  })
 }
 
 router.get('/', function(req, res, next) {
@@ -29,7 +70,14 @@ router.get('/', function(req, res, next) {
 })
 
 router.post('/login', async function(req, res) {
-  console.log('req.body =', req.body)
+  console.log('req.body[g-recaptcha-response] =', req.body['g-recaptcha-response'])
+
+  const captcha_res = req.body['g-recaptcha-response']
+
+  const api_res = await captchaAPI(captcha_res)
+
+  console.log('api_res =', api_res)
+
   const temp_user = new User({name: req.body.username, pass: req.body.password})
   const db_user = await temp_user.auth()
 
