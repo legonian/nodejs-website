@@ -64,3 +64,4 @@ typings/
 0/
 heroku_cmds.txt
 .env
+test*.js
