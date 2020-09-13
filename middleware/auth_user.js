@@ -7,11 +7,11 @@ function auth_user (option){
         req.session.error = 'Authentication failed, please check captcha.'
         next()
       }else{
-        if(option = 'login'){
+        if(option == 'login'){
           const temp_user = new User({name: req.body.username,
                                             pass: req.body.password})
           const db_user = await temp_user.auth()
-        }else if(option = 'signup'){
+        }else if(option == 'signup'){
           const temp_user = new User({name: req.body.username, 
                                       pass: req.body.password, 
                                       first_name: req.body.first_name})
