@@ -12,7 +12,7 @@ function rand() {
     return rand
 }
 
-router.get('/', function(req, res, next) {
+router.get('/', function(req, res) {
   let top_topics = [
     { suptitle : "Lorem, ipsum dolor", subtitle : "Lorem ipsum dolor sit, amet consectetur adipisicing elit.", topics : rand(), posts : rand(), nickname : "Legonian", timestamp : "Mar 12, 2017"  },
     { suptitle : "Lorem, ipsum dolor", subtitle : "Lorem ipsum dolor sit, amet consectetur adipisicing elit.", topics : rand(), posts : rand(), nickname : "Legonian", timestamp : "Mar 12, 2017"  },
@@ -35,29 +35,14 @@ router.get('/', function(req, res, next) {
 
 router.post('/login', check_captcha, login, async function(req, res) {
 
-  res.redirect('/profile')
-  //console.log('req.captcha =', req.captcha)
-  /*
-  if (req.captcha){
-    const temp_user = new User({name: req.body.username, pass: req.body.password})
-    const db_user = await temp_user.auth()
-
-    if(db_user){
-      req.session.regenerate(function(){
-        req.session.user = db_user
-        req.session.success = 'Authenticated as ' + db_user.nickname
-        res.redirect('/profile')
-      })
-    }
-    else{
-      req.session.error = 'Authentication failed, please check your '
-        + ' username and password.'
-      res.redirect('/')
-    }
-  }else{
-    req.session.error = 'Authentication failed, please check captcha'
+  console.log("req.session.user =", [req.session.user])
+  
+  if (req.session.user) {
+    res.redirect('/profile')
+  }
+  else {
     res.redirect('/')
-  }*/
+  }
 })
 
 router.post('/signup', check_captcha, async function(req, res) {
