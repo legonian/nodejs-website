@@ -32,13 +32,13 @@ class DB {
     if(DB.check_user_onlogin(obj)){
       const client = await pool.connect()
       try {
-        const hash_res = await client.query(`SELECT hash FROM users WHERE nickname = '${obj.name}'`)
+        const hash_res = await client.query('SELECT * FROM users WHERE nickname = $1', [obj.name])
         const hash = hash_res.rows[0].hash
         //console.log('hash = ', hash)
         const match = await bcrypt.compare(obj.pass, hash)
         if(match){
-          const query = `SELECT * FROM users WHERE nickname = '${obj.name}'`
-          const res = await client.query(query)
+          const query = 'SELECT * FROM users WHERE nickname = $1'
+          const res = await client.query(query, [obj.name])
           return res.rows[0]
         }else{
           console.log('invalid pass')
@@ -54,21 +54,17 @@ class DB {
     if(DB.check_user_onsignup(obj)){
       const client = await pool.connect()
       try {
-        const res = await client.query(`SELECT * FROM users WHERE nickname = '${obj.name}'`)
+        const res = await client.query('SELECT * FROM users WHERE nickname = $1', [obj.name])
         if(res.rows[0]){
           console.log('User exist')
           return false
         }else{
           const hash = await bcrypt.hash(obj.pass, 12)
           const query = `INSERT INTO users(nickname, hash, first_name, create_date, posts_count)
-                         VALUES ('${obj.name}','${hash}', '${obj.first_name}', '${obj.create_date}', 0)`
+                         VALUES ($1, $2, $3, $4, 0)`
           
-          //console.log('query on set_user =', query)
-          
-          await client.query(query)
-          const res = await client.query(`SELECT * FROM users WHERE nickname = '${obj.name}'`)
-          
-          //console.log('res =', res)
+          await client.query(query, [obj.name,hash, obj.first_name, obj.create_date])
+          const res = await client.query('SELECT * FROM users WHERE nickname = $1', [obj.name])
           return res.rows[0]
         }
       } finally {

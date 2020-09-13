@@ -45,11 +45,7 @@ function check_captcha(){
     try {
       const captcha_res = req.body['g-recaptcha-response']
       const api_res = captcha_res && await captchaAPI(captcha_res)
-      //const captcha_ans = (api_res && api_res.success)
-      //req.captcha = captcha_ans.length == 0 ? false : captcha_ans
       req.captcha = api_res && api_res.success
-
-      //console.log('\n456\n', req.captcha.toString(), '789')
       next()
     } catch (error) {
       next(error)
