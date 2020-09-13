@@ -3,6 +3,7 @@ const router = express.Router()
 const User = require('../models/user')
 const https = require('https')
 const querystring = require('querystring')
+const check_captcha = require('../middleware/check_captcha')
 
 function rand() {
     let rand = Math.round(Math.random() * (50 - 1) + 1);
@@ -69,7 +70,8 @@ router.get('/', function(req, res, next) {
   res.render('index', {topics: JSON.stringify(top_topics)});
 })
 
-router.post('/login', async function(req, res) {
+router.post('/login', check_captcha, async function(req, res) {
+  console.log('req.captcha =', req.captcha)
   const captcha_res = req.body['g-recaptcha-response']
   if(captcha_res){
     const api_res = await captchaAPI(captcha_res)
