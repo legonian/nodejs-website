@@ -5,7 +5,6 @@ function login_user(){
     try {
       if(!req.captcha) {
         req.session.error = 'Authentication failed, please check captcha.'
-
         next()
       }else{
         const temp_user = new User({name: req.body.username, pass: req.body.password})
@@ -15,12 +14,13 @@ function login_user(){
           req.session.regenerate(function(){
             req.session.user = db_user
             req.session.success = 'Authenticated as ' + db_user.nickname
+            next()
           })
-          next()
         }
         else{
           req.session.error = 'Authentication failed, please check your '
             + ' username and password.'
+          next()
         }
       }
     }catch (error) {
