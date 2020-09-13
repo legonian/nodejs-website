@@ -1,29 +1,16 @@
 const User = require('../models/user')
 
-async function f1 (option1) {
-  if(option1 == 'login'){
-    const temp_user = new User({name: req.body.username,
-                                      pass: req.body.password})
-    const db_user = await temp_user.auth()
-  }else if(option1 == 'signup'){
-    const temp_user = new User({name: req.body.username, 
-                                pass: req.body.password, 
-                                first_name: req.body.first_name})
-    const db_user = await temp_user.sign_up()
-  }else{
-    const db_user = null
-  }
-  return db_user
-}
-
-function auth_user (option) {
+function user_signup () {
   return async function (req, res, next) {
     try {
       if(!req.captcha) {
         req.session.error = 'Authentication failed, please check captcha.'
         next()
       }else{
-        const db_user = await f1(option)
+        const temp_user = new User({name: req.body.username, 
+                                    pass: req.body.password, 
+                                    first_name: req.body.first_name})
+        const db_user = await temp_user.sign_up()
 
         if(db_user){
           req.session.regenerate(function(){
@@ -44,4 +31,4 @@ function auth_user (option) {
   }
 }
 
-module.exports = auth_user
+module.exports = user_signup

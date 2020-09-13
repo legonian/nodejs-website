@@ -6,7 +6,8 @@ const querystring = require('querystring')
 
 const check_captcha = require('../middleware/check_captcha')
 
-const auth_user = require('../middleware/auth_user')
+const user_login = require('../middleware/login')
+const user_signup = require('../middleware/signup')
 
 function rand() {
     let rand = Math.round(Math.random() * (50 - 1) + 1);
@@ -29,7 +30,7 @@ router.get('/', function(req, res) {
   res.render('index', {topics: JSON.stringify(top_topics)});
 })
 
-router.post('/login', check_captcha, auth_user('login'), async function(req, res) {  
+router.post('/login', check_captcha, user_login, async function(req, res) {  
   if (req.session.user) {
     res.redirect('/profile')
   }
@@ -38,7 +39,7 @@ router.post('/login', check_captcha, auth_user('login'), async function(req, res
   }
 })
 
-router.post('/signup', check_captcha, auth_user('signup'), async function(req, res) {
+router.post('/signup', check_captcha, user_signup, async function(req, res) {
   if (req.session.user) {
     res.redirect('/profile')
   }
