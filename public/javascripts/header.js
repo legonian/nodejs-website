@@ -25,6 +25,7 @@ function show_login_tab() {
   signup_tab_btn.classList.remove('active')
 }
 
+if (signup_btn && login_btn){
 signup_btn.onclick = function () {
   modal_window.style.display = 'block'
   show_signup_tab()
@@ -32,9 +33,10 @@ signup_btn.onclick = function () {
 login_btn.onclick = function () {
   modal_window.style.display = 'block'
   show_login_tab()
+} 
 }
 
-modal_window.onclick = function(event) {
+modal_window.onmousedown = function(event) {
   if (event.target == modal_window) {
     modal_window.style.display = "none"
   }
@@ -47,3 +49,30 @@ modal_close_btn.onclick = function () {
 login_tab_btn.onclick = function () {show_login_tab()}
 signup_tab_btn.onclick = function () {show_signup_tab()}
 
+
+let input = document.querySelectorAll('input[name="password"]')[1];
+
+input.onblur = function () {
+	var lowerCaseLetters = /[a-z]/g;
+	var upperCaseLetters = /[A-Z]/g;
+	var Numbers = /[^0-9]/g;
+
+	if (input.value.match(lowerCaseLetters && upperCaseLetters && Numbers )){
+		input.style.border = '2px solid lightgreen';
+	} else {
+		input.style.border = '2px solid red';
+	}
+}
+
+// Dropdown
+
+let dropdown = document.getElementsByClassName('dropdown')[0];
+let dropdownContent = document.getElementsByClassName('dropdown-content')[0];
+
+dropdown.onmouseover = function () {
+	dropdownContent.style.display = 'block';
+}
+
+dropdown.onmouseout = function () {
+	dropdownContent.style.display = 'none';
+}

@@ -2,13 +2,32 @@
 <header class="header">
   <div class="header-container">
     <div class="wrapper">
-      <% if (nickname) { %>
-        <a id="username" href="/profile"><%= nickname %></a>
-        <a id="log_out" href="/log_out">Log out</a>
-      <% } else {%>
-        <a id="log_in">Log In</a>
-        <a id="sign_up">Sign Up</a>
-      <% }%>
+      
+      <div class="logo">
+        <a href="/" class="home-button">Home</a>
+      </div>
+
+      <div class="navigation">
+        <% if (nickname) { %>
+          <!-- Profile icon -->
+          <img src="/images/avatar_example.png" alt="User profile image" class="userIcon">
+            <!-- Dropdown menu -->
+          <div class="dropdown">
+              <a class="dropdown-button"><%= nickname %></a>
+              <div class="dropdown-content">
+                  <a href="/post/new">New post</a>
+                  <a href="/messages">Messages</a>
+                  <a href="/profile">Profile</a>
+                  <a href="/settings">Settings</a>
+              </div>
+          </div>
+
+          <a id="log_out" href="/log_out">Log out</a>
+        <% } else {%>
+          <a id="log_in" class="log_in__btn">Log In</a>
+          <a id="sign_up" class="sign_up__btn">Sign Up</a>
+        <% }%>
+      </div>
     </div>
   </div>
 </header>
@@ -21,48 +40,47 @@
         <button id="login_tab" class="tablinks">Log in</button>
         <button id="signup_tab" class="tablinks">Sign up</button>
       </div>
-
+      <!-- Login form -->
       <div class="tabcontent login">
         <form action="/login" method="post" class="login-form">
 
-          <input name="username" type="text" placeholder="Enter login" class="input" maxlength="20" required>
+          <input name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
           <span class="login-validation input-validation"></span>
   
           <input name="password" type="password" placeholder=" Enter password" class="input" maxlength="60" minlength="8" required> 
           <span class="password-validation input-validation"></span>
                     
           <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
-          <br/>
-  
-          <input type="submit" value="Login" class="input">
-
-        </form>
-      </div>
-
-      <div class="tabcontent signup">
-        <form action="/signup" method="post" class="login-form">
-
-          <input id="input-username" name="username" type="text" placeholder="Enter login" class="input" maxlength="20" required>
-          <span id="login-validation" class="login-validation input-validation"></span>
-  
-          <input name="password" type="password" placeholder=" Enter password" class="input" maxlength="60" minlength="8" required> 
-          <span class="password-validation input-validation"></span>
-  
-          <input name="first_name" type="text" placeholder="Enter Name" class="input on_sign_up" maxlength="30" required>
-          <span class="login-validation input-validation on_sign_up"></span>
-    
-          <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
-          <br/>
 
           <input type="submit" value="Sign up" class="input">
 
         </form>
       </div>
+      <!-- Registration form -->
+      <div class="tabcontent signup">
+        <form action="/signup" method="post" class="login-form">
 
+          <input id="input-username" name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
+          <span id="login-validation" class="login-validation input-validation"></span>
+  
+          <input name="password" type="password" placeholder=" Enter password" class="input" maxlength="60" minlength="8" required> 
+          <span class="password-validation input-validation"></span>
+  
+          <input name="first_name" type="text" placeholder=" Enter Name" class="input on_sign_up" maxlength="30" required>
+          <span class="login-validation input-validation on_sign_up"></span>
+    
+          <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
+
+          <input type="submit" value="Login" class="input">
+
+        </form>
+      </div>
     </div>
-    <span class="modal-close">Close</span>
+    <span class="modal-close">Close</span> <!-- Modal window close button  -->
   </div>
 </div>
+
+<!-- Scripts -->
 
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <link rel="stylesheet" href="/stylesheets/header.css">
