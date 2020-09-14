@@ -40,17 +40,14 @@ function captchaAPI(captcha_res){
   })
 }
 
-function check_captcha(){
-  return async function (req, res, next) {
+module.exports = async function (req, res, next) {
     try {
       const captcha_res = req.body['g-recaptcha-response']
       const api_res = captcha_res && await captchaAPI(captcha_res)
       req.captcha = api_res && api_res.success
+      // req.captcha = true // set when test on local
       next()
     } catch (error) {
       next(error)
     }
   }
-}
-
-module.exports = check_captcha()

@@ -30,7 +30,7 @@ router.get('/', function(req, res) {
   res.render('index', {topics: JSON.stringify(top_topics)});
 })
 
-router.post('/login', check_captcha, user_login, async function(req, res) {  
+router.post('/login', check_captcha, user_login, async function(req, res) {
   if (req.session.user) {
     res.redirect('/profile')
   }
