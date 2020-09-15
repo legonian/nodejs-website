@@ -1,11 +1,11 @@
 const https = require('https')
 const querystring = require('querystring')
 
-function captchaAPI(captcha_res){
+function captchaAPI(captchaRes){
   return new Promise((resolve, reject) => {
     const data = querystring.stringify({
       secret: process.env.RECAPTCHA_SECRET,
-      response: captcha_res
+      response: captchaRes
     })
 
     const options = {
@@ -42,10 +42,13 @@ function captchaAPI(captcha_res){
 
 module.exports = async function (req, res, next) {
     try {
-      const captcha_res = req.body['g-recaptcha-response']
-      const api_res = captcha_res && await captchaAPI(captcha_res)
-      req.captcha = api_res && api_res.success
-      // req.captcha = true // set when test on local
+      const captchaRes = req.body['g-recaptcha-response']
+      const apiRes = captchaRes && await captchaAPI(captchaRes)
+      if ( process.env.NODE_ENV === 'production' ) {
+        req.captcha = apiRes && apiRes.success
+      } else {
+        req.captcha = false
+      }
       next()
     } catch (error) {
       next(error)

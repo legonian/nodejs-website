@@ -7,12 +7,9 @@ const cookieParser = require('cookie-parser')
 const cookieSession = require('cookie-session')
 const helmet = require('helmet')
 
-
 const indexRouter = require('./routes/index')
-const profileRouter = require('./routes/profile')
+const userRouter = require('./routes/user')
 const poolModel = require('./models/pool')
-//const userModel = require('./models/user')
-//const postModel = require('./models/post')
 
 const app = express()
 
@@ -32,7 +29,7 @@ app.use(helmet.contentSecurityPolicy({ directives:{
 
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
-  	pool : poolModel,
+    pool : poolModel,
   }),
   name: 'sid',
   secret: process.env.SESSION_SECRET,
@@ -57,18 +54,22 @@ app.use(function(req, res, next){
   next()
 })
 
+app.locals.my_paths = {path_to_user_profile: '/user/profile',
+                       path_to_user_settings: '/user/profile',
+                       path_to_home_page: '/'}
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 
 app.use(logger('dev'))
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }))
+app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
-app.use('/profile', profileRouter)
+app.use('/user', userRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

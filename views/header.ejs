@@ -16,13 +16,13 @@
               <a class="dropdown-button"><%= nickname %></a>
               <div class="dropdown-content">
                   <a href="/post/new">New post</a>
-                  <a href="/messages">Messages</a>
-                  <a href="/profile">Profile</a>
-                  <a href="/settings">Settings</a>
+                  <a href="/user/messages">Messages</a>
+                  <a href="/user/profile">Profile</a>
+                  <a href="/user/settings">Settings</a>
               </div>
           </div>
 
-          <a id="log_out" href="/log_out">Log out</a>
+          <a id="log_out" href="/user/log_out">Log out</a>
         <% } else {%>
           <a id="log_in" class="log_in__btn">Log In</a>
           <a id="sign_up" class="sign_up__btn">Sign Up</a>
@@ -42,7 +42,7 @@
       </div>
       <!-- Login form -->
       <div class="tabcontent login">
-        <form action="/login" method="post" class="login-form">
+        <form action="/user/login" method="post" class="login-form">
 
           <input name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
           <span class="login-validation input-validation"></span>
@@ -52,13 +52,13 @@
                     
           <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
 
-          <input type="submit" value="Sign up" class="input">
+          <input type="submit" value="Login" class="input">
 
         </form>
       </div>
       <!-- Registration form -->
       <div class="tabcontent signup">
-        <form action="/signup" method="post" class="login-form">
+        <form action="/user/signup" method="post" class="login-form">
 
           <input id="input-username" name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
           <span id="login-validation" class="login-validation input-validation"></span>
@@ -71,7 +71,7 @@
     
           <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
 
-          <input type="submit" value="Login" class="input">
+          <input type="submit" value="Sign up" class="input">
 
         </form>
       </div>
