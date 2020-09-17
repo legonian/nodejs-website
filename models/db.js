@@ -32,14 +32,11 @@ class DB {
       const hash = await bcrypt.hash(obj.password, 12)
       const query = `INSERT INTO users(username,
                                        hash,
-                                       first_name,
-                                       create_date,
-                                       posts_count)
-                     VALUES ($1, $2, $3, $4, 0)`
+                                       first_name)
+                     VALUES ($1, $2, $3)`
       await DB.makeQuery(query, [obj.username,
                                  hash,
-                                 obj.first_name,
-                                 obj.create_date])
+                                 obj.first_name])
       return await DB.getUser(obj)
     }
   }
@@ -57,12 +54,10 @@ class DB {
 
   static async setPost(obj){
     const query = `INSERT INTO posts(user_id,
-                                    title,
-                                    meta_title,
-                                    create_date,
-                                    update_date,
-                                    content)
-                   VALUES ($1, $2, $3, $4, $5, $6)`
+                                     title,
+                                     meta_title,
+                                     content)
+                   VALUES ($1, $2, $3, $4)`
   }
 }
 

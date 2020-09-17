@@ -27,11 +27,8 @@ module.exports = async function ( req, res, next ) {
         'email',
         /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,5})$/g
       )*/
-      const now = new Date()
-      req.body.create_date = now.toISOString().slice(0, 19).replace('T', ' ')
     }
-
-    console.log('isValid: ', [req.body['username'], isValid])
+    
     req.credsIsValid = isValid
     
     if ( !isValid ) {
