@@ -18,7 +18,7 @@ module.exports = async function (req, res, next) {
       if(dbUser){
         req.session.regenerate(function(){
           req.session.user = dbUser
-          req.session.success = 'Authenticated as ' + dbUser.nickname
+          req.session.success = 'Authenticated as ' + dbUser.username
           next()
         })
       }

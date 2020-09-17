@@ -14,7 +14,7 @@ class DB {
   }
 
   static async getUser(obj){
-    const query = 'SELECT * FROM users WHERE nickname = $1'
+    const query = 'SELECT * FROM users WHERE username = $1'
     const vars_arr = [obj.username]
     return await DB.makeQuery(query, vars_arr, async res =>{
       if( res && await bcrypt.compare( obj.password, res.hash ) ){
@@ -30,11 +30,39 @@ class DB {
       return false 
     }else{
       const hash = await bcrypt.hash(obj.password, 12)
-      const query = `INSERT INTO users(nickname, hash, first_name, create_date, posts_count)
+      const query = `INSERT INTO users(username,
+                                       hash,
+                                       first_name,
+                                       create_date,
+                                       posts_count)
                      VALUES ($1, $2, $3, $4, 0)`
-      await DB.makeQuery(query, [obj.username, hash, obj.first_name, obj.create_date])
+      await DB.makeQuery(query, [obj.username,
+                                 hash,
+                                 obj.first_name,
+                                 obj.create_date])
       return await DB.getUser(obj)
     }
+  }
+
+  static async changeUserParameter(obj, param){
+    if(await DB.getUser(obj)){
+      const query = 'UPDATE users SET $1 = $2 WHERE username = $3'
+      await DB.makeQuery(query, [param, obj[param]])
+    }
+  }
+
+  static async getPost(obj){
+    const query = 'SELECT * FROM posts WHERE post_id = $1'
+  }
+
+  static async setPost(obj){
+    const query = `INSERT INTO posts(user_id,
+                                    title,
+                                    meta_title,
+                                    create_date,
+                                    update_date,
+                                    content)
+                   VALUES ($1, $2, $3, $4, $5, $6)`
   }
 }
 

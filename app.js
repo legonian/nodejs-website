@@ -9,7 +9,8 @@ const helmet = require('helmet')
 
 const indexRouter = require('./routes/index')
 const userRouter = require('./routes/user')
-const poolModel = require('./models/pool')
+const postRouter = require('./routes/post')
+const apiRouter = require('./routes/api')
 
 const app = express()
 
@@ -29,7 +30,7 @@ app.use(helmet.contentSecurityPolicy({ directives:{
 
 app.use(session({
   store: new (require('connect-pg-simple')(session))({
-    pool : poolModel,
+    pool : require('./models/pool'),
   }),
   name: 'sid',
   secret: process.env.SESSION_SECRET,
@@ -69,7 +70,9 @@ app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', indexRouter)
+app.use('/api', apiRouter)
 app.use('/user', userRouter)
+app.use('/post', postRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

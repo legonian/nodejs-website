@@ -17,7 +17,11 @@ router.get('/', function(req, res) {
     { suptitle : "Lorem, ipsum dolor", subtitle : "Lorem ipsum dolor sit, amet consectetur adipisicing elit.", topics : rand(), posts : rand(), nickname : "Legonian", timestamp : "Mar 12, 2017"  }
   ])
 
-  res.locals.nickname = req.session.user ? req.session.user.nickname : false
+  if (req.session.user){
+    res.locals.user = req.session.user
+  } else {
+    res.locals.user = false
+  }
   
   res.render('index')
 })

@@ -8,12 +8,12 @@
       </div>
 
       <div class="navigation">
-        <% if (nickname) { %>
+        <% if (user) { %>
           <!-- Profile icon -->
           <img src="/images/avatar_example.png" alt="User profile image" class="userIcon">
             <!-- Dropdown menu -->
           <div class="dropdown">
-              <a class="dropdown-button"><%= nickname %></a>
+              <a class="dropdown-button"><%= user.username %></a>
               <div class="dropdown-content">
                   <a href="/post/new">New post</a>
                   <a href="/user/messages">Messages</a>

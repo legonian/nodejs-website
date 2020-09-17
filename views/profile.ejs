@@ -12,10 +12,10 @@
     <div class="container">
         <div class="profile-card">
             <div class="img"></div>
-            <span class="profile-name"><%=first_name%> (@<%=nickname%>)</span>
+            <span class="profile-name"><%=user.first_name%> (@<%=user.username%>)</span>
             <div class="metrics">
-                <div class="posts metrics-bar"><%=post%></div>
-                <div class="country metrics-bar">Ukraine</div>
+                <div class="posts metrics-bar"><%=user.posts_count%> Posts</div>
+                <div class="country metrics-bar"><%=(user.country ? user.country : 'Uganda')%></div>
                 <div class="rating metrics-bar">26 rating</div>
             </div>
         </div>
