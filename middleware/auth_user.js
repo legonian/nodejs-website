@@ -18,9 +18,8 @@ module.exports = async function (req, res, next) {
       })
     }
     else{
-      req.session.error = 'Authentication failed, please check your '
-        + ' username and password.'
-      next()
+      req.session.error = 'Wrong username and/or password.'
+      next('route')
     }
   }catch (error) {
     next(error)

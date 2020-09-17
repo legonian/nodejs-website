@@ -15,12 +15,12 @@ router.post('/login', setAuthMethod('login'),
                       checkCreds,
                       authUser,
 async function(req, res) {
-  console.log("res.locals =", res.locals)
   if (req.session.user) {
     res.redirect('/user/profile')
   }
   else {
-    res.redirect('/')
+    req.session.error = 'Auth Error'
+    next('route')
   }
 })
 
@@ -33,7 +33,8 @@ async function(req, res) {
     res.redirect('/user/profile')
   }
   else {
-    res.redirect('/')
+    req.session.error = 'Auth Error'
+    next('route')
   }
 })
 

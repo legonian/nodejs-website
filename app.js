@@ -44,17 +44,6 @@ app.use(session({
   }
 }))
 
-app.use(function(req, res, next){
-  const err = req.session.error
-  const msg = req.session.success
-  delete req.session.error
-  delete req.session.success
-  res.locals.message = ''
-  if (err) res.locals.message = '<p class="msg error">' + err + '</p>'
-  if (msg) res.locals.message = '<p class="msg success">' + msg + '</p>'
-  next()
-})
-
 app.locals.my_paths = {path_to_user_profile: '/user/profile',
                        path_to_user_settings: '/user/profile',
                        path_to_home_page: '/'}
@@ -83,6 +72,17 @@ app.use('/api', apiRouter)
 app.use('/user', userRouter)
 app.use('/post', postRouter)
 
+app.use(function(req, res, next){
+  const err = req.session.error
+  const msg = req.session.success
+  delete req.session.error
+  delete req.session.success
+  res.locals.message = ''
+  if (err) res.locals.message = err
+  if (msg) res.locals.message = msg
+  next()
+})
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404))
@@ -91,7 +91,8 @@ app.use(function(req, res, next) {
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
-  res.locals.message = err.message
+  if ( res.locals.message ) res.locals.message = `${err.message}: ${res.locals.message}`
+  else res.locals.message = err.message
   res.locals.error = req.app.get('env') === 'development' ? err : {}
 
   // render the error page
