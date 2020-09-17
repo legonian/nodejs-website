@@ -1,4 +1,4 @@
-const User = require('../models/user_model')
+const DB = require('../models/db')
 
 module.exports = async function (req, res, next) {
   try {
@@ -8,17 +8,11 @@ module.exports = async function (req, res, next) {
     }else{
       const get_dbUser = async () => {
         if (req.userAuthMethod === 'login'){
-          const tempUser = new User({name: req.body.username,
-                                     pass: req.body.password})
-          return tempUser.auth()
+          return await DB.getUser(req.body)
         }else if( req.userAuthMethod === 'signup' ){
-          const tempUser = new User({name: req.body.username, 
-                                      pass: req.body.password, 
-                                      first_name: req.body.first_name})
-          return tempUser.sign_up()
+          return await DB.setUser(req.body)
         }
       }
-
       const dbUser = await get_dbUser()
 
       if(dbUser){
