@@ -9,14 +9,14 @@ class User {
   }
 
   async auth(){
-    const ans = await DB.get_user(this)
+    const ans = await DB.getUser(this)
     return ans
   }
 
   async sign_up(){
     const now = new Date()
     this.create_date = now.toISOString().slice(0, 19).replace('T', ' ')
-    const ans = await DB.set_user(this)
+    const ans = await DB.setUser(this)
     return ans
   }
 }

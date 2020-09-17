@@ -1,39 +1,40 @@
-function checkProp(prop, options) {
-  let isOK = options.run && typeof prop === options.type
-  if ( isOK && options.type === 'string' ){
-    isOK = options.minLength <= prop.length && prop.length <= options.maxLength
-    isMatched = prop.match(options.matchExp) !== null
-    isOK = isOK ? isMatched : false
-  }
-  // console.log('isOK =', [isOK])
+function checkProp( creds, prop, matchExp ) {
+  let isOK = ( prop in creds ) && ( typeof creds[prop] === 'string' )
+  isOK = isOK && creds[prop].match(matchExp) !== null
+  if (! isOK) console.log(prop, [creds[prop]])
   return isOK
 }
 
-module.exports = async function (req, res, next) {
+module.exports = async function ( req, res, next ) {
   try {
-    let isValid = true
-    const credsToCheck = req.body
-    //console.log([credsToCheck])
+    let isValid = checkProp(
+      req.body,
+      'username',
+      /^[a-z0-9_-]{3,20}$/g
+    ) && checkProp(
+      req.body,
+      'password',
+      /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
+    )
 
-    let propsToCheck = ['username', 'password']
-    if ( req.userAuthMethod === 'signup' ) propsToCheck.push('first_name')
-
-    for ( prop of propsToCheck ) {
-      if ( prop in credsToCheck ) {
-        console.log('req.body has ' + prop)
-      } else {
-        isValid = false
-      }
+    if ( isValid && req.userAuthMethod === 'signup' ) {
+      isValid = checkProp(
+        req.body,
+        'first_name',
+        /^[a-zA-Z0-9]{1,30}$/g
+      ) /* && checkProp(
+        req.body,
+        'email',
+        /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,5})$/g
+      )*/
     }
-    checkProp(req.body.username, { run: isValid,
-                                   type: 'string',
-                                   minLength: 1,
-                                   maxLength: 20,
-                                   matchExp: /[A-Z]/g})
 
+    console.log('isValid: ', [req.body['username'], isValid])
     req.credsIsValid = isValid
     
-    next()
+    if (! isValid) next('route')
+    else next()
+
   } catch (error) {
     next(error)
   }
