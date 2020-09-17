@@ -7,7 +7,6 @@ function captchaAPI(captchaRes){
       secret: process.env.RECAPTCHA_SECRET,
       response: captchaRes
     })
-
     const options = {
       hostname: 'google.com',
       path: '/recaptcha/api/siteverify',
@@ -17,7 +16,6 @@ function captchaAPI(captchaRes){
         'Content-Length': Buffer.byteLength(data),
       },
     }
-
     const req = https.request(options, (res) => {
       res.setEncoding('utf8')
       let responseBody = ''
@@ -41,16 +39,16 @@ function captchaAPI(captchaRes){
 }
 
 module.exports = async function (req, res, next) {
-    try {
-      const captchaRes = req.body['g-recaptcha-response']
-      const apiRes = captchaRes && await captchaAPI(captchaRes)
-      if ( process.env.NODE_ENV === 'production' ) {
-        req.captcha = apiRes && apiRes.success
-      } else {
-        req.captcha = false
-      }
-      next()
-    } catch (error) {
-      next(error)
-    }
+  try {
+    const captchaRes = req.body['g-recaptcha-response']
+    const apiRes = captchaRes && await captchaAPI(captchaRes)
+
+    if ( process.env.NODE_ENV === 'production' ) {
+      if ( apiRes && apiRes.success ) next()
+      else res.send('Wrong captcha')
+    } else { next() }
+
+  } catch (error) {
+    next(error)
   }
+}

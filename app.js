@@ -69,6 +69,15 @@ app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 
+app.use(function(req, res, next) {
+  if (req.session.user){
+    res.locals.user = req.session.user
+  } else {
+    res.locals.user = false
+  }
+  next()
+})
+
 app.use('/', indexRouter)
 app.use('/api', apiRouter)
 app.use('/user', userRouter)

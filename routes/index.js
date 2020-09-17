@@ -16,12 +16,6 @@ router.get('/', function(req, res) {
     { suptitle : "Lorem, ipsum dolor", subtitle : "Lorem ipsum dolor sit, amet consectetur adipisicing elit.", topics : rand(), posts : rand(), nickname : "Legonian", timestamp : "Mar 12, 2017"  },
     { suptitle : "Lorem, ipsum dolor", subtitle : "Lorem ipsum dolor sit, amet consectetur adipisicing elit.", topics : rand(), posts : rand(), nickname : "Legonian", timestamp : "Mar 12, 2017"  }
   ])
-
-  if (req.session.user){
-    res.locals.user = req.session.user
-  } else {
-    res.locals.user = false
-  }
   
   res.render('index')
 })
