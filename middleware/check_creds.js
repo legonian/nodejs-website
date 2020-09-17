@@ -32,7 +32,7 @@ module.exports = async function ( req, res, next ) {
     req.credsIsValid = isValid
     
     if ( !isValid ) {
-      req.session.error = 'Creds is invalid.'
+      req.session.error = 'Credentials is invalid.'
       next('route')
       //res.send('creds is invalid')
     } else { next() }

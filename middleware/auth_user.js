@@ -18,7 +18,7 @@ module.exports = async function (req, res, next) {
       })
     }
     else{
-      req.session.error = 'Wrong username and/or password.'
+      req.session.error = "Can't access to with this credentials."
       next('route')
     }
   }catch (error) {

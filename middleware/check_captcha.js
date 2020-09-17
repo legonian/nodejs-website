@@ -44,8 +44,11 @@ module.exports = async function (req, res, next) {
     const apiRes = captchaRes && await captchaAPI(captchaRes)
 
     if ( process.env.NODE_ENV === 'production' ) {
-      if ( apiRes && apiRes.success ) next()
-      else res.send('Wrong captcha')
+      if ( apiRes && apiRes.success ) { next() }
+      else {
+        req.session.error = "Wrong captcha."
+        next('route')
+      }
     } else { next() }
 
   } catch (error) {
