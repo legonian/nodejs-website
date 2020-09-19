@@ -13,51 +13,87 @@ class DB {
     }
   }
 
-  static async getUser(obj){
-    const query = 'SELECT * FROM users WHERE username = $1'
-    const vars_arr = [obj.username]
-    return await DB.makeQuery(query, vars_arr, async res =>{
-      if( res && await bcrypt.compare( obj.password, res.hash ) ){
-        return res
+  static user = {
+    async check(dbUser){
+      const query = 'SELECT * FROM users WHERE username = $1'
+      const vars_arr = [dbUser.username]
+      return await DB.makeQuery(query, vars_arr, async dbRes =>{
+        if( dbRes && dbRes.user_id === dbUser.user_id ){
+          return dbRes
+        } else {
+          return false
+        }
+      })
+    },
+
+    async get(obj){
+      const query = 'SELECT * FROM users WHERE username = $1'
+      const vars_arr = [obj.username]
+      return await DB.makeQuery(query, vars_arr, async dbRes =>{
+        if( dbRes && await bcrypt.compare( obj.password, dbRes.hash ) ){
+          return dbRes
+        } else {
+          return false
+        }
+      })
+    },
+
+    async set(obj){
+      if ( await DB.user.get(obj) ) {
+        return false 
       } else {
-        return false
+        const hash = await bcrypt.hash(obj.password, 12)
+        const query = `INSERT INTO users(username,
+                                         hash,
+                                         first_name)
+                       VALUES ($1, $2, $3)`
+        const vars_arr = [obj.username, hash, obj.first_name]
+
+        await DB.makeQuery(query, vars_arr)
+        return await DB.user.get(obj)
       }
-    })
-  }
+    },
 
-  static async setUser(obj){
-    if(await DB.getUser(obj)){
-      return false 
-    }else{
-      const hash = await bcrypt.hash(obj.password, 12)
-      const query = `INSERT INTO users(username,
-                                       hash,
-                                       first_name)
-                     VALUES ($1, $2, $3)`
-      await DB.makeQuery(query, [obj.username,
-                                 hash,
-                                 obj.first_name])
-      return await DB.getUser(obj)
+    async changeParameter(obj, param, cb){
+      const pastUserData = await DB.user.check(obj)
+      //console.log('pastUserData', pastUserData)
+      if(pastUserData){
+        const query = `UPDATE users SET ${param} = $1 WHERE user_id = $2`
+        const vars_arr = [cb(pastUserData[param]), obj.user_id]
+        //console.log(vars_arr)
+        await DB.makeQuery(query, vars_arr)
+        return await DB.user.check(obj)
+      } else { return false }
     }
   }
 
-  static async changeUserParameter(obj, param){
-    if(await DB.getUser(obj)){
-      const query = 'UPDATE users SET $1 = $2 WHERE username = $3'
-      await DB.makeQuery(query, [param, obj[param]])
+  static post = {
+    async get(obj){
+      const query = 'SELECT * FROM posts WHERE title = $1'
+      return await DB.makeQuery(query, [obj.title], async dbRes =>{
+        return dbRes
+      })
+    },
+    async set(obj){
+      if ( await DB.post.get(obj) ) {
+        return false 
+      } else {
+        const query = `INSERT INTO posts(user_id,
+                                         title,
+                                         meta_title,
+                                         content)
+                       VALUES ($1, $2, $3, $4)`
+        const vars_arr = [obj.user.user_id,
+                          obj.title,
+                          obj.meta_title,
+                          obj.content]
+        await DB.makeQuery(query, vars_arr)
+        DB.user.changeParameter(obj.user, 'posts_count', (parameter)=> {
+          return parameter + 1
+        })
+        return await DB.post.get(obj)
+      }
     }
-  }
-
-  static async getPost(obj){
-    const query = 'SELECT * FROM posts WHERE post_id = $1'
-  }
-
-  static async setPost(obj){
-    const query = `INSERT INTO posts(user_id,
-                                     title,
-                                     meta_title,
-                                     content)
-                   VALUES ($1, $2, $3, $4)`
   }
 }
 

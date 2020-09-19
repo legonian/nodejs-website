@@ -17,7 +17,7 @@ module.exports = async function ( req, res, next ) {
       /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
     )
 
-    if ( isValid && req.userAuthMethod === 'signup' ) {
+    if ( isValid && req.route.path === '/signup' ) {
       isValid = checkProp(
         req.body,
         'first_name',
@@ -29,12 +29,9 @@ module.exports = async function ( req, res, next ) {
       )*/
     }
     
-    req.credsIsValid = isValid
-    
     if ( !isValid ) {
       req.session.error = 'Credentials is invalid.'
       next('route')
-      //res.send('creds is invalid')
     } else { next() }
 
   } catch (error) {

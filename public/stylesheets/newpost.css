@@ -1,0 +1,20 @@
+.container {
+    max-width: 970px;
+    margin: 0 auto;
+}
+
+.post-builer {
+    border: 1px solid lightgrey;
+    padding: 30px;
+}
+
+.post-item {
+    width: 100%;
+    outline: none;
+}
+
+.post-builer textarea {
+    margin-top: 20px;
+    min-height: 300px;
+    resize: none;
+}

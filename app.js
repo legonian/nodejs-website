@@ -45,7 +45,7 @@ app.use(session({
 }))
 
 app.locals.my_paths = {path_to_user_profile: '/user/profile',
-                       path_to_user_settings: '/user/profile',
+                       path_to_user_settings: '/user/settings',
                        path_to_home_page: '/'}
 
 // view engine setup

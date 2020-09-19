@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/newpost.css">
+        <link rel="stylesheet" href="/stylesheets/style.css">
+        <title>New Post</title>
+    </head>
+    <body>
+        <%- include('header') %>
+        
+        <div class="container">
+            <form action="/post/upload" method="post">
+                <div class="post-builer">
+                    <div class="post-title">
+                        <input name="title" type="text" class="post-item" placeholder="Enter post title here">
+                    </div>
+                    <div class="post-body">
+                        <textarea name="content" type="text" class="textarea post-item" placeholder="Enter post text here"></textarea>
+                    </div>
+                    <div class="wrap">
+                        <div class="stylisation-bar"></div>
+                        <input type="submit" value="Post">
+                    </div>
+
+                </div>
+            </form>
+        </div>
+
+        <script src=""></script>
+    </body>
+</html>

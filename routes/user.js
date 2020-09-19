@@ -1,47 +1,37 @@
 const express = require('express')
 const router = express.Router()
 
-const profileRouter = require('./profile')
-
-const setAuthMethod = require('../middleware/set_auth_method')
 const checkCaptcha = require('../middleware/check_captcha')
+const validateUser = require('../middleware/validate_user')
 const authUser = require('../middleware/auth_user')
-const checkCreds = require('../middleware/check_creds')
 
-router.use('/profile', profileRouter)
-
-router.post('/login', setAuthMethod('login'),
-                      checkCaptcha,
-                      checkCreds,
+router.post('/login', checkCaptcha,
+                      validateUser,
                       authUser,
-async function(req, res) {
-  if (req.session.user) {
+  async function(req, res, next) {
     res.redirect('/user/profile')
-  }
-  else {
-    req.session.error = 'Auth Error'
-    next('route')
-  }
 })
 
-router.post('/signup', setAuthMethod('signup'),
-                       checkCaptcha,
-                       checkCreds,
+router.post('/signup', checkCaptcha,
+                       validateUser,
                        authUser,
-async function(req, res) {
-  if (req.session.user) {
+  async function(req, res, next) {
     res.redirect('/user/profile')
-  }
-  else {
-    req.session.error = 'Auth Error'
-    next('route')
-  }
 })
 
 router.get('/log_out', function(req, res) {
   req.session.destroy(function(){
     res.redirect('/')
   })
+})
+
+router.get('/profile', function(req, res) {
+  if (res.locals.user){
+    res.render('profile')
+  }
+  else{
+    res.send('Not signed. <a href="/">Click</a> to go to main page.')
+  }
 })
 
 module.exports = router

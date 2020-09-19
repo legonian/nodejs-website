@@ -3,10 +3,10 @@ const DB = require('../models/db')
 module.exports = async function (req, res, next) {
   try {
     const get_dbUser = async () => {
-      if (req.userAuthMethod === 'login'){
-        return await DB.getUser(req.body)
-      }else if( req.userAuthMethod === 'signup' ){
-        return await DB.setUser(req.body)
+      if (req.route.path === '/login'){
+        return await DB.user.get(req.body)
+      }else if( req.route.path === '/signup' ){
+        return await DB.user.set(req.body)
       }
     }
     const dbUser = await get_dbUser()
