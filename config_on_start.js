@@ -1,13 +1,13 @@
-const createError = require('http-errors')
 const path = require('path')
 const logger = require('morgan')
 const express = require('express')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
-const cookieSession = require('cookie-session')
 const helmet = require('helmet')
+const compression = require('compression')
 
 module.exports = [
+  compression(),
   helmet(),
   helmet.contentSecurityPolicy({ directives:{
     "default-src": ["'self'",
