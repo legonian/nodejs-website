@@ -9,6 +9,7 @@ router.post('/upload', validateSession, validatePost, async function(req, res) {
   req.session.user = await DB.user.changeParameter(req.body.user, 'posts_count', (postsCount)=> {
     return postsCount + 1
   })
+  DB.post.set(req.body)
   res.send('Uploaded! <a href="/">Go to Home Page</a> / <a href="/user/profile">Go to Profile</a>')
   //res.redirect('/')
 })
