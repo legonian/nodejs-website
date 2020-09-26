@@ -10,14 +10,6 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(configOnStart)
 
-app.use((req, res, next) => {
-  res.set('Cache-Control', 'no-cache, no-store, must-revalidate')
-  res.set('Pragma', 'no-cache')
-  res.set('Expires', '-1')
-  
-  next()
-})
-
 app.use('/', require('./routes/index'))
 app.use('/api', require('./routes/api'))
 app.use('/user', require('./routes/user'))

@@ -4,9 +4,9 @@ module.exports = async function (req, res, next) {
   try {
     const get_dbUser = async () => {
       if (req.route.path === '/login'){
-        return await DB.user.get(req.body)
+        return await DB.user.auth(req.body)
       }else if( req.route.path === '/signup' ){
-        return await DB.user.set(req.body)
+        return await DB.user.add(req.body)
       }
     }
     const dbUser = await get_dbUser()

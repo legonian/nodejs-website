@@ -5,6 +5,8 @@ const checkCaptcha = require('../middleware/check_captcha')
 const validateUser = require('../middleware/validate_user')
 const authUser = require('../middleware/auth_user')
 
+const DB = require('../models/db')
+
 router.post('/login', checkCaptcha,
                       validateUser,
                       authUser,
@@ -27,10 +29,20 @@ router.get('/log_out', function(req, res) {
 
 router.get('/profile', function(req, res) {
   if (res.locals.user){
-    res.render('profile')
+    res.render('profile', {profile: res.locals.user})
   }
   else{
     res.send('Not signed. <a href="/">Click</a> to go to main page.')
+  }
+})
+
+router.get('/:userId', async function(req, res, next) {
+  const userData = await DB.user.getBy('user_id', req.params.userId)
+  if ( userData )
+    res.render('profile', {profile: userData})
+  else {
+    req.session.error = "No such user"
+    next('route')
   }
 })
 

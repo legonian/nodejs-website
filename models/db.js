@@ -14,6 +14,14 @@ class DB {
   }
 
   static user = {
+    async getBy(param, value){
+      const query = `SELECT * FROM users WHERE ${param} = $1`
+      const vars_arr = [value]
+      return await DB.makeQuery(query, vars_arr, async dbRes =>{
+        return dbRes
+      })
+    },
+
     async check(dbUser){
       const query = 'SELECT * FROM users WHERE username = $1'
       const vars_arr = [dbUser.username]
@@ -26,7 +34,7 @@ class DB {
       })
     },
 
-    async get(obj){
+    async auth(obj){
       const query = 'SELECT * FROM users WHERE username = $1'
       const vars_arr = [obj.username]
       return await DB.makeQuery(query, vars_arr, async dbRes =>{
@@ -38,8 +46,8 @@ class DB {
       })
     },
 
-    async set(obj){
-      if ( await DB.user.get(obj) ) {
+    async add(obj){
+      if ( await DB.user.auth(obj) ) {
         return false 
       } else {
         const hash = await bcrypt.hash(obj.password, 12)
@@ -50,7 +58,7 @@ class DB {
         const vars_arr = [obj.username, hash, obj.first_name]
 
         await DB.makeQuery(query, vars_arr)
-        return await DB.user.get(obj)
+        return await DB.user.auth(obj)
       }
     },
 
@@ -68,14 +76,14 @@ class DB {
   }
 
   static post = {
-    async get(obj){
-      const query = 'SELECT * FROM posts WHERE title = $1'
-      return await DB.makeQuery(query, [obj.title], async dbRes =>{
+    async getBy(param, value){
+      const query = `SELECT * FROM posts WHERE ${param} = $1`
+      return await DB.makeQuery(query, [value], async dbRes =>{
         return dbRes
       })
     },
-    async set(obj){
-      if ( await DB.post.get(obj) ) {
+    async add(obj){
+      if ( await DB.post.getBy('title', obj.title) ) {
         return false 
       } else {
         const query = `INSERT INTO posts(user_id,
@@ -91,7 +99,7 @@ class DB {
         DB.user.changeParameter(obj.user, 'posts_count', (parameter)=> {
           return parameter + 1
         })
-        return await DB.post.get(obj)
+        return await DB.post.getBy('title', obj.title)
       }
     }
   }
