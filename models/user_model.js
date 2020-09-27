@@ -127,8 +127,7 @@ User.middleware.validate = async function ( req, res, next ) {
 User.middleware.validateSession = async function ( req, res, next ) {
   try {
     if ( req.session.user ) {
-      const isSessionValid = await User.check(req.session.user)
-      if ( isSessionValid ) { next() }
+      if ( await User.check(req.session.user) ) { next() }
       else {
         req.session.error = 'Credentials is invalid.'
         next('route')

@@ -1,0 +1,87 @@
+.container {
+    max-width: 970px;
+    margin: 0 auto;
+}
+
+.settings-menu {
+    border: 1px solid lightgrey;
+}
+
+.wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.settings-menu input, select  {
+    min-width: 150px;
+    max-height: 30px;
+    outline: none;
+    border: none;
+}
+.settings-menu select {
+    min-width: 100%;
+    border: 1px solid #fff;
+}
+
+.settings-menu input:disabled {
+    background-color: #fff;
+}
+
+.settings-menu .avatar {    
+    text-align: center;
+}
+
+.settings-menu a {
+    color: grey;
+    text-decoration: none;
+}
+
+.settings-item {
+    margin: 15px 0;
+    width: 100%;
+}
+
+.settings-menu .changeable {
+    border-bottom: 1px solid lightgrey;
+}
+
+.settings-item .edit {
+    float: right;
+    cursor: pointer;
+}
+
+.inputTitle {
+    display: block;
+    width: 200px;
+}
+
+.avatarInput {
+    margin-top: 10px;
+}
+
+.avatarInput #file-input {
+    display: none;
+}
+
+.avatarDefaultImage {
+    max-width: 200px;
+    max-height: 200px;
+    border: 1px solid lightgrey;
+    border-radius: 50%;
+}
+
+.settings-menu .deleteAccount {
+    text-align: center;
+}
+
+.save-changes-btn {
+    height: 25px;
+}
+
+.save-changes-btn:active {
+    background-color: #C0C0C0;
+}
+

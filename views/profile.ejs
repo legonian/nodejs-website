@@ -11,7 +11,9 @@
     <%- include('header') %>
     <div class="container">
         <div class="profile-card">
-            <div class="img"></div>
+            <div class="profile-img">
+                <img src="/images/avatar_example.png" alt="Profile Image">
+            </div>
             <span class="profile-name"><%=profile.first_name%> (@<%=profile.username%>)</span>
             <div class="metrics">
                 <div class="posts metrics-bar"><%=profile.posts_count%> Posts</div>

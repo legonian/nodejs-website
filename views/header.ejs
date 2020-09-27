@@ -2,27 +2,27 @@
 <header class="header">
   <div class="header-container">
     <div class="wrapper">
-      
-      <div class="logo">
+      <!-- Logo -->
+      <div class="logo header-block">
         <a href="/" class="home-button">Home</a>
       </div>
-
-      <div class="navigation">
+      <!-- Search + Log in/out + dropdown -->
+      <div class="navigation header-block">
+        <input type="search" id="search" placeholder="Search" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search'">
         <% if (user) { %>
+          <a href="/post/new" class="create-post-button">Create Post</a>
           <!-- Profile icon -->
           <img src="/images/avatar_example.png" alt="User profile image" class="userIcon">
             <!-- Dropdown menu -->
           <div class="dropdown">
               <a class="dropdown-button"><%= user.username %></a>
               <div class="dropdown-content">
-                  <a href="/post/new">New post</a>
                   <a href="/user/messages">Messages</a>
                   <a href="/user/profile">Profile</a>
                   <a href="/user/settings">Settings</a>
+                  <a href="/user/log_out">Log out</a>
               </div>
           </div>
-
-          <a id="log_out" href="/user/log_out">Log out</a>
         <% } else {%>
           <a id="log_in" class="log_in__btn">Log In</a>
           <a id="sign_up" class="sign_up__btn">Sign Up</a>
@@ -59,7 +59,6 @@
       <!-- Registration form -->
       <div class="tabcontent signup">
         <form action="/user/signup" method="post" class="login-form">
-
           <input id="input-username" name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
           <span id="login-validation" class="login-validation input-validation"></span>
   
@@ -72,7 +71,6 @@
           <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
 
           <input type="submit" value="Sign up" class="input">
-
         </form>
       </div>
     </div>
@@ -81,7 +79,9 @@
 </div>
 
 <!-- Scripts -->
-
 <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-<link rel="stylesheet" href="/stylesheets/header.css">
 <script src="/javascripts/header.js"></script>
+
+<!-- CSS -->
+<link rel="stylesheet" href="/stylesheets/header.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">

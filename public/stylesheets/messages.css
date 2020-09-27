@@ -1,0 +1,144 @@
+.container {
+    max-width: 970px;
+    margin: 0 auto;
+    height: 100%;
+}
+
+.messenger-desktop {
+    width: 100%;
+    height: 640px;
+    border: 1px solid lightgrey;
+    display: flex;
+}
+
+.contacts {
+    min-width: 320px;
+    border-right: 1px solid lightgrey;
+    overflow: auto;
+}
+
+.contact {
+    height: 5rem;
+/*     border-bottom: 1px solid black;
+ */    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    cursor: pointer;
+    position: relative;
+}
+
+.contact:hover {
+    background-color:#F0F0F0;
+}
+
+.contact .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: grey;
+}
+
+.contact .contact-item {
+    display: block;
+    padding-left: 5px;
+    max-width: 242px;   
+}
+
+.contact:last-child {
+    border-bottom: none;
+
+}
+
+.chat {
+    width: 67%; 
+    
+}
+
+.chat-header {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    border-bottom: 1px solid lightgrey;
+
+}
+
+.chat .messages {
+    height: calc(638px - 30px - 64px);
+    width: 100%;
+    border-bottom: 1px solid lightgrey;
+    overflow: auto;
+
+}
+
+.chat .write-message {
+    height: 64px;
+    width: 100%;
+}
+
+.contact-edit {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    margin-right: 5px;
+    font-size: 1.5rem;
+}
+
+.write-message {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.write-message .textarea {
+    width: 80%;
+    height: 100%;
+}
+
+.write-message textarea {
+    width: 100%;
+    height: 100%;
+    outline: none;
+    overflow: auto;
+    resize: none;
+    border: none;
+    padding-top: 5px;
+    padding-left: 5px;
+    white-space: wrap;
+}
+
+.write-message input {
+    border: 1px solid lightgrey;
+    width: 100px;
+    height: 30px;
+    outline: none;
+    cursor: pointer;
+}
+
+.write-message input:active {
+    background-color: #C0C0C0;
+}
+
+.messages .message {
+    width: 100%;
+    min-height: 2rem;
+}
+.incomming-message .message-text {
+    float: left;
+}
+
+.outgoing-message .message-text {
+    float: right;
+}
+
+.message-text {
+    display: inline-block;
+    padding: 5px;
+    max-width: 60%;
+    white-space: pre-wrap;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+    width: 0px;
+  }

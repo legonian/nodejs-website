@@ -9,30 +9,25 @@ Post.getBy = async function (param, value){
   })
 }
 Post.add = async function (obj){
-  if ( await Post.getBy('title', obj.title) ) {
-    return false 
-  } else {
-    const query = `INSERT INTO posts(user_id,
-                                     title,
-                                     meta_title,
-                                     content)
-                   VALUES ($1, $2, $3, $4)`
-    const vars_arr = [obj.user.user_id,
-                      obj.title,
-                      obj.meta_title,
-                      obj.content]
-    await makeQuery(query, vars_arr)
-    userModel.changeParameter(obj.user, 'posts_count', (parameter)=> {
-      return parameter + 1
-    })
-    return await Post.getBy('title', obj.title)
-  }
+  const query = `INSERT INTO posts(user_id,
+                                   title,
+                                   meta_title,
+                                   content)
+  VALUES ($1, $2, $3, $4)`
+  const vars_arr = [obj.user.user_id,
+                    obj.title,
+                    obj.meta_title,
+                    obj.content]
+  await makeQuery(query, vars_arr)
+  userModel.changeParameter(obj.user, 'posts_count', (parameter)=> {
+  return parameter + 1
+  })
+  return await Post.getBy('title', obj.title)
 }
 
 Post.middleware = {}
 Post.middleware.validate = async function ( req, res, next ) {
   try {
-    
     bodyKeys = Object.keys(req.body).sort()
     let isOK = (bodyKeys.length == 2) && bodyKeys.every(function(element, index) {
       return element === [ 'content', 'title' ][index]
@@ -45,7 +40,10 @@ Post.middleware.validate = async function ( req, res, next ) {
            typeof req.body.content === 'string' &&
            0 < req.body.content.length
 
-    if ( isOK ) {
+    if ( isOK && await Post.getBy('title', req.body.title)){
+      req.session.error = 'Title must be unique'
+      next('route')
+    } else if ( isOK ) {
       req.body.user = req.session.user
       req.body.title = req.body.title.slice(0, 80)
       req.body.meta_title = req.body.content.slice(0, 100)

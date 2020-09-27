@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/stylesheets/settings.css">
+        <title>Settings</title>
+    </head>
+    <body>
+        <%- include('header') %>
+        
+        <div class="container">
+            <div class="settings-menu">
+                <div class="wrap">
+                    <div class="avatar settings-item">Edit avatar
+                        <div class="avatarInput">
+                            <label for="file-input">
+                                <img src="/images/avatar_example.png" class="avatarDefaultImage">
+                            </label>
+                            <input id="file-input" type="file" />
+                        </div>
+                    </div>
+                    <div class="changeName settings-item changeable"> 
+                        <span class="inputTitle">Change name</span> 
+                        <input type="text" value="<%= user.username %>" id="inputName" disabled>
+                        <a class="edit">Edit</a>
+                    </div>
+                    <div class="changePassword settings-item changeable">
+                        <span class="inputTitle">Enter new password</span>
+                        <input type="password" value="********" id="inputPassword" disabled>
+                        <a class="edit">Edit</a>
+                    </div>
+                    <div class="changePassword settings-item changeable">
+                        <span class="inputTitle">Re-enter password</span>
+                        <input type="password" value="********" disabled> 
+                        <a class="edit">Edit</a>
+                    </div>
+                    <div class="changeEmail settings-item changeable">
+                        <span class="inputTitle">Change email</span>
+                        <input type="email" placeholder="current@mail.com" id="inputEmail" disabled>
+                        <a class="edit">Edit</a>
+                    </div>
+                    <div class="changeCountry settings-item changeable">
+                        <span class="inputTitle">Change country</span>
+                        <select name="" id="selectCountry">
+                            <option value="0">Select country</option>
+                            <option value="ua">Ukraine</option>
+                            <option value="ru">Russia</option>
+                            <option value="by">Belarus</option>
+                            <option value="uk">United Kingdom</option>
+                            <option value="us">United States</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Save changes" class="save-changes-btn">
+                    <a href="#" class="deleteAccount settings-item">Delete account</a>
+
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

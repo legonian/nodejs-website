@@ -7,6 +7,7 @@ const User = require('../models/user_model')
 const getUserBy = User.getBy
 const authUser = User.middleware.auth
 const validateUser = User.middleware.validate
+const validateSession = User.middleware.validateSession
 
 router.post('/login', checkCaptcha,
                       validateUser,
@@ -28,13 +29,16 @@ router.get('/log_out', function(req, res) {
   })
 })
 
-router.get('/profile', function(req, res) {
-  if (res.locals.user){
-    res.render('profile', {profile: res.locals.user})
-  }
-  else{
-    res.send('Not signed. <a href="/">Click</a> to go to main page.')
-  }
+router.get('/profile', validateSession, function(req, res) {
+  res.render('profile', {profile: res.locals.user})
+})
+
+router.get('/messages', validateSession, function(req, res) {
+  res.render('messages')
+})
+
+router.get('/settings', validateSession, function(req, res) {
+  res.render('settings')
 })
 
 router.get('/:userId', async function(req, res, next) {

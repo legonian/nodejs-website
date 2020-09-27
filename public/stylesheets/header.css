@@ -1,11 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+    font-family: 'Open Sans', sans-serif;
+    box-sizing: border-box;
+}
+
 /* Header buttons */
 
 .header {
     max-width: 100%;
     height: 50px;
-    border-bottom: 1px solid lightgrey;
     text-align: center;
-    margin-bottom: 50px;
+    margin-bottom: 2%;
+    background-color: #424242;
+
 }
 
 .header-container {
@@ -17,29 +26,35 @@
 .wrapper {
     height: 100%;
     display: flex;
-    padding: 0 15px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.header a {
+.header-block {
+    display: flex;
+    align-items: center;
+    
+}
+
+.header-block a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
     cursor: pointer;
     padding: 0px 8px;
-    text-decoration: none;
-    color: black;
 }
 
-.wrapper .logo {
-    display: flex;
-    align-items: center;
-    width: 20%;
+.header-block #search {
+    width: 100px;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    text-align: center;
 }
 
-.wrapper .navigation {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    width: 80%;
-}
+
 /* User profile icon */
+
 .userIcon {
     height: 30px;
     width: 30px;
@@ -47,9 +62,8 @@
     margin-right: 0px;
 }
 
-
 #log_out, #sign_up {
-    border-left: 1px solid black;
+    border-left: 1px solid #fff;
 }
 
 .sign-in:hover{

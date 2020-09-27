@@ -52,27 +52,30 @@ signup_tab_btn.onclick = function () {show_signup_tab()}
 
 let input = document.querySelectorAll('input[name="password"]')[1];
 
-input.onblur = function () {
-	var lowerCaseLetters = /[a-z]/g;
-	var upperCaseLetters = /[A-Z]/g;
-	var Numbers = /[^0-9]/g;
+// Password validation
 
-	if (input.value.match(lowerCaseLetters && upperCaseLetters && Numbers )){
+/* input.onblur = function () {
+ 
+  const checkPassword = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
+
+	if (input.value.match(checkPassword)){
 		input.style.border = '2px solid lightgreen';
 	} else {
 		input.style.border = '2px solid red';
 	}
-}
+} */
 
 // Dropdown
 
 let dropdown = document.getElementsByClassName('dropdown')[0];
 let dropdownContent = document.getElementsByClassName('dropdown-content')[0];
 
-dropdown.onmouseover = function () {
+if (dropdown) {
+  dropdown.onmouseover = function () {
 	dropdownContent.style.display = 'block';
-}
+  }
 
-dropdown.onmouseout = function () {
+  dropdown.onmouseout = function () {
 	dropdownContent.style.display = 'none';
+  }
 }

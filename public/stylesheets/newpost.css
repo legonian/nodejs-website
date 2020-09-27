@@ -8,13 +8,31 @@
     padding: 30px;
 }
 
-.post-item {
+input, textarea {
+    border: 1px solid lightgrey;
+    
+}
+
+.post-heading {
     width: 100%;
     outline: none;
+    margin-bottom: 20px;
+    height: 30px;
 }
 
 .post-builer textarea {
-    margin-top: 20px;
+    
     min-height: 300px;
     resize: none;
+ 
+}
+
+.postButton {
+    height: 30px;
+    width: 100%;
+    outline: none;  
+}
+
+.postButton:active {
+    background-color: #C0C0C0;
 }

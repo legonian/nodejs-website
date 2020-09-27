@@ -9,7 +9,7 @@
 </head>
 <body>
     <%- include('header') %>
-    <div class="forum-section">
+    <!-- <div class="forum-section">
         <div class="container">
             <div class="forum-header forum-header-modifier">
                 <div class="forum-name mod">Main forums</div>
@@ -19,7 +19,15 @@
             </div>
             <div id="topic"></div>
         </div>
+    </div> -->
+
+    <!-- Not needed anymore because we want reddit-like UI -->
+
+    <div class="container">
+        <%- include('post') %>
     </div>
+
+     <!-- Scripts -->
     <script id="data_js" type="application/x-configuration">
         <%- topics%>
     </script>

@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/stylesheets/newpost.css">
-        <link rel="stylesheet" href="/stylesheets/style.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
         <title>New Post</title>
     </head>
     <body>
@@ -15,20 +15,17 @@
             <form action="/post/upload" method="post">
                 <div class="post-builer">
                     <div class="post-title">
-                        <input name="title" type="text" class="post-item" placeholder="Enter post title here">
+                        <input name="title" type="text" class="post-heading" placeholder="Enter post title here">
                     </div>
                     <div class="post-body">
-                        <textarea name="content" type="text" class="textarea post-item" placeholder="Enter post text here"></textarea>
+                        <textarea name="content" type="text" cols="" rows="" class="textarea post-heading" placeholder="Enter post text here" id="postBody"></textarea>
                     </div>
-                    <div class="wrap">
-                        <div class="stylisation-bar"></div>
-                        <input type="submit" value="Post">
-                    </div>
-
+                    <input type="submit" value="Post" class="postButton">
                 </div>
             </form>
         </div>
 
-        <script src=""></script>
+        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
+        <script src="/javascripts/newpost.js"></script>
     </body>
 </html>
