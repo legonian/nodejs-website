@@ -2,10 +2,11 @@ const express = require('express')
 const router = express.Router()
 
 const checkCaptcha = require('../middleware/check_captcha')
-const validateUser = require('../middleware/validate_user')
-const authUser = require('../middleware/auth_user')
 
-const DB = require('../models/db')
+const User = require('../models/user_model')
+const getUserBy = User.getBy
+const authUser = User.middleware.auth
+const validateUser = User.middleware.validate
 
 router.post('/login', checkCaptcha,
                       validateUser,
@@ -17,7 +18,7 @@ router.post('/login', checkCaptcha,
 router.post('/signup', checkCaptcha,
                        validateUser,
                        authUser,
-  async function(req, res, next) {
+  async function(req, res) {
     res.redirect('/user/profile')
 })
 
@@ -37,7 +38,7 @@ router.get('/profile', function(req, res) {
 })
 
 router.get('/:userId', async function(req, res, next) {
-  const userData = await DB.user.getBy('user_id', req.params.userId)
+  const userData = await getUserBy('user_id', req.params.userId)
   if ( userData )
     res.render('profile', {profile: userData})
   else {
