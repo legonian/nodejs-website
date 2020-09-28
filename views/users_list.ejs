@@ -1,0 +1,11 @@
+<%- include('header', {pageTitle: 'List of users'}) %>
+
+<% if (userlist) { %>
+  <% userlist.forEach(el => { %>
+    <a href="/user/<%= el.user_id %>"><%= el.username %></a><br>
+  <% }) %>
+<% } else { %>
+  <p>User List is empty</p>
+<% } %>
+
+<%- include('footer') %>

@@ -57,6 +57,12 @@ User.changeParameter = async function( obj, param, cb ) {
     return await User.check(obj)
   } else { return false }
 }
+User.getList = async function () {
+  const query = 'SELECT user_id, username FROM users'
+  return await makeQuery(query, [], async dbRes =>{
+    return dbRes
+  })
+}
 
 User.middleware = {}
 User.middleware.auth = async function (req, res, next) {

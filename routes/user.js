@@ -5,6 +5,7 @@ const checkCaptcha = require('../middleware/check_captcha')
 
 const User = require('../models/user_model')
 const getUserBy = User.getBy
+const getUserList = User.getList
 const authUser = User.middleware.auth
 const validateUser = User.middleware.validate
 const validateSession = User.middleware.validateSession
@@ -39,6 +40,11 @@ router.get('/messages', validateSession, function(req, res) {
 
 router.get('/settings', validateSession, function(req, res) {
   res.render('settings')
+})
+
+router.get('/list', async function(req, res) {
+  const ul = await getUserList()
+  res.render('users_list', {userlist: ul})
 })
 
 router.get('/:userId', async function(req, res, next) {
