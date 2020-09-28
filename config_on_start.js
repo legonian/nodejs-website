@@ -11,9 +11,12 @@ module.exports = [
   helmet(),
   helmet.contentSecurityPolicy({ directives:{
     "default-src": ["'self'",
+                    "https://maxcdn.bootstrapcdn.com/",
+                    "https://cdn.jsdelivr.net/",
                     "https://fonts.gstatic.com/",
                     "https://www.google.com/",
-                    "https://fonts.googleapis.com/"],
+                    "https://fonts.googleapis.com/",
+                    "https://loremipsum.io/"],
     "script-src": ["'self'", 
                    "https://www.google.com/",
                    "https://www.gstatic.com/",],

@@ -1,37 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/style.css">
-    <title>Home Page</title>
-</head>
-<body>
-    <%- include('header') %>
-    <!-- <div class="forum-section">
-        <div class="container">
-            <div class="forum-header forum-header-modifier">
-                <div class="forum-name mod">Main forums</div>
-                <div class="forum-topic-number mod">Topics</div>
-                <div class="forum-posts mod">Posts</div>
-                <div class="forum-last-post mod">Last post</div>
-            </div>
-            <div id="topic"></div>
-        </div>
-    </div> -->
+<%- include('header', {pageTitle: 'Home Page'}) %>
 
-    <!-- Not needed anymore because we want reddit-like UI -->
-
+<!-- <div class="forum-section">
     <div class="container">
-        <%- include('post') %>
+        <div class="forum-header forum-header-modifier">
+            <div class="forum-name mod">Main forums</div>
+            <div class="forum-topic-number mod">Topics</div>
+            <div class="forum-posts mod">Posts</div>
+            <div class="forum-last-post mod">Last post</div>
+        </div>
+        <div id="topic"></div>
     </div>
+</div> -->
 
-     <!-- Scripts -->
-    <script id="data_js" type="application/x-configuration">
-        <%- topics%>
-    </script>
-    <script src="/javascripts/main.js"></script>
-    </body>
-</html>
+<div class="container"><%- include('post') %></div>
 
+<script id="data_js" type="application/x-configuration"><%- topics%></script>
+<script src="/javascripts/main.js"></script>
+
+<%- include('footer') %>

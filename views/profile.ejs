@@ -1,26 +1,17 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/stylesheets/profile.css">
-    <title>Profile</title>
-</head>
-<body>
-    <%- include('header') %>
-    <div class="container">
-        <div class="profile-card">
-            <div class="profile-img">
-                <img src="/images/avatar_example.png" alt="Profile Image">
-            </div>
-            <span class="profile-name"><%=profile.first_name%> (@<%=profile.username%>)</span>
-            <div class="metrics">
-                <div class="posts metrics-bar"><%=profile.posts_count%> Posts</div>
-                <div class="country metrics-bar"><%=(profile.country ? profile.country : 'Uganda')%></div>
-                <div class="rating metrics-bar"><%=profile.rating%> rating</div>
-            </div>
+<%- include('header', {pageTitle: 'Home Page'}) %>
+
+<div class="container">
+    <div class="profile-card">
+        <div class="profile-img">
+            <img src="/images/avatar_example.png" alt="Profile Image">
+        </div>
+        <span class="profile-name"><%=profile.first_name%> (@<%=profile.username%>)</span>
+        <div class="metrics">
+            <div class="posts metrics-bar"><%=profile.posts_count%> Posts</div>
+            <div class="country metrics-bar"><%=(profile.country ? profile.country : 'Uganda')%></div>
+            <div class="rating metrics-bar"><%=profile.rating%> rating</div>
         </div>
     </div>
-</body>
-</html>
+</div>
+
+<%- include('footer') %>

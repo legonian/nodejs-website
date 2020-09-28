@@ -1,4 +1,19 @@
-
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/open-sans.css">
+    <link rel="stylesheet" href="/stylesheets/simplemde.min.css">
+    <link rel="stylesheet" href="/stylesheets/header.css">
+    <link rel="stylesheet" href="/stylesheets/profile.css">
+    <link rel="stylesheet" href="/stylesheets/post.css">
+    <link rel="stylesheet" href="/stylesheets/newpost.css">
+    <link rel="stylesheet" href="/stylesheets/messages.css">
+    <link rel="stylesheet" href="/stylesheets/settings.css">
+    <title><%=pageTitle%></title>
+  </head>
+<body>
 <header class="header">
   <div class="header-container">
     <div class="wrapper">
@@ -13,12 +28,12 @@
           <a href="/post/new" class="create-post-button">Create Post</a>
           <!-- Profile icon -->
           <img src="/images/avatar_example.png" alt="User profile image" class="userIcon">
-            <!-- Dropdown menu -->
+          <!-- Dropdown menu -->
           <div class="dropdown">
               <a class="dropdown-button"><%= user.username %></a>
               <div class="dropdown-content">
-                  <a href="/user/messages">Messages</a>
                   <a href="/user/profile">Profile</a>
+                  <a href="/user/messages">Messages</a>
                   <a href="/user/settings">Settings</a>
                   <a href="/user/log_out">Log out</a>
               </div>
@@ -35,7 +50,6 @@
 <div class="modal-background">
   <div class="modal-login">
     <div class="wrap">
-
       <div class="tab">
         <button id="login_tab" class="tablinks">Log in</button>
         <button id="signup_tab" class="tablinks">Sign up</button>
@@ -78,10 +92,5 @@
   </div>
 </div>
 
-<!-- Scripts -->
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <script src="/javascripts/header.js"></script>
-
-<!-- CSS -->
-<link rel="stylesheet" href="/stylesheets/header.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap">
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>

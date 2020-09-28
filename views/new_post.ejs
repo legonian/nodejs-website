@@ -1,31 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="/stylesheets/newpost.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-        <title>New Post</title>
-    </head>
-    <body>
-        <%- include('header') %>
-        
-        <div class="container">
-            <form action="/post/upload" method="post">
-                <div class="post-builer">
-                    <div class="post-title">
-                        <input name="title" type="text" class="post-heading" placeholder="Enter post title here">
-                    </div>
-                    <div class="post-body">
-                        <textarea name="content" type="text" cols="" rows="" class="textarea post-heading" placeholder="Enter post text here" id="postBody"></textarea>
-                    </div>
-                    <input type="submit" value="Post" class="postButton">
-                </div>
-            </form>
-        </div>
+<%- include('header', {pageTitle: 'New Post'}) %>
 
-        <script src="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.js"></script>
-        <script src="/javascripts/newpost.js"></script>
-    </body>
-</html>
+<div class="container">
+  <form action="/post/upload" method="post">
+    <div class="post-builer">
+      <div class="post-title">
+        <input name="title" type="text" class="post-heading" placeholder="Enter post title here">
+      </div>
+      <div class="post-body">
+        <textarea name="content" type="text" cols="" rows="" class="textarea post-heading" placeholder="Enter post text here" id="postBody"></textarea>
+      </div>
+      <input type="submit" value="Post" class="postButton">
+    </div>
+  </form>
+</div>
+
+<script src="/javascripts/simplemde.min.js"></script>
+<script src="/javascripts/newpost.js"></script>
+
+<%- include('footer') %>
