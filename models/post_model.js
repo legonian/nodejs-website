@@ -5,7 +5,9 @@ Post = {}
 Post.getBy = async function (param, value){
   const query = `SELECT * FROM posts WHERE ${param} = $1`
   return await makeQuery(query, [value], async dbRes =>{
-    return dbRes
+    if (typeof dbRes === 'undefined' || dbRes.length === 0){
+      return false
+    } else { return dbRes }
   })
 }
 Post.add = async function (obj){
@@ -27,6 +29,7 @@ Post.add = async function (obj){
 
 Post.middleware = {}
 Post.middleware.validate = async function ( req, res, next ) {
+  
   try {
     bodyKeys = Object.keys(req.body).sort()
     let isOK = (bodyKeys.length == 2) && bodyKeys.every(function(element, index) {
