@@ -46,12 +46,20 @@ User.add = async function( obj ) {
     return await User.auth(obj)
   }
 }
+User.delete = async function( obj ) {
+  const query = 'DELETE FROM users WHERE username = $1 RETURNING username'
+  const vars_arr = [ obj.username ]
+  return await makeQuery(query, vars_arr, async dbRes => {
+    return dbRes
+  })
+}
+
 User.changeParameter = async function( obj, param, cb ) {
   const pastUserData = await User.check(obj)
   //console.log('pastUserData', pastUserData)
   if(pastUserData){
     const query = `UPDATE users SET ${param} = $1 WHERE user_id = $2`
-    const vars_arr = [cb(pastUserData[param]), obj.user_id]
+    const vars_arr = [ cb(pastUserData[param]), obj.user_id ]
     //console.log(vars_arr)
     await makeQuery(query, vars_arr)
     return await User.check(obj)

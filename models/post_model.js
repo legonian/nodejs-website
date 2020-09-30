@@ -5,7 +5,7 @@ Post = {}
 Post.getBy = async function (param, value){
   const query = `SELECT * FROM posts WHERE ${param} = $1`
   return await makeQuery(query, [value], async dbRes =>{
-    if (typeof dbRes === 'undefined' || dbRes.length === 0){
+    if ( Array.isArray( dbRes ) && dbRes.length === 0){
       return false
     } else { return dbRes }
   })
@@ -26,23 +26,27 @@ Post.add = async function (obj){
   })
   return await Post.getBy('title', obj.title)
 }
+Post.delete = async function( obj ) {
+  const query = 'DELETE FROM posts WHERE title = $1 RETURNING title'
+  const vars_arr = [ obj.title ]
+  return await makeQuery(query, vars_arr, async dbRes => {
+    return dbRes
+  })
+}
 
 Post.middleware = {}
 Post.middleware.validate = async function ( req, res, next ) {
-  
   try {
     bodyKeys = Object.keys(req.body).sort()
     let isOK = (bodyKeys.length == 2) && bodyKeys.every(function(element, index) {
       return element === [ 'content', 'title' ][index]
     })
-
     isOK = isOK &&
            typeof req.body.title === 'string' &&
            0 < req.body.title.length
     isOK = isOK &&
            typeof req.body.content === 'string' &&
            0 < req.body.content.length
-
     if ( isOK && await Post.getBy('title', req.body.title)){
       req.session.error = 'Title must be unique'
       next('route')
