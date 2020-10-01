@@ -51,8 +51,7 @@ router.get('/list', async function(req, res) {
 
 router.get('/:userId/posts', async function(req, res) {
   const pl = await getPostsBy('user_id', req.params.userId)
-  console.log(pl)
-  res.render('post_list', {postlist: pl})
+  res.render('post_list', {postlist: Array.isArray(pl) ? pl : [pl]})
 })
 
 router.get('/:userId', async function(req, res, next) {
