@@ -17,7 +17,7 @@
           <!-- These links might be substituted with icons -->
       </div>
       <div class="post-info">
-          <span class="timestamp"><%=post.create_date%></span> by
+          <span class="timestamp"><%=post.create_date.toLocaleDateString('en-GB')%></span> by
           <a class="author" href="/user/<%=post.user_id%>"><%=post.username%></a>
       </div>
     </div>
