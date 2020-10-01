@@ -1,13 +1,12 @@
 <%- include('header', {pageTitle: 'List of users'}) %>
 
-<h1>List of <%= postlist[0].username %> posts</h1>
-
 <% if (postlist) { %>
+  <h1>List of <%= postlist[0].username %> posts</h1>
   <% postlist.forEach(el => { %>
     <a href="/post/<%= el.post_id %>"><%= el.title %></a><br>
   <% }) %>
 <% } else { %>
-  <p>User has zero posts</p>
+  <h1>User has zero posts</h1>
 <% } %>
 
 <%- include('footer') %>
