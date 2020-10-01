@@ -1,4 +1,4 @@
-<%- include('header', {pageTitle: 'Home Page'}) %>
+<%- include('header', {pageTitle: profile.username + ' profile'}) %>
 
 <div class="container">
     <div class="profile-card">
@@ -7,7 +7,9 @@
         </div>
         <span class="profile-name"><%=profile.first_name%> (@<%=profile.username%>)</span>
         <div class="metrics">
-            <div class="posts metrics-bar"><%=profile.posts_count%> Posts</div>
+            <a href="/user/<%=profile.user_id%>/posts">
+                <div class="posts metrics-bar"><%=profile.posts_count%> Posts</div>
+            </a>
             <div class="country metrics-bar"><%=(profile.country ? profile.country : 'Uganda')%></div>
             <div class="rating metrics-bar"><%=profile.rating%> rating</div>
         </div>

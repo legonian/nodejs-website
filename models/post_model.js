@@ -3,7 +3,7 @@ const userModel = require('./user_model')
 
 Post = {}
 Post.getBy = async function (param, value){
-  const query = `SELECT * FROM posts WHERE ${param} = $1`
+  const query = `SELECT * FROM posts JOIN users USING(user_id) WHERE ${param} = $1`
   return await makeQuery(query, [value], async dbRes =>{
     if ( Array.isArray( dbRes ) && dbRes.length === 0){
       return false

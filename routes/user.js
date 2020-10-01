@@ -10,6 +10,8 @@ const authUser = User.middleware.auth
 const validateUser = User.middleware.validate
 const validateSession = User.middleware.validateSession
 
+const getPostsBy = require('../models/post_model').getBy
+
 router.post('/login', checkCaptcha,
                       validateUser,
                       authUser,
@@ -47,13 +49,20 @@ router.get('/list', async function(req, res) {
   res.render('users_list', {userlist: ul})
 })
 
+router.get('/:userId/posts', async function(req, res) {
+  const pl = await getPostsBy('user_id', req.params.userId)
+  console.log(pl)
+  res.render('post_list', {postlist: pl})
+})
+
 router.get('/:userId', async function(req, res, next) {
+  const userId = parseInt(req.params.userId)
   const userData = await getUserBy('user_id', req.params.userId)
-  if ( userData )
+  if ( userData && !isNaN(userId))
     res.render('profile', {profile: userData})
   else {
     req.session.error = "No such user"
-    next('route')
+    next()
   }
 })
 
