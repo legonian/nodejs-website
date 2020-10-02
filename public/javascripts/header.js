@@ -65,6 +65,8 @@ if ( isUserLogged ) {
 loginForm.onsubmit = function (e){
   e.preventDefault()
 
+  grecaptcha.execute()
+
   console.log( this["g-recaptcha-response"] )
   /*
   fetch('/user/login', {
