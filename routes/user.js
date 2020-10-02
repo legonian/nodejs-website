@@ -12,21 +12,15 @@ const validateSession = User.middleware.validateSession
 
 const getPostsBy = require('../models/post_model').getBy
 
-router.post('/login', checkCaptcha,
-                      validateUser,
-                      authUser,
-  async function(req, res, next) {
+router.post('/login', checkCaptcha, validateUser, authUser, async function(req, res, next) {
     res.redirect('/user/profile')
 })
 
-router.post('/signup', checkCaptcha,
-                       validateUser,
-                       authUser,
-  async function(req, res) {
+router.post('/signup', checkCaptcha, validateUser, authUser, async function(req, res) {
     res.redirect('/user/profile')
 })
 
-router.get('/log_out', function(req, res) {
+router.get('/log_out', validateSession, function(req, res) {
   req.session.destroy(function(){
     res.redirect('/')
   })
