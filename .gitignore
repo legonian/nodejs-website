@@ -63,6 +63,6 @@ typings/
 # mine
 0/
 heroku_cmds.txt
-.env
-test*.js
+# .env
+# test*.js
 .vscode/
