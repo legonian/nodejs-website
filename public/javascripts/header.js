@@ -61,14 +61,26 @@ if ( isUserLogged ) {
   }
 }
 
-//loginForm.addEventListener("submit", function (e){
+/*
+loginForm.onsubmit = function ( event ) {
+  event.preventDefault()
+
+  const XHR = new XMLHttpRequest()
+  const FD = new FormData( loginForm )
+
+  XHR.addEventListener( "load", function(event) {
+    alert( event.target.responseText )
+  } )
+  XHR.addEventListener( "error", function( event ) {
+    alert( 'Oops! Something went wrong.' )
+  } )
+  XHR.open( "POST", "/user/login" )
+  XHR.send( FD )
+}
+
 loginForm.onsubmit = function (e){
   e.preventDefault()
-
-  grecaptcha.execute()
-
-  console.log( this["g-recaptcha-response"] )
-  /*
+  
   fetch('/user/login', {
     method: 'post',
     body: JSON.stringify({name: this.username.value, password: this.password.value})
@@ -80,8 +92,9 @@ loginForm.onsubmit = function (e){
   }).catch(function(err) {
     //Failure
     alert('Error')
-  });*/
+  })
 }
+*/
 
 // Password validation
 /*
