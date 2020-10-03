@@ -61,40 +61,26 @@ if ( isUserLogged ) {
   }
 }
 
-/*
-loginForm.onsubmit = function ( event ) {
+loginForm.onsubmit = async function ( event ) {
   event.preventDefault()
-
-  const XHR = new XMLHttpRequest()
-  const FD = new FormData( loginForm )
-
-  XHR.addEventListener( "load", function(event) {
-    alert( event.target.responseText )
-  } )
-  XHR.addEventListener( "error", function( event ) {
-    alert( 'Oops! Something went wrong.' )
-  } )
-  XHR.open( "POST", "/user/login" )
-  XHR.send( FD )
-}
-
-loginForm.onsubmit = function (e){
-  e.preventDefault()
-  
-  fetch('/user/login', {
-    method: 'post',
-    body: JSON.stringify({name: this.username.value, password: this.password.value})
-  }).then(function(response) {
-    return response.json();
-  }).then(function(data) {
-    //Success code goes here
-    alert('form submited')
-  }).catch(function(err) {
-    //Failure
-    alert('Error')
+  const formBody = JSON.stringify({
+    username: loginForm.username.value, 
+    password: loginForm.password.value, 
+    'g-recaptcha-response': grecaptcha.getResponse()
   })
+  console.log(formBody)
+  const res = await fetch('/user/login', {
+    method: 'post',
+    headers: {'Content-Type': 'application/json;charset=UTF-8'},
+    body: formBody
+  })
+  if (res.status === 200) {
+    //alert(`Creds are OK, now you go to ${res.url}`)
+    window.location.assign(res.url)
+  } else {
+    alert('Bad Creds')
+  }
 }
-*/
 
 // Password validation
 /*
