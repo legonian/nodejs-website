@@ -20,9 +20,11 @@ router.get('/new', validateSession, function(req, res) {
 })
 
 router.post('/upload', validateSession, validatePost, async function(req, res) {
+  
   req.session.user = await changeUserParam(req.body.user, 'posts_count', (postsCount)=> {
     return postsCount + 1
   })
+  
   await addPost(req.body)
   res.send('Uploaded! <a href="/">Go to Home Page</a> / <a href="/user/profile">Go to Profile</a>')
 })

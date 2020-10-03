@@ -21,9 +21,6 @@ Post.add = async function (obj){
                     obj.meta_title,
                     obj.content]
   await makeQuery(query, vars_arr)
-  userModel.changeParameter(obj.user, 'posts_count', (parameter)=> {
-  return parameter + 1
-  })
   return await Post.getBy('title', obj.title)
 }
 Post.delete = async function( obj ) {
