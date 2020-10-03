@@ -1,6 +1,11 @@
 const express = require('express')
 const router = express.Router()
 
+const marked = require('marked')
+const createDomPurify = require('dompurify')
+const { JSDOM } = require('jsdom')
+const dompurify = createDomPurify(new JSDOM().window)
+
 const User = require('../models/user_model')
 const changeUserParam = User.changeParameter
 const validateSession = User.middleware.validateSession
@@ -27,7 +32,8 @@ router.get('/:postId', async function(req, res, next) {
   if ( isNaN(postId) ) {
     next ()
   } else {
-    const postData = await getPostsBy('post_id', req.params.postId)
+    let postData = await getPostsBy('post_id', req.params.postId)
+    postData.content = dompurify.sanitize(marked(postData.content))
     res.render('post', {post: postData})
   }
 })
