@@ -64,20 +64,39 @@ if ( isUserLogged ) {
 loginForm.onsubmit = async function ( event ) {
   event.preventDefault()
   const formBody = JSON.stringify({
-    username: loginForm.username.value, 
-    password: loginForm.password.value, 
-    'g-recaptcha-response': grecaptcha.getResponse()
+    username: this.username.value, 
+    password: this.password.value, 
+    'g-recaptcha-response': grecaptcha.getResponse(0)
   })
-  console.log(formBody)
   const res = await fetch('/user/login', {
     method: 'post',
     headers: {'Content-Type': 'application/json;charset=UTF-8'},
     body: formBody
   })
   if (res.status === 200) {
-    //alert(`Creds are OK, now you go to ${res.url}`)
     window.location.assign(res.url)
   } else {
+    grecaptcha.reset(0)
+    alert('Bad Creds')
+  }
+}
+signupForm.onsubmit = async function ( event ) {
+  event.preventDefault()
+  const formBody = JSON.stringify({
+    username: this.username.value, 
+    password: this.password.value, 
+    first_name: this.first_name.value, 
+    'g-recaptcha-response': grecaptcha.getResponse(1)
+  })
+  const res = await fetch('/user/signup', {
+    method: 'post',
+    headers: {'Content-Type': 'application/json;charset=UTF-8'},
+    body: formBody
+  })
+  if (res.status === 200) {
+    window.location.assign(res.url)
+  } else {
+    grecaptcha.reset(1)
     alert('Bad Creds')
   }
 }
