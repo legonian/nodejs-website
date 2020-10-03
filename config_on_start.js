@@ -9,20 +9,23 @@ const compression = require('compression')
 module.exports = [
   compression(),
   helmet(),
-  helmet.contentSecurityPolicy({ directives:{
-    "default-src": ["'self'",
-                    "https://maxcdn.bootstrapcdn.com/",
-                    "https://cdn.jsdelivr.net/",
-                    "https://fonts.gstatic.com/",
-                    "https://www.google.com/",
-                    "https://fonts.googleapis.com/",
-                    "https://loremipsum.io/",
-                    "https://i.imgur.com/"],
-    "script-src": ["'self'", 
-                   "https://www.google.com/",
-                   "https://www.gstatic.com/",],
-    "object-src": ["'none'"], 
-  }}),
+  helmet.contentSecurityPolicy({
+    directives: {
+      'default-src': ["'self'",
+        'https://maxcdn.bootstrapcdn.com/',
+        'https://cdn.jsdelivr.net/',
+        'https://fonts.gstatic.com/',
+        'https://www.google.com/',
+        'https://fonts.googleapis.com/',
+        'https://loremipsum.io/',
+        'https://i.imgur.com/'],
+      'script-src': ["'self'",
+        'https://www.google.com/',
+        'https://www.gstatic.com/'
+      ],
+      'object-src': ["'none'"]
+    }
+  }),
   (req, res, next) => {
     res.set('Cache-Control', 'no-cache, no-store, must-revalidate')
     res.set('Pragma', 'no-cache')
@@ -31,17 +34,17 @@ module.exports = [
   },
   session({
     store: new (require('connect-pg-simple')(session))({
-      pool : require('./models/pool'),
+      pool: require('./models/pool')
     }),
     name: 'sid',
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: {
-      maxAge: 20*24*60*60*1000, // 20 days
+      maxAge: 20 * 24 * 60 * 60 * 1000, // 20 days
       sameSite: true,
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
+      secure: process.env.NODE_ENV === 'production'
     }
   }),
   logger('dev'),
@@ -49,8 +52,8 @@ module.exports = [
   express.urlencoded({ extended: true }),
   cookieParser(),
   express.static(path.join(__dirname, 'public')),
-  function(req, res, next) {
-    if (req.session.user){
+  function (req, res, next) {
+    if (req.session.user) {
       res.locals.user = req.session.user
     } else {
       res.locals.user = false

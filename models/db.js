@@ -1,16 +1,14 @@
 const pool = require('./pool')
-const bcrypt = require('bcrypt')
+const db = {}
 
-db = {}
-db.makeQuery = async function ( query, vars_arr, check_fn ) {
+db.makeQuery = async function (query, queryParameters, cb) {
   try {
-    const { rows } = await pool.query(query, vars_arr)
-    const res = (Array.isArray(rows) && rows.length == 1) ? rows[0] : rows
+    const { rows } = await pool.query(query, queryParameters)
+    const res = (Array.isArray(rows) && rows.length === 1) ? rows[0] : rows
 
-    if ( typeof check_fn === 'function' ) {
-      return await check_fn(res)
-    }
-    else {
+    if (typeof cb === 'function') {
+      return await cb(res)
+    } else {
       return false
     }
   } catch (err) {

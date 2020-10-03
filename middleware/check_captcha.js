@@ -1,7 +1,7 @@
 const https = require('https')
 const querystring = require('querystring')
 
-function captchaAPI(captchaRes){
+function captchaAPI (captchaRes) {
   return new Promise((resolve, reject) => {
     const data = querystring.stringify({
       secret: process.env.RECAPTCHA_SECRET,
@@ -13,8 +13,8 @@ function captchaAPI(captchaRes){
       method: 'POST',
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Content-Length': Buffer.byteLength(data),
-      },
+        'Content-Length': Buffer.byteLength(data)
+      }
     }
     const req = https.request(options, (res) => {
       res.setEncoding('utf8')
@@ -43,14 +43,14 @@ module.exports = async function (req, res, next) {
     const captchaRes = req.body['g-recaptcha-response']
     const apiRes = captchaRes && await captchaAPI(captchaRes)
 
-    if ( process.env.NODE_ENV === 'production' ) {
-      if ( apiRes && apiRes.success ) { next() }
-      else {
-        req.session.error = "Wrong captcha."
+    if (process.env.NODE_ENV === 'production') {
+      if (apiRes && apiRes.success) {
+        next()
+      } else {
+        req.session.error = 'Wrong captcha.'
         next('route')
       }
     } else { next() }
-
   } catch (error) {
     next(error)
   }

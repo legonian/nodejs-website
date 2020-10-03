@@ -6,11 +6,18 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "templates": "nodemon ./test_template.js",
-    "test": "jest"
+    "test": "npx standard && jest"
   },
   "jest": {
     "testEnvironment": "node",
-    "roots": [ "tests" ]
+    "roots": [
+      "tests"
+    ]
+  },
+  "standard": {
+    "env": [
+      "jest"
+    ]
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
@@ -34,6 +41,7 @@
   "devDependencies": {
     "jest": "^26.4.2",
     "nodemon": "^2.0.4",
+    "standard": "^14.3.4",
     "supertest": "^5.0.0"
   }
 }
