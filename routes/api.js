@@ -1,16 +1,14 @@
 const express = require('express')
 const router = express.Router()
 
-// const multer = require('multer')
-// const upload = multer({ dest: 'uploads/' })
-// upload.single('uploaded_file')
+const User = require('../models/user_model')
 
-router.get('/images/:id', function (req, res) {
-  res.redirect('/')
+router.get('/userlist', async function (req, res) {
+  const ul = await User.getList()
+  res.json(ul)
 })
 
 router.post('/images/upload', function (req, res) {
-  // console.log('req.file =', req.file)
   res.redirect('/')
 })
 

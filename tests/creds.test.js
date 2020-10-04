@@ -23,7 +23,7 @@ test('Signup and Login User', async () => {
 })
 
 test('Profile Page', async () => {
-  await agent.get('/user/profile').expect(200)
+  await agent.get('/user').redirects(1).expect(200)
 })
 
 test('Create Post', async () => {

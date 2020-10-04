@@ -1,10 +1,7 @@
 const express = require('express')
+const showdown = require('showdown')
 const router = express.Router()
-
-const marked = require('marked')
-const createDomPurify = require('dompurify')
-const { JSDOM } = require('jsdom')
-const dompurify = createDomPurify(new JSDOM().window)
+const converter = new showdown.Converter()
 
 const User = require('../models/user_model')
 const changeUserParam = User.changeParameter
@@ -38,7 +35,7 @@ router.get('/:postId', async function (req, res, next) {
     next()
   } else {
     const postData = await getPostsBy('post_id', req.params.postId)
-    postData.content = dompurify.sanitize(marked(postData.content))
+    postData.content = converter.makeHtml(postData.content)
     res.render('post', { post: postData })
   }
 })

@@ -13,11 +13,6 @@ const signupTab = document.getElementsByClassName('signup')[0]
 const modalWindow = document.getElementsByClassName('modal-background')[0]
 const modalCloseButton = document.getElementsByClassName('modal-close')[0]
 
-const dropdown = document.getElementsByClassName('dropdown')[0]
-const dropdownContent = document.getElementsByClassName('dropdown-content')[0]
-
-const isUserLogged = Boolean(signupButton)
-
 function showSignupTab () {
   signupTab.style.display = 'block'
   loginTab.style.display = 'none'
@@ -33,33 +28,25 @@ function showLoginTab () {
   signupTabButton.classList.remove('active')
 }
 
-if (isUserLogged) {
-  signupButton.onclick = function () {
-    modalWindow.style.display = 'block'
-    showSignupTab()
-  }
-  loginButton.onclick = function () {
-    modalWindow.style.display = 'block'
-    showLoginTab()
-  }
-  modalWindow.onmousedown = function (event) {
-    if (event.target === modalWindow) {
-      modalWindow.style.display = 'none'
-    }
-  }
-  modalCloseButton.onclick = function () {
+signupButton.onclick = function () {
+  modalWindow.style.display = 'block'
+  showSignupTab()
+}
+loginButton.onclick = function () {
+  modalWindow.style.display = 'block'
+  showLoginTab()
+}
+modalWindow.onmousedown = function (event) {
+  if (event.target === modalWindow) {
     modalWindow.style.display = 'none'
   }
-  loginTabButton.onclick = function () { showLoginTab() }
-  signupTabButton.onclick = function () { showSignupTab() }
-} else {
-  dropdown.onmouseover = function () {
-    dropdownContent.style.display = 'block'
-  }
-  dropdown.onmouseout = function () {
-    dropdownContent.style.display = 'none'
-  }
 }
+modalCloseButton.onclick = function () {
+  modalWindow.style.display = 'none'
+}
+
+loginTabButton.onclick = function () { showLoginTab() }
+signupTabButton.onclick = function () { showSignupTab() }
 
 loginForm.onsubmit = async function (event) {
   event.preventDefault()
@@ -80,6 +67,7 @@ loginForm.onsubmit = async function (event) {
     window.alert('Bad Creds')
   }
 }
+
 signupForm.onsubmit = async function (event) {
   event.preventDefault()
   const formBody = JSON.stringify(
@@ -104,14 +92,13 @@ signupForm.onsubmit = async function (event) {
 }
 
 // Password validation
-/*
-let input = document.querySelectorAll('input[name='password']')[1]
-input.onblur = function () {
-  const checkPassword = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
-  if (input.value.match(checkPassword)){
-    input.style.border = '2px solid lightgreen'
-  } else {
-    input.style.border = '2px solid red'
-  }
-}
-*/
+
+// let input = document.querySelectorAll('input[name='password']')[1]
+// input.onblur = function () {
+//   const checkPassword = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
+//   if (input.value.match(checkPassword)){
+//     input.style.border = '2px solid lightgreen'
+//   } else {
+//     input.style.border = '2px solid red'
+//   }
+// }

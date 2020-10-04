@@ -12,31 +12,55 @@ const validateSession = User.middleware.validateSession
 
 const getPostsBy = require('../models/post_model').getBy
 
-router.post('/login', checkCaptcha, validateUser, authUser, async function (req, res, next) {
-  res.redirect('/user/profile')
-})
+router.post('/login',
+  checkCaptcha,
+  validateUser,
+  authUser,
+  async function (req, res, next) {
+    res.redirect('/user')
+  }
+)
 
-router.post('/signup', checkCaptcha, validateUser, authUser, async function (req, res) {
-  res.redirect('/user/profile')
-})
+router.post('/signup',
+  checkCaptcha,
+  validateUser,
+  authUser,
+  async function (req, res) {
+    res.redirect('/user')
+  }
+)
 
-router.get('/log_out', validateSession, function (req, res) {
-  req.session.destroy(function () {
-    res.redirect('/')
-  })
-})
+router.get('/log_out',
+  validateSession,
+  function (req, res) {
+    req.session.destroy(function () {
+      res.redirect('/')
+    })
+  }
+)
 
-router.get('/profile', validateSession, function (req, res) {
-  res.render('profile', { profile: res.locals.user })
-})
+router.get('/',
+  validateSession,
+  function (req, res) {
+    const userURL = `/user/${req.session.user.user_id}`
+    res.redirect(userURL)
+    // res.render('profile', { profile: res.locals.user })
+  }
+)
 
-router.get('/messages', validateSession, function (req, res) {
-  res.render('messages')
-})
+router.get('/messages',
+  validateSession,
+  function (req, res) {
+    res.render('messages')
+  }
+)
 
-router.get('/settings', validateSession, function (req, res) {
-  res.render('settings')
-})
+router.get('/settings',
+  validateSession,
+  function (req, res) {
+    res.render('settings')
+  }
+)
 
 router.get('/list', async function (req, res) {
   const ul = await getUserList()

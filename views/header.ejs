@@ -23,7 +23,7 @@
       </div>
       <!-- Search + Log in/out + dropdown -->
       <div class="navigation header-block">
-        <input type="search" id="search" placeholder="Search" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Search'">
+        <input type="search" id="search" placeholder="Search" onfocus="" onblur="">
         <% if (user) { %>
           <a href="/post/new" class="create-post-button">Create Post</a>
           <!-- Profile icon -->
@@ -32,7 +32,7 @@
           <div class="dropdown">
               <a class="dropdown-button"><%= user.username %></a>
               <div class="dropdown-content">
-                  <a href="/user/profile">Profile</a>
+                  <a href="/user/">Profile</a>
                   <a href="/user/messages">Messages</a>
                   <a href="/user/settings">Settings</a>
                   <a href="/user/log_out">Log out</a>
@@ -47,50 +47,53 @@
   </div>
 </header>
 
-<div class="modal-background">
-  <div class="modal-login">
-    <div class="wrap">
-      <div class="tab">
-        <button id="login_tab" class="tablinks">Log in</button>
-        <button id="signup_tab" class="tablinks">Sign up</button>
-      </div>
-      <!-- Login form -->
-      <div class="tabcontent login">
-        <form action="/user/login" method="post" class="login-form" id="login_form">
+<% if (!user) { %>
+  <div class="modal-background">
+    <div class="modal-login">
+      <div class="wrap">
+        <div class="tab">
+          <button id="login_tab" class="tablinks">Log in</button>
+          <button id="signup_tab" class="tablinks">Sign up</button>
+        </div>
+        <!-- Login form -->
+        <div class="tabcontent login">
+          <form action="/user/login" method="post" class="login-form" id="login_form">
 
-          <input name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
-          <span class="login-validation input-validation"></span>
-  
-          <input name="password" type="password" placeholder=" Enter password" class="input" maxlength="60" minlength="8" required> 
-          <span class="password-validation input-validation"></span>
-                    
-          <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
-
-          <input type="submit" value="Login" class="input">
-
-        </form>
-      </div>
-      <!-- Registration form -->
-      <div class="tabcontent signup">
-        <form action="/user/signup" method="post" class="login-form" id="signup_form">
-          <input id="input-username" name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
-          <span id="login-validation" class="login-validation input-validation"></span>
-  
-          <input name="password" type="password" placeholder=" Enter password" class="input" maxlength="60" minlength="8" required> 
-          <span class="password-validation input-validation"></span>
-  
-          <input name="first_name" type="text" placeholder=" Enter Name" class="input on_sign_up" maxlength="30" required>
-          <span class="login-validation input-validation on_sign_up"></span>
+            <input name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
+            <span class="login-validation input-validation"></span>
     
-          <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
+            <input name="password" type="password" placeholder=" Enter password" class="input" maxlength="60" minlength="8" required> 
+            <span class="password-validation input-validation"></span>
+                      
+            <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
 
-          <input type="submit" value="Sign up" class="input">
-        </form>
+            <input type="submit" value="Login" class="input">
+
+          </form>
+        </div>
+        <!-- Registration form -->
+        <div class="tabcontent signup">
+          <form action="/user/signup" method="post" class="login-form" id="signup_form">
+            <input id="input-username" name="username" type="text" placeholder=" Enter login" class="input" maxlength="20" required>
+            <span id="login-validation" class="login-validation input-validation"></span>
+    
+            <input name="password" type="password" placeholder=" Enter password" class="input" maxlength="60" minlength="8" required> 
+            <span class="password-validation input-validation"></span>
+    
+            <input name="first_name" type="text" placeholder=" Enter Name" class="input on_sign_up" maxlength="30" required>
+            <span class="login-validation input-validation on_sign_up"></span>
+      
+            <div class="g-recaptcha" data-sitekey="6LcDuMoZAAAAADNTFVA4Eno-U8K_1rFIP0M-d0Fz"></div>
+
+            <input type="submit" value="Sign up" class="input">
+          </form>
+        </div>
       </div>
+      <span class="modal-close">Close</span> <!-- Modal window close button  -->
     </div>
-    <span class="modal-close">Close</span> <!-- Modal window close button  -->
   </div>
-</div>
-
-<script src="/javascripts/header.js"></script>
-<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <script src="/javascripts/header.js"></script>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<% } else { %>
+  <script src="/javascripts/header-on-user.js"></script>
+<% } %>
