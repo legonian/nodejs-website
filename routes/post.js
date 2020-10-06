@@ -25,7 +25,7 @@ router.post('/upload',
     })
 
     await addPost(req.body)
-    res.send('Uploaded! <a href="/">Go to Home Page</a> / <a href="/user/profile">Go to Profile</a>')
+    res.send('Uploaded! <a href="/">Go to Home Page</a> / <a href="/user/">Go to Profile</a>')
   }
 )
 
