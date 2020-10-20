@@ -31,6 +31,14 @@ test('Create Post', async () => {
   expect(respond.text.split(' ')[0]).toBe('Uploaded!')
 })
 
+test('Post List', async () => {
+  await agent.get('/user/posts').redirects(1).expect(200)
+})
+
+test('Users List', async () => {
+  await agent.get('/user/list').expect(200)
+})
+
 test('Delete Post', async () => {
   const deletedPost = await Post.delete(postOne)
   expect(deletedPost.title).toBe(postOne.title)
