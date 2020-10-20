@@ -3,12 +3,7 @@ const router = express.Router()
 
 const User = require('../models/user_model')
 
-router.get('/userlist', async function (req, res) {
-  const ul = await User.getList()
-  res.json(ul)
-})
-
-router.post('/images/upload', function (req, res) {
+router.post('/images/upload', function (_req, res) {
   res.redirect('/')
 })
 
