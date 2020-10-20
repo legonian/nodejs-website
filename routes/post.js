@@ -12,8 +12,8 @@ const addPost = Post.add
 const getPostsBy = Post.getBy
 const validatePost = Post.middleware.validate
 
-router.get('/new', validateSession, function (req, res) {
-  res.render('new_post')
+router.get('/new', validateSession, function (_req, res) {
+  res.render('post-new')
 })
 
 router.post('/upload',
@@ -36,7 +36,7 @@ router.get('/:postId', async function (req, res, next) {
   } else {
     const postData = await getPostsBy('post_id', req.params.postId)
     postData.content = converter.makeHtml(postData.content)
-    res.render('post', { post: postData })
+    res.render('post-page', { post: postData })
   }
 })
 

@@ -16,7 +16,7 @@ router.post('/login',
   checkCaptcha,
   validateUser,
   authUser,
-  async function (req, res, next) {
+  async function (_req, res) {
     res.redirect('/user')
   }
 )
@@ -25,7 +25,7 @@ router.post('/signup',
   checkCaptcha,
   validateUser,
   authUser,
-  async function (req, res) {
+  async function (_req, res) {
     res.redirect('/user')
   }
 )
@@ -44,39 +44,46 @@ router.get('/',
   function (req, res) {
     const userURL = `/user/${req.session.user.user_id}`
     res.redirect(userURL)
-    // res.render('profile', { profile: res.locals.user })
+  }
+)
+
+router.get('/posts',
+  validateSession,
+  function (req, res) {
+    const userURL = `/user/${req.session.user.user_id}/posts`
+    res.redirect(userURL)
   }
 )
 
 router.get('/messages',
   validateSession,
-  function (req, res) {
-    res.render('messages')
+  function (_req, res) {
+    res.render('user-messages')
   }
 )
 
 router.get('/settings',
   validateSession,
-  function (req, res) {
-    res.render('settings')
+  function (_req, res) {
+    res.render('user-settings')
   }
 )
 
-router.get('/list', async function (req, res) {
+router.get('/list', async function (_req, res) {
   const ul = await getUserList()
-  res.render('users_list', { userlist: ul })
+  res.render('user-list', { userlist: ul })
 })
 
 router.get('/:userId/posts', async function (req, res) {
   const pl = await getPostsBy('user_id', req.params.userId)
-  res.render('post_list', { postlist: Array.isArray(pl) ? pl : [pl] })
+  res.render('post-list', { postlist: Array.isArray(pl) ? pl : [pl] })
 })
 
 router.get('/:userId', async function (req, res, next) {
   const userId = parseInt(req.params.userId)
   const userData = await getUserBy('user_id', req.params.userId)
   if (userData && !isNaN(userId)) {
-    res.render('profile', { profile: userData })
+    res.render('user-page', { profile: userData })
   } else {
     req.session.error = 'No such user'
     next()
