@@ -31,7 +31,6 @@ router.post('/signup',
 )
 
 router.get('/log_out',
-  validateSession,
   function (req, res) {
     req.session.destroy(function () {
       res.redirect('/')
@@ -89,5 +88,15 @@ router.get('/:userId', async function (req, res, next) {
     next()
   }
 })
+
+router.get('/signup_page',
+  function (req, res) {
+    if (req.session.user) {
+      res.redirect('/')
+    } else {
+      res.render('user-signup', { username: req.query.username})
+    }
+  }
+)
 
 module.exports = router
