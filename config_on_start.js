@@ -11,19 +11,22 @@ module.exports = [
   helmet(),
   helmet.contentSecurityPolicy({
     directives: {
-      'default-src': ["'self'",
-        'https://maxcdn.bootstrapcdn.com/',
-        'https://cdn.jsdelivr.net/',
-        'https://fonts.gstatic.com/',
-        'https://www.google.com/',
-        'https://fonts.googleapis.com/',
-        'https://loremipsum.io/',
-        'https://i.imgur.com/'],
-      'script-src': ["'self'",
-        'https://www.google.com/',
-        'https://www.gstatic.com/'
+      'default-src': [
+        "'self'",
+        "https://www.google.com/"
       ],
-      'object-src': ["'none'"]
+      'script-src': [
+        "'self'",
+        "https://www.google.com/recaptcha/api.js",
+        "https://www.gstatic.com/recaptcha/releases/1AZgzF1o3OlP73CVr69UmL65/recaptcha__en.js"
+      ],
+      'object-src': [
+        "'none'"
+      ],
+      'img-src': [
+        "'self'",
+        'https: data:'
+      ]
     }
   }),
   (req, res, next) => {

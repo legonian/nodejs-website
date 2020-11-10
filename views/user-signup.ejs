@@ -1,5 +1,49 @@
 <%- include('header', {pageTitle: 'Sign-Up Page'}) %>
+<div class="mt-4 row justify-content-center container">
+  <form action="/user/signup" method="post" id="signup-form" novalidate="">
 
-<form action="" method="post"></form>
+    <h4 class="mb-3">Fill info</h4>
+    
+    <div class="mb-3">
+      <%- include('form-inputs', {input: "username", value: username}) %>
+    </div>
+
+    <div class="mb-3">
+      <%- include('form-inputs', {input: "password"}) %>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6 mb-3">
+        <%- include('form-inputs', {input: "first_name"}) %>
+      </div>
+      <div class="col-md-6 mb-3">
+        <%- include('form-inputs', {input: "last_name"}) %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8 mb-3">
+        <%- include('form-inputs', {input: "email"}) %>
+      </div>
+
+      <div class="col-md-4 mb-3">
+        <%- include('form-inputs', {input: "country"}) %>
+      </div>
+    </div>
+
+    <div class="custom-control custom-checkbox mb-3">
+      <%- include('form-inputs', {input: "is_login"}) %>
+    </div>
+
+    <div class="row justify-content-center mb-3">
+      <%- include('form-inputs', {input: "captcha"}) %>
+    </div>
+
+    <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
+  </form>
+</div>
+
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script src="/javascripts/user-signup.js" async defer></script>
 
 <%- include('footer') %>

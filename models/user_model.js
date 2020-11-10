@@ -38,10 +38,15 @@ User.add = async function (obj) {
     const hash = await bcrypt.hash(obj.password, 12)
     const query = `INSERT INTO users(username,
                                      hash,
-                                     first_name)
-                   VALUES ($1, $2, $3)`
-    const queryParameters = [obj.username, hash, obj.first_name]
-
+                                     email,
+                                     first_name,
+                                     country)
+                   VALUES ($1, $2, $3, $4, $5)`
+    const queryParameters = [obj.username,
+                             hash,
+                             obj.email,
+                             obj.first_name,
+                             obj.country]
     await makeQuery(query, queryParameters)
     return await User.auth(obj)
   }

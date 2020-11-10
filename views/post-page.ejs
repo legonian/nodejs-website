@@ -1,26 +1,14 @@
 <%- include('header', {pageTitle: post.title}) %>
 
-<div class="post">
-    <div class="wrap">
-      <div class="post-title">
-        <%=post.title%>
-      </div>
-      <div class="post-body">
-        <%-post.content%>
-      </div>
-    </div>
-    <div class="post-footer">
-      <div class="activities">
-          <a class="like icon">Like</a>
-          <a class="comment icon">Comment</a> 
-          <a class="share icon">Share</a>
-          <!-- These links might be substituted with icons -->
-      </div>
-      <div class="post-info">
-          <span class="timestamp"><%=post.create_date.toLocaleDateString('en-GB')%></span> by
-          <a class="author" href="/user/<%=post.user_id%>"><%=post.username%></a>
-      </div>
-    </div>
+<div class="mt-4 mx-4">
+  <h2 class="mb-2"><%=post.title%></h2>
+  <p class="border-bottom">
+    <%=post.create_date.toLocaleDateString('en-GB')%> by
+    <a href="/user/<%=post.user_id%>">
+      <%=post.username%>
+    </a>
+  </p>
+  <%-post.content%>
 </div>
 
 <%- include('footer') %>

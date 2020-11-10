@@ -1,56 +1,23 @@
 <%- include('header', {pageTitle: 'Home Page'}) %>
 
-<!-- <div class="forum-section">
-    <div class="container">
-        <div class="forum-header forum-header-modifier">
-            <div class="forum-name mod">Main forums</div>
-            <div class="forum-topic-number mod">Topics</div>
-            <div class="forum-posts mod">Posts</div>
-            <div class="forum-last-post mod">Last post</div>
-        </div>
-        <div id="topic"></div>
-    </div>
-</div> -->
-
-<div class="post">
-  <div class="wrap">
-    <div class="post-title">
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minus, amet?
-    </div>
-    <div class="post-body">
-      <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates architecto quis similique, itaque harum,
-        voluptatum veritatis quas, repudiandae enim vitae nostrum quaerat blanditiis numquam magnam quisquam voluptatem
-        id ipsam! Quas ad vitae animi, omnis reiciendis iure doloribus libero nam incidunt laudantium facilis repellat,
-        sint placeat ipsa dignissimos aliquam error alias. </p>
-      <img src="https://loremipsum.io/assets/images/lorem-ipsum-generator-custom-placeholder-text.jpg" alt=""> Temporary
-      img just to show functionality
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate recusandae reiciendis incidunt officiis eos
-        architecto. Unde corrupti in facere velit aut aperiam aspernatur nisi totam porro, sint cupiditate qui dolorum
-        voluptates? Dolorum vitae modi possimus blanditiis totam, magnam ducimus beatae quia dolore quam alias explicabo
-        sed laboriosam perspiciatis laborum quisquam?</p>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius eligendi dolore corporis quos voluptates id, quae
-        delectus quod nulla iusto amet nihil reprehenderit perspiciatis voluptatibus quidem repellendus? Hic iusto
-        facilis, repellat soluta aperiam maxime vero perferendis expedita, debitis dignissimos fugit mollitia sit odio
-        consequuntur! A placeat aliquam aperiam possimus quasi.</p>
-    </div>
-  </div>
-  <div class="post-footer">
-    <div class="activities">
-      <a class="like icon">Like</a>
-      <a class="comment icon">Comment</a>
-      <a class="share icon">Share</a>
-      <!-- These links might be substituted with icons -->
-    </div>
-    <div class="post-info">
-      <span class="timestamp">27.09.2020</span> by
-      <a class="author" href="/profile">Marcus Aurelius</a>
-    </div>
-  </div>
+<div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mw-10">
+  <h1 class="display-4">Forum</h1>
+  <p class="lead">Here you can create your own blog post. To do it just simply
+    sign up write.</p>
 </div>
 
-<!--
-    <script id="data_js" type="application/x-configuration"><%- //topics%></script>
-    <script src="/javascripts/main.js"></script>
--->
+<div>
+  <h3 class="pb-3 mb-4 font-italic border-bottom">
+    Pinned Posts
+  </h3>
+
+  <div>
+    <h2>Example Post Title</h2>
+    <p><%=(new Date).toLocaleDateString('en-GB')%> by <a href="#">Anonymous</a></p>
+    <p>Here you can see the example post text that can be created after
+      registration.</p>
+    <p>Blogs are written in markdown and </p>
+  </div>
+</div>
 
 <%- include('footer') %>

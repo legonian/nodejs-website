@@ -1,12 +1,19 @@
 <%- include('header', {pageTitle: 'List of users'}) %>
 
-<% if (postlist) { %>
-  <h1>List of <%= postlist[0].username %> posts</h1>
-  <% postlist.forEach(el => { %>
-    <a href="/post/<%= el.post_id %>"><%= el.title %></a><br>
-  <% }) %>
-<% } else { %>
-  <h1>User has zero posts</h1>
-<% } %>
+<div class="mt-4 mx-4">
+  <% if (postlist[0]) { %>
+    <h2 class="mb-4">All Posts of <%= postlist[0].username %></h2>
+    <% postlist.forEach(el => { %>
+      <div class="border-top border-gray clearfix">
+        <a href="/post/<%= el.post_id %>" class="mt-3 text-muted float-left">
+          <h3 class="font-weight-bold mb-0"><%= el.title %></h3>
+          <p class="mb-2">@<%= postlist[0].username %></p>
+        </a>
+      </div>
+    <% }) %>
+  <% } else { %>
+    <h2 class="mb-4">This user has no posts.</h2>
+  <% } %>
+</div>
 
 <%- include('footer') %>
