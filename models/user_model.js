@@ -71,7 +71,7 @@ User.changeParameter = async function (obj, param, cb) {
 User.getList = async function () {
   const query = 'SELECT user_id, username FROM users'
   return await makeQuery(query, [], async dbRes => {
-    return dbRes
+    return Array.isArray(dbRes) ? dbRes : [dbRes]
   })
 }
 
