@@ -6,6 +6,10 @@ const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const compression = require('compression')
 
+const dbSessionStore = require('connect-pg-simple')
+
+const dbPool = require('./models/pool')
+
 module.exports = [
   compression(),
   helmet(),
@@ -18,7 +22,7 @@ module.exports = [
       'script-src': [
         "'self'",
         "https://www.google.com/recaptcha/api.js",
-        "https://www.gstatic.com/recaptcha/releases/1AZgzF1o3OlP73CVr69UmL65/recaptcha__en.js"
+        "https://www.gstatic.com/recaptcha/"
       ],
       'object-src': [
         "'none'"
@@ -36,8 +40,8 @@ module.exports = [
     next()
   },
   session({
-    store: new (require('connect-pg-simple')(session))({
-      pool: require('./models/pool')
+    store: new (dbSessionStore(session))({
+      pool: dbPool
     }),
     name: 'sid',
     secret: process.env.SESSION_SECRET,
