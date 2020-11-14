@@ -1,24 +1,22 @@
 <%- include('header', {pageTitle: 'Messages'}) %>
 
-<div class="row">
-  <nav class="d-none d-md-block sidebar border-right col-3 px-0">
-    <div class="nav-item border-bottom py-4">
-      <h3 class="ml-3">List of Friends</h3>
-    </div>
-    <ul class="nav flex-column">
-      <% friendlist = ['User1', 'User2', 'User3'] %>
-      <% friendlist.forEach(friend => { %>
-      <li class="nav-item border-bottom">
-        <a href="#">
-          <h3 class="ml-3 my-2"><%= friend %></h3>
-        </a>
-      </li>
-    <% }) %>
-    </ul>
-  </nav>
-  <div class="col-9 py-4 px-3">
-    <h3>This Page is in Development</h3>
-  </div>
-</div>
+<script src="/javascripts/messaging.js" defer></script>
 
-<%- include('footer') %>
+<div class="d-flex border">
+  <div class="overflow-hidden bg-light border-right w-25">
+    <h5 class="border-bottom p-3">List of Users</h5>
+    <div class="messages-friendlist"></div>
+    </div>
+
+    <div class="w-75 p-3 d-flex flex-column">
+      <div class="messages-chat"></div>
+      <div class="input-group mt-auto" id="message-input-box">
+        <input type="text" class="form-control" placeholder="Type your message here" id="message-input">
+        <div class="input-group-append">
+          <button id="send" class="btn btn-outline-secondary" type="button">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <%- include('footer') %>

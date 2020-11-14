@@ -36,17 +36,42 @@ User.add = async function (obj) {
     return false
   } else {
     const hash = await bcrypt.hash(obj.password, 12)
-    const query = `INSERT INTO users(username,
+    const defaultAvatar = '/images/avatar_example.png'
+    let query, queryParameters
+    if (obj.last_name){
+      query = `INSERT INTO users(username,
                                      hash,
                                      email,
                                      first_name,
+                                     last_name,
+                                     avatar,
                                      country)
-                   VALUES ($1, $2, $3, $4, $5)`
-    const queryParameters = [obj.username,
-                             hash,
-                             obj.email,
-                             obj.first_name,
-                             obj.country]
+                   VALUES ($1, $2, $3, $4, $5, $6, $7)`
+      queryParameters = [
+        obj.username,
+        hash,
+        obj.email,
+        obj.first_name,
+        obj.last_name,
+        defaultAvatar,
+        obj.country]
+    } else {
+      query = `INSERT INTO users(username,
+                                     hash,
+                                     email,
+                                     first_name,
+                                     avatar,
+                                     country)
+                   VALUES ($1, $2, $3, $4, $5, $6)`
+      queryParameters = [
+        obj.username,
+        hash,
+        obj.email,
+        obj.first_name,
+        defaultAvatar,
+        obj.country]
+    }
+    
     await makeQuery(query, queryParameters)
     return await User.auth(obj)
   }

@@ -9,7 +9,7 @@ CREATE TABLE users(
   first_name varchar(30) not null,
   last_name varchar(30),
   rating int not null default 0 check (0 <= rating),
-  avatar bytea,
+  avatar varchar(150),
   user_info varchar(420),
   posts_count int not null default 0 check (0 <= posts_count),
   create_date timestamp not null default current_timestamp,
