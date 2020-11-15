@@ -28,7 +28,7 @@ loginForm.onsubmit = async function (event) {
     password: this.password.value,
     'g-recaptcha-response': window.grecaptcha.getResponse(0)
   })
-  const res = await window.fetch('/user/login', {
+  const res = await window.fetch('/u/login', {
     method: 'post',
     headers: { 'Content-Type': 'application/json;charset=UTF-8' },
     body: formBody
@@ -45,6 +45,6 @@ signupForm.onsubmit = async function (event) {
   event.preventDefault()
   const originPath = window.location.origin
   const username = this.username.value
-  const singupPage = `${originPath}/user/signup_page?username=${username}`
+  const singupPage = `${originPath}/signup_page?username=${username}`
   window.location.assign(singupPage)
 }

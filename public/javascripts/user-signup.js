@@ -14,7 +14,7 @@ fullSignupForm.onsubmit = async function (event) {
       country: this.country.value,
       'g-recaptcha-response': window.grecaptcha.getResponse(1)
     })
-    const res = await window.fetch('/user/signup', {
+    const res = await window.fetch('/u/signup', {
       method: 'post',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',

@@ -11,7 +11,7 @@
 <div class="text-center">
   <div class="d-flex justify-content-around">
     <div class="pt-3">
-      <a href="/user/<%=profile.user_id%>/posts">
+      <a href="/u/<%=profile.user_id%>/posts">
         <h5 class="text-black my-1"><%=profile.posts_count%></h5>
         <p class="text-muted">Posts</p>
       </a>
@@ -34,12 +34,12 @@
   <% if (user) { %>
     <% if (user.username === profile.username) { %>
     <nav class="row mt-4 text-center justify-content-center">
-      <a class="btn btn-outline-secondary col-2 mr-4" href="/user/settings">Setting</a>
-      <a class="btn btn-outline-danger col-2" href="/user/log_out">Log Out</a>
+      <a class="btn btn-outline-secondary col-2 mr-4" href="/settings">Setting</a>
+      <a class="btn btn-outline-danger col-2" href="/log_out">Log Out</a>
     </nav>
     <% } else { %>
       <nav class="row mt-4 text-center justify-content-center">
-        <a class="btn btn-outline-secondary col-2 mr-4" href="/user/messages?new_user=<%= encodeURIComponent(profile.username) %>&avatar=<%= profile.avatar %>">Send message</a>
+        <a class="btn btn-outline-secondary col-2 mr-4" href="/messages?new_user=<%= encodeURIComponent(profile.username) %>&avatar=<%= profile.avatar %>">Send message</a>
       </nav>
     <% } %>
   <% } %>
