@@ -39,67 +39,59 @@ async function downloadMessages() {
 
 function displaySentMessage(m) {
   const newMess = document.createElement('div')
-  newMess.classList.add("d-flex")
-  newMess.classList.add("align-items-end")
-  newMess.classList.add("flex-column")
-  newMess.classList.add("mr-2")
-  newMess.classList.add("mb-2")
+  newMess.classList.add('d-flex','align-items-end', 'flex-column', 'mr-2', 'mb-2')
 
   const messP = document.createElement('p')
-  messP.classList.add("bg-info")
-  messP.classList.add("m-0")
-  messP.classList.add("p-1")
-  messP.classList.add("rounded")
-  messP.classList.add("text-white")
-  messP.innerText = m.content
-
-  const timeSmall = document.createElement('small')
-  timeSmall.classList.add("text-muted")
-  timeSmall.innerText = (new Date(m.created)).toLocaleString('it-IT')
-
-  const childDiv = document.createElement('div')
-  childDiv.appendChild(messP)
-  childDiv.appendChild(timeSmall)
-  
-  newMess.appendChild(childDiv)
-  
-  messChat.appendChild(newMess)
-  messChat.scrollTop = messChat.scrollHeight
-}
-
-function displayReceivedMessage(m, avatar) {
-  const newMess = document.createElement('div')
-  newMess.classList.add('d-flex', 'align-items-start', 'ml-2', 'mb-2')
-
-  const avatarImg = document.createElement('img')
-  avatarImg.classList.add("rounded-circle")
-  avatarImg.src = avatar
-  avatarImg.width = '25'
-
-  const messP = document.createElement('p')
-  messP.classList.add("bg-secondary")
-  messP.classList.add("m-0")
-  messP.classList.add("p-1")
-  messP.classList.add("rounded")
-  messP.classList.add("text-white")
+  messP.classList.add('bg-info', 'm-0', 'p-1', 'rounded', 'text-white')
   messP.innerText = m.content
 
   const timeSmall = document.createElement('small')
   timeSmall.classList.add("text-muted")
   timeSmall.innerText = (new Date(m.created)).toLocaleString('it-IT')
   
-  const childDiv = document.createElement('div')
-  childDiv.appendChild(messP)
-  childDiv.appendChild(timeSmall)
-
-  newMess.appendChild(avatarImg)
-  newMess.appendChild(childDiv)
-
+  newMess.appendChild(messP)
+  newMess.appendChild(timeSmall)
+  
   messChat.appendChild(newMess)
   messChat.scrollTop = messChat.scrollHeight
 }
 
 function displayChat(user) {
+  function displayReceivedMessage(m, avatarUrl) {
+    const newMess = document.createElement('div')
+    newMess.classList.add('d-flex', 'align-items-start', 'ml-2', 'mb-2')
+
+    const avatarImg = document.createElement('img')
+    avatarImg.classList.add("rounded-circle")
+    avatarImg.src = avatarUrl
+    avatarImg.width = '25'
+
+    const messP = document.createElement('p')
+    messP.classList.add('bg-secondary', 'm-0', 'p-1', 'rounded', 'text-white')
+    messP.innerText = m.content
+
+    const timeSmall = document.createElement('small')
+    timeSmall.classList.add("text-muted")
+    timeSmall.innerText = (new Date(m.created)).toLocaleString('it-IT')
+
+    const childDiv = document.createElement('div')
+    childDiv.appendChild(messP)
+    childDiv.appendChild(timeSmall)
+
+    newMess.appendChild(avatarImg)
+    newMess.appendChild(childDiv)
+
+    messChat.appendChild(newMess)
+    messChat.scrollTop = messChat.scrollHeight
+  }
+  function displayChatWarning(errorText) {
+    messChat.innerHTML = ''
+    const chatTitle = document.createElement('h4')
+    chatTitle.classList.add("text-muted")
+    chatTitle.classList.add("text-center")
+    chatTitle.innerText = errorText
+    messChat.appendChild(chatTitle)
+  }
   messChat.innerHTML = ''
   selectedUser = user
   messageInputBox.hidden = false
@@ -175,16 +167,7 @@ function displayUserList(dataJson) {
   }
 }
 
-function displayChatWarning(errorText) {
-  messChat.innerHTML = ''
-  const chatTitle = document.createElement('h4')
-  chatTitle.classList.add("text-muted")
-  chatTitle.classList.add("text-center")
-  chatTitle.innerText = errorText
-  messChat.appendChild(chatTitle)
-}
-
-async function showChat(){
+;(async ()=>{
   let messJson = await downloadMessages()
   messageInput.addEventListener("keyup", function (event) {
     if (event.key === 'Enter') {
@@ -193,10 +176,9 @@ async function showChat(){
   })
   sendBtn.onclick = async function () {
     if (messageInput.value !== '') {
-      const sent_from = messJson.user.user_id
       const sent_to = selectedUser.user_id
       const content = messageInput.value
-      const formBody = JSON.stringify({ sent_from, sent_to, content })
+      const formBody = JSON.stringify({ sent_to, content })
       const res = await window.fetch('/m/send', {
         method: 'post',
         headers: {
@@ -226,7 +208,7 @@ async function showChat(){
   const newUserAvatar = decodeURIComponent(urlParams.get('avatar'))
   const newUserFirstName = urlParams.get('first_name')
   if (newUserId && newUserName && newUserAvatar) {
-    if (typeof messJson.users[newUserId] === 'undefined'){
+    if (typeof messJson.users[newUserId] === 'undefined') {
       console.log('new chat with', newUserName)
       const newUser = {
         user_id: newUserId,
@@ -244,6 +226,4 @@ async function showChat(){
     displayChat()
     messageInputBox.hidden = true
   }
-}
-
-showChat()
+})()
