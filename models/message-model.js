@@ -26,8 +26,7 @@ const Message = {
       const query = `SELECT * FROM get_chat($1)`
       const queryParameters = [user_id]
       const { rows } = await pool.query(query, queryParameters)
-      const res = rows[0]
-      return res
+      return rows
     } catch (error) {
       console.log('Error on getting chat:', error)
       console.log('Input:', [user_id])

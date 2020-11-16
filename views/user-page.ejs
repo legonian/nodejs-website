@@ -39,7 +39,7 @@
     </nav>
     <% } else { %>
       <nav class="row mt-4 text-center justify-content-center">
-        <a class="btn btn-outline-secondary col-2 mr-4" href="/messages?new_user=<%= encodeURIComponent(profile.username) %>&avatar=<%= profile.avatar %>">Send message</a>
+        <a class="btn btn-outline-secondary col-2 mr-4" href="/messages?user_id=<%= profile.user_id %>&username=<%= profile.username %>&avatar=<%= encodeURIComponent(profile.avatar) %>">Send message</a>
       </nav>
     <% } %>
   <% } %>

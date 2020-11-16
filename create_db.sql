@@ -64,6 +64,19 @@ VALUES (user_id1, title1, meta_title1, content1)
 RETURNING *;
 $$ LANGUAGE SQL;
 
-CREATE OR REPLACE FUNCTION get_chat(user_id1 int) AS $$
-SELECT * FROM messages WHERE sent_from = user_id1 OR sent_to = user_id1
+DROP FUNCTION get_chat(int);
+CREATE OR REPLACE FUNCTION get_chat(user_id1 int)
+RETURNS TABLE(
+	from_me bool,
+	"content" text,
+	create_date timestamp,
+	user_id int,
+	username varchar(20),
+	first_name varchar(30),
+	avatar varchar(150)
+) AS $$
+SELECT user_id=sent_to, "content", messages.create_date, user_id, username, first_name, avatar FROM messages
+LEFT JOIN users ON (user_id = sent_to OR user_id = sent_from) AND user_id <> user_id1
+WHERE sent_from = user_id1 OR sent_to = user_id1
+ORDER BY messages.create_date;
 $$ LANGUAGE SQL;
