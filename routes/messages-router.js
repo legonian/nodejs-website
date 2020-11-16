@@ -28,10 +28,8 @@ router.post('/send',
   validateSession,
   validateForm,
   async function (req, res) {
-    const mess = req.body
-    mess.sent_from = req.session.user.user_id
-    const newMessage = await Message.create(mess)
-    res.json(newMessage)
+    req.body.sent_from = req.session.user.user_id
+    res.json(await Message.create(req.body))
   }
 )
 

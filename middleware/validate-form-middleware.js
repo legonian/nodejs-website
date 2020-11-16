@@ -60,8 +60,7 @@ function checkNewPostForm(form) {
 }
 
 function checkMessageForm(form) {
-  return isValid = check(form.content, 'message') &&
-    Number.isInteger(form.sent_from) && Number.isInteger(form.sent_to)
+  return isValid = check(form.content, 'message') && Number.isInteger(form.sent_to)
 }
 
 module.exports = async function (req, _res, next) {
