@@ -197,7 +197,7 @@ async function showChat(){
       const sent_to = selectedUser.user_id
       const content = messageInput.value
       const formBody = JSON.stringify({ sent_from, sent_to, content })
-      const res = await window.fetch('/m/upload', {
+      const res = await window.fetch('/m/send', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',

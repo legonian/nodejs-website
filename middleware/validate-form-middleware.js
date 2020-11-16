@@ -1,7 +1,7 @@
 function check(value, param){
   let regex
   if(param === 'username'){
-    regex = /^[a-zA-Z0-9]{1,80}$/g
+    regex = /^[a-z0-9_]{1,80}$/g
   } else if (param === 'user_id') {
     regex = /^\d+$/g
   } else if (param === 'password') {
@@ -11,9 +11,11 @@ function check(value, param){
   } else if (param === 'email') {
     regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,5})$/g
   } else if (param === 'post_title') {
-    regex = /^[a-zA-Z0-9 ]{1,80}$/g
+    regex = /^[a-zA-Z0-9 :,.?!'"#$%;()&-]{1,80}$/g
   } else if (param === 'post_content') {
     regex = /^[\s\S]+$/g
+  } else if (param === 'message') {
+    regex = /^[a-zA-Z0-9 :,.?!'"#$%;()&-]{1,1000}$/g
   } else{
     console.log('wrong parameter')
     return false
@@ -22,7 +24,7 @@ function check(value, param){
     const isString = typeof value === 'string'
     const isValid = value.match(regex) !== null
     if (!(isString && isValid)){
-      console.log('Invalid', param, ':', value)
+      console.log('Invalid', param)
     }
     return isString && isValid
   } catch (error) {
@@ -52,10 +54,14 @@ function checkSigninForm(form) {
 }
 
 function checkNewPostForm(form) {
-  const isRequeredValid = check(form.title, 'post_title') &&
+  return check(form.title, 'post_title') &&
     check(form.content, 'post_content')
     // check(form.user_id, 'user_id')
-  return isRequeredValid
+}
+
+function checkMessageForm(form) {
+  return isValid = check(form.content, 'message') &&
+    Number.isInteger(form.sent_from) && Number.isInteger(form.sent_to)
 }
 
 module.exports = async function (req, _res, next) {
@@ -70,6 +76,8 @@ module.exports = async function (req, _res, next) {
       if (isValid) {
         req.body.meta_title = req.body.content.slice(0, 100)
       }
+    } else if (req.route.path === '/send') {
+      isValid = checkMessageForm(req.body)
     } else {
       console.log('Wrong path to validate:', req.route.path)
       isValid = false
