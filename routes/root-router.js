@@ -10,9 +10,9 @@ router.get('/', function (_req, res) {
 })
 
 router.get('/new_post', 
-  require('../middleware/validate-session-middleware'),
-function (_req, res) {
-  res.render('post-new')
+  validateSession,
+  function (_req, res) {
+    res.render('post-new')
 })
 
 router.get('/signup_page',
