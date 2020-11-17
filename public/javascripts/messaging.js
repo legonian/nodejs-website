@@ -138,8 +138,9 @@ function displayChat(user) {
     displayChatWarning('Choose user to chat at left panel')
     messageInputBox.hidden = true
     return
-  } else if (user.messages.length === 0) {
-    displayChatWarning('This chat is empty. Type new message!')
+  // } else if (user.messages.length === 0) {
+  //   displayChatWarning('This chat is empty. Type new message!')
+  //   displayChatHead(user.username)
   } else {
     displayChatHead(user.username)
     for (m of user.messages) {
@@ -246,7 +247,7 @@ function displayUserList(dataJson) {
 
   }
   const urlParams = new URLSearchParams(window.location.search)
-  const newUserId = urlParams.get('user_id')
+  const newUserId = Number(urlParams.get('user_id'))
   const newUserName = urlParams.get('username')
   const newUserAvatar = decodeURIComponent(urlParams.get('avatar'))
   const newUserFirstName = urlParams.get('first_name')

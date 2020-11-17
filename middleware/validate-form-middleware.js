@@ -1,21 +1,19 @@
 function check(value, param){
   let regex
   if(param === 'username'){
-    regex = /^[a-z0-9_]{1,80}$/g
-  } else if (param === 'user_id') {
-    regex = /^\d+$/g
+    regex = /^[a-z0-9_]{1,20}$/g
   } else if (param === 'password') {
     regex = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
   } else if (param === 'name') {
     regex = /^[a-zA-Z0-9]{1,30}$/g
+  } else if (param === 'country') {
+    regex = /^[a-zA-Z0-9&(),. ]{1,30}$/g
   } else if (param === 'email') {
-    regex = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,5})$/g
+    regex = /^([a-zA-Z0-9_\.-]{1,50})@([\da-z\.-]{1,40})\.([a-z\.]{2,5})$/g
   } else if (param === 'post_title') {
     regex = /^[a-zA-Z0-9 :,.?!'"#$%;()&-]{1,80}$/g
   } else if (param === 'post_content') {
     regex = /^[\s\S]+$/g
-  } else if (param === 'message') {
-    regex = /^[a-zA-Z0-9 :,.?!'"#$%;()&-]{1,1000}$/g
   } else{
     console.log('wrong parameter')
     return false
@@ -42,13 +40,12 @@ function checkSigninForm(form) {
   const isRequeredValid = check(form.username, 'username') &&
     check(form.password, 'password') &&
     check(form.email, 'email') &&
-    check(form.first_name, 'name')
-    // && check(form.country,'country')
-  
+    check(form.first_name, 'name') &&
+    check(form.country,'country')
   let isOptionalValid = true
   if (typeof form.last_name !== 'undefined'){
-    isOptionalValid = check(form.last_name, 'name')
-    // && check(form.avatar,'url')
+    isOptionalValid = typeof form.last_name === 'string' &&
+      (form.last_name === '' || check(form.last_name, 'name'))
   }
   return isRequeredValid && isOptionalValid
 }
@@ -56,11 +53,12 @@ function checkSigninForm(form) {
 function checkNewPostForm(form) {
   return check(form.title, 'post_title') &&
     check(form.content, 'post_content')
-    // check(form.user_id, 'user_id')
 }
 
 function checkMessageForm(form) {
-  return isValid = check(form.content, 'message') && Number.isInteger(form.sent_to)
+  return Number.isInteger(form.sent_to) &&
+    typeof form.content === 'string' &&
+    form.content.length < 1000
 }
 
 module.exports = async function (req, _res, next) {
@@ -81,7 +79,6 @@ module.exports = async function (req, _res, next) {
       console.log('Wrong path to validate:', req.route.path)
       isValid = false
     }
-
     if (isValid) {
       next()
     } else {

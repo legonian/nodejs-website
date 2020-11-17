@@ -2,10 +2,10 @@
   <label>Username</label>
   <div class="input-group">
     <% if(typeof value === 'undefined') { value = '' } %>
-    <input type="text" class="form-control" name="username" autocomplete="username" placeholder="Username" maxlength="20"
-      required="" value="<%= value %>">    
+    <input type="text" class="form-control" name="username" autocomplete="username"
+      placeholder="Username" value="<%= value %>">    
     <div class="invalid-feedback">
-      Your username is required.
+      Your username is required and could contain lowercase or underscore character with up to 20 characters.
     </div>
   </div>
 <% } %>
@@ -13,10 +13,11 @@
 <% if (input === 'password') { %>
   <label>Password</label>
   <div class="input-group">
-    <input type="password" class="form-control" name="password" autocomplete="password"
-      placeholder="Password" maxlength="60" minlength="8" required="" value="">
+    <input type="password" class="form-control" name="password"
+      autocomplete="password" placeholder="Password" value="">
     <div class="invalid-feedback">
-      Your password is required and need to be at least 8 characters.
+      Your password is required and should contain lowercase, uppercase, number 
+      and be more than 8 characters.
     </div>
   </div>
 <% } %>
@@ -24,21 +25,24 @@
 <% if (input === 'first_name') { %>
   <label>First name</label>
   <input type="text" class="form-control" name="first_name" autocomplete="name"
-    placeholder="Name" value="" required="">
+    placeholder="Name" value="">
   <div class="invalid-feedback">
-    Valid first name is required.
+    Valid first name is required and shouldn't be more than 30 characters.
   </div>
 <% } %>
 
 <% if (input === 'last_name') { %>
   <label>Last name <span class="text-muted">(Optional)</span></label>
   <input type="text" class="form-control" name="last_name" placeholder="" value="">
+  <div class="invalid-feedback">
+    Valid last name shouldn't be more than 30 characters.
+  </div>
 <% } %>
 
 <% if (input === 'email') { %>
   <label>Email</label>
   <input type="email" class="form-control" name="email" autocomplete="email"
-    placeholder="you@example.com" value="" required="">
+    placeholder="you@example.com" value="">
   <div class="invalid-feedback">
     Please enter a valid email address.
   </div>
@@ -46,7 +50,7 @@
 
 <% if (input === 'country') { %>
   <label>Country</label>
-  <select class="custom-select" name="country" required="">
+  <select class="custom-select" name="country">
     <option value="">Choose...</option>
     <option value="Afganistan">Afghanistan</option>
     <option value="Albania">Albania</option>
