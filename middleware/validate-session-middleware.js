@@ -8,7 +8,10 @@ module.exports = async function (req, _res, next) {
         req.session.user = refrashedUser
         next()
       } else {
-        req.session.error = 'Session is corrupted'
+        req.session.destroy(function () {
+          res.redirect('/')
+        })
+        req.session.error = 'Your account was deleted'
         next('route')
       }
     } else {
