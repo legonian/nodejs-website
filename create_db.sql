@@ -1,12 +1,15 @@
+DROP FUNCTION IF EXISTS add_user(varchar,varchar,varchar,varchar,varchar,varchar);
+DROP FUNCTION IF EXISTS add_post(int,varchar,varchar,text);
+DROP FUNCTION IF EXISTS get_chat(int);
 DROP TABLE IF EXISTS posts;
-DROP TABLE IF EXISTS users;
 DROP TABLE IF EXISTS messages;
+DROP TABLE IF EXISTS users;
 
 CREATE TABLE users(
   user_id int primary key generated always as identity,
   username varchar(20) not null UNIQUE,
   hash varchar(60) not null,
-  email varchar(60) not null UNIQUE,
+  email varchar(100) not null UNIQUE,
   first_name varchar(30) not null,
   last_name varchar(30),
   rating int not null default 0 check (0 <= rating),
@@ -64,7 +67,7 @@ VALUES (user_id1, title1, meta_title1, content1)
 RETURNING *;
 $$ LANGUAGE SQL;
 
-DROP FUNCTION get_chat(int);
+
 CREATE OR REPLACE FUNCTION get_chat(user_id1 int)
 RETURNS TABLE(
 	from_me bool,
@@ -75,7 +78,8 @@ RETURNS TABLE(
 	first_name varchar(30),
 	avatar varchar(150)
 ) AS $$
-SELECT user_id=sent_to, "content", messages.create_date, user_id, username, first_name, avatar FROM messages
+SELECT user_id=sent_to, "content", messages.create_date, user_id, username, first_name, avatar
+FROM messages
 LEFT JOIN users ON (user_id = sent_to OR user_id = sent_from) AND user_id <> user_id1
 WHERE sent_from = user_id1 OR sent_to = user_id1
 ORDER BY messages.create_date;
