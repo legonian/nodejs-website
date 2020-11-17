@@ -1,6 +1,6 @@
 const User = require('../models/user-model')
 
-module.exports = async function (req, _res, next) {
+module.exports = async function (req, res, next) {
   try {
     if (req.session.user) {
       const refrashedUser = await User.get('username', req.session.user.username)
@@ -11,8 +11,6 @@ module.exports = async function (req, _res, next) {
         req.session.destroy(function () {
           res.redirect('/')
         })
-        req.session.error = 'Your account was deleted'
-        next('route')
       }
     } else {
       req.session.error = 'Unauthorized Access. Please Log In.'
