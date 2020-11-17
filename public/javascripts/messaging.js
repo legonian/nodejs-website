@@ -1,8 +1,17 @@
-const sendBtn = document.querySelector('#send')
-const messageInput = document.querySelector('#message-input')
-const messChat = document.querySelector('.messages-chat')
+const userList = document.querySelector('#messages-friendlist')
+const messChat = document.querySelector('#messages-chat')
+
 const messageInputBox = document.querySelector('#message-input-box')
-const userList = document.querySelector('.messages-friendlist')
+const messageInput = document.querySelector('#message-input')
+
+const sendBtn = document.querySelector('#send')
+const backBtn = document.querySelector('#back-button')
+
+const chatHeader = document.querySelector('#chat-header')
+
+const userPanel = document.querySelector('#user-panel')
+const chatPanel = document.querySelector('#chat-panel')
+
 
 let selectedUser
 
@@ -91,6 +100,36 @@ function displayChat(user) {
     chatTitle.classList.add("text-center")
     chatTitle.innerText = errorText
     messChat.appendChild(chatTitle)
+    chatHeader.hidden = true
+  }
+  function displayChatHead(text) {
+    const chatHeader = document.querySelector('#chat-header')
+    chatHeader.hidden = false
+
+    // hide userPanel show chatPanel
+    userPanel.classList.add('d-none', 'd-md-block')
+    chatPanel.classList.remove('d-none', 'd-md-block')
+
+    chatPanel.classList.remove('col-8')
+    chatPanel.classList.add('col')
+    userPanel.classList.remove('col')
+    userPanel.classList.add('col-4')
+
+    chatHeader.querySelector('#chat-header > h5').innerText = text
+    backBtn.onclick = function (){
+      // hide chatPanel show userPanel
+      chatPanel.classList.add('d-none', 'd-md-block')
+      userPanel.classList.remove('d-none', 'd-md-block')
+
+      chatPanel.classList.remove('col')
+      chatPanel.classList.add('col-8')
+
+      userPanel.classList.add('col')
+      userPanel.classList.remove('col-4')
+
+      displayChatWarning('Choose user to chat at left panel')
+      messageInputBox.hidden = true
+    }
   }
   messChat.innerHTML = ''
   selectedUser = user
@@ -102,6 +141,7 @@ function displayChat(user) {
   } else if (user.messages.length === 0) {
     displayChatWarning('This chat is empty. Type new message!')
   } else {
+    displayChatHead(user.username)
     for (m of user.messages) {
       if (m.from_me) {
         displaySentMessage(m)
@@ -201,6 +241,9 @@ function displayUserList(dataJson) {
         console.log('cant download messages')
       }
     }
+  }
+  backBtn.onclick = function () {
+
   }
   const urlParams = new URLSearchParams(window.location.search)
   const newUserId = urlParams.get('user_id')

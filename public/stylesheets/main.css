@@ -1,10 +1,10 @@
 
 /* User Messages Page */
-.messages-friendlist {
-  height: 550px;
+#messages-friendlist {
+  height: 75vh;
   overflow-y: auto;
 }
-.messages-chat {
-  height: 530px;
+#messages-chat {
+  height: 65vh;
   overflow-y: auto;
 }
