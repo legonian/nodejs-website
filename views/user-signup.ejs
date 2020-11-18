@@ -1,6 +1,7 @@
 <%- include('header', {pageTitle: 'Sign-Up Page'}) %>
 <div class="my-4 row justify-content-center container">
-  <form action="/u/signup" method="post" id="signup-form" novalidate="">
+  <div class="col-3 d-none d-lg-block"></div>
+  <form class="col" action="/u/signup" method="post" id="signup-form" novalidate="">
 
     <h4 class="mb-3">Fill info</h4>
     
@@ -41,6 +42,8 @@
 
     <button class="btn btn-primary btn-lg btn-block" type="submit">Sign Up</button>
   </form>
+
+  <div class="col-3 d-none d-lg-block"></div>
 </div>
 
 <script src="/javascripts/user-signup.js" async defer></script>
