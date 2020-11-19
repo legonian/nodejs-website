@@ -6,6 +6,7 @@ module.exports = async function (req, res, next) {
       const refrashedUser = await User.get('username', req.session.user.username)
       if (refrashedUser) {
         req.session.user = refrashedUser
+        res.locals.user = refrashedUser
         next()
       } else {
         req.session.destroy(function () {
