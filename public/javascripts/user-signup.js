@@ -13,7 +13,7 @@ function checkForm(form) {
     }
   }
   try {
-    const isUsername = /^[a-z0-9_]{1,80}$/g
+    const isUsername = /^[a-z0-9_]{1,20}$/g
     const isPassword = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
     const isEmail = /^([a-zA-Z0-9_\.-]{1,50})@([\da-z\.-]{1,40})\.([a-z\.]{2,5})$/g
     const isName = /^[a-zA-Z0-9 ]{1,30}$/g
