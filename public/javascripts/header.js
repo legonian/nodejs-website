@@ -40,8 +40,8 @@ function checkLoginForm(form) {
     const isUsername = /^[a-z0-9_]{1,80}$/g
     const isPassword = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
     let isValid = true
-    if (checkInput(form.username, isUsername)) isValid = false
-    if (checkInput(form.password, isPassword)) isValid = false
+    if (!checkInput(form.username, isUsername)) isValid = false
+    if (!checkInput(form.password, isPassword)) isValid = false
     return isValid
   } catch (e) {
     console.log('Error:', e)
