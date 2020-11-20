@@ -48,7 +48,7 @@ class FormValidator {
       } else if (param === 'title') {
         return val.match(/^[a-zA-Z0-9 :,.?!'"#$%;()&-]{1,80}$/g) !== null
       } else if (param === 'content') {
-        return val.match(/^[\s\S]+$/g) !== null
+        return val !== '' && val.match(/^[\s\S]+$/g) !== null
       } else if (param === 'user_info') {
         return val.match(/^[a-zA-Z0-9 :,.?!'"#$%;()&-]{1,420}$/g) !== null
       } else if (param === 'sent_to') {
