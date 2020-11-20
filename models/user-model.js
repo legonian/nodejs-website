@@ -20,7 +20,6 @@ const User = {
       }
     } catch (error) {
       console.log('Error on authentication:', error)
-      console.log('Input:', [obj])
       return false
     }
     
@@ -43,7 +42,6 @@ const User = {
       return res
     } catch (error) {
       console.log('Error on creation:', error)
-      console.log('Input:', [obj])
       return false
     }
   },
@@ -61,15 +59,15 @@ const User = {
       }
     } catch (error) {
       console.log('Error on getting:', error)
-      console.log('Input:', [param, val])
       return false
     }
   },
-  async change(obj, param, val) {
+  async change(obj) {
     try {
       const pastUserData = await User.authenticate(obj)
       const paramToChange = [
         'username',
+        'password',
         'email',
         'first_name',
         'last_name',
@@ -77,18 +75,18 @@ const User = {
         'user_info',
         'country'
       ]
-      if (pastUserData && paramToChange.includes(param)) {
+      if (pastUserData && paramToChange.includes(obj.param)) {
         const query = `
-        UPDATE users SET ${param} = $1
+        UPDATE users SET ${obj.param} = $1
         WHERE username = $2
         RETURNING *`
-        const queryParameters = [val, obj.username]
+        const queryParameters = [obj.value, obj.username]
         const { rows } = await pool.query(query, queryParameters)
         const res = rows[0]
         delete res.hash
         return res
-      } else if (pastUserData && param === 'password'){
-        const hash = await bcrypt.hash(val, 12)
+      } else if (pastUserData && obj.param === 'password'){
+        const hash = await bcrypt.hash(obj.value, 12)
         const query = `
         UPDATE users SET hash = $1
         WHERE username = $2
@@ -103,7 +101,6 @@ const User = {
       }
     } catch (error) {
       console.log('Error on changing:', error)
-      console.log('Input:', [obj, param, val])
       return false
     }
   },
@@ -121,7 +118,6 @@ const User = {
       }
     } catch (error) {
       console.log('Error on deleting:', error)
-      console.log('Input:', [obj])
       return false
     }
   },

@@ -40,7 +40,41 @@ router.get('/messages',
 router.get('/settings',
   validateSession,
   function (_req, res) {
-    res.render('user-settings')
+    const profile = [
+      [
+        'Username',
+        res.locals.user.username,
+        'change-username'],
+      [
+        'Email address',
+        res.locals.user.email,
+        'change-email'],
+      [
+        'First Name',
+        res.locals.user.first_name,
+        'change-first_name'],
+      [
+        'Last Name',
+        res.locals.user.last_name || '- Empty -',
+        'change-last_name'],
+      [
+        'Avatar',
+        res.locals.user.avatar === '/images/avatar_example.png' ? '- Default -' : res.locals.user.avatar,
+        'change-avatar'],
+      [
+        'User Info',
+        res.locals.user.user_info || '- Empty -',
+        'change-user_info'],
+      [
+        'Password',
+        '********',
+        'change-password'],
+      [
+        'Country',
+        res.locals.user.country,
+        'change-country']
+    ]
+    res.render('user-settings',{profile})
   }
 )
 

@@ -51,9 +51,34 @@ router.post('/signup',
   }
 )
 
-router.post('/update', function (req, res) { }
+router.post('/update',
+  validateSession,
+  validateForm,
+  async function (req, res, next) {
+    req.body.username = req.session.user.username
+    const changedUser = await User.change(req.body)
+    if (changedUser) {
+      req.session.user = changedUser
+      res.send('done')
+    } else {
+      next()
+    }
+  }
 )
-router.post('/delete', function (req, res) { }
+
+router.post('/delete',
+  validateSession,
+  validateForm,
+  async function (req, res, next) {
+    req.body.username = req.session.user.username
+    if(await User.delete(req.body)){
+      req.session.destroy(function () {
+        res.send('done')
+      })
+    } else {
+      next()
+    }
+  }
 )
 
 module.exports = router

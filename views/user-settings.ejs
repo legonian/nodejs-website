@@ -3,19 +3,19 @@
 <div class="d-flex justify-content-center">
   <div class="w-100">
     <h2 class="my-4 text-center">User Settings</h2>
-    
-    <% x = {'Username':'example','Email address':'example@examplbbbbbbbbbbbe.com','First Name':'Name', 'Country':'Uganda'} %>
-    <% for (const [key, value] of Object.entries(x)) { %>
+
+    <% for (const param of profile) { %>
       <div class="d-flex justify-content-between mt-3 border-bottom border-gray">
         <div class="text-muted mx-2">
           <p class="font-weight-bold mb-0">
-            <%= key %>
+            <%= param[0] %>
           </p>
           <p class="mb-2">
-            <%= value %>
+            <%= param[1] %>
           </p>
         </div>
-        <button type="button" class="btn btn-secondary mx-2 text-nowrap my-auto px-4">Change</button>
+        <button id="<%= param[2] %>" type="button" data-toggle="modal" data-target="#edit-modal"
+          class="btn btn-secondary mx-2 text-nowrap my-auto px-4">Change</button>
       </div>
     <% } %>
 
@@ -28,10 +28,73 @@
           Username
         </p>
       </div>
-      <button type="button" class="btn btn-danger mx-2 text-nowrap my-auto px-4">Delete</button>
+      <button id="delete-user" type="button" data-toggle="modal" data-target="#delete-modal"
+        class="btn btn-danger mx-2 text-nowrap my-auto px-4">Delete</button>
     </div>
     
   </div>
 </div>
+
+<div class="modal fade" id="edit-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 id="edit-modal-title" class="modal-title">Edit Parameter</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form action="" method="post" class="p-3" id="edit_form">
+          <div class="mb-3">
+            <label>Confirm by entering you're current password</label>
+            <input type="password" class="form-control" name="password"
+              autocomplete="password" placeholder="Password" value="">
+          </div>
+
+          <div id="new-value" class="mb-3">
+            <label>New Value</label>
+            <div class="input-group">
+              <input type="text" class="form-control" name="" placeholder="" value="">
+            </div>
+          </div>
+          
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 id="edit-modal-title" class="modal-title">Delete User Confirmation</h5>
+        <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <form action="" method="post" class="p-3" id="delete_form">
+          <div class="mb-3">
+            <label>Confirm by entering you're current password</label>
+            <input type="password" class="form-control" name="password"
+              autocomplete="password" placeholder="********" value="">
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<script src="/javascripts/user-setting.js" defer></script>
 
 <%- include('footer') %>

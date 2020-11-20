@@ -45,7 +45,7 @@
           </div>
         </div>
       <% } else {%>
-        <span data-toggle="modal" data-target="#modal-windows">
+        <span data-toggle="modal" data-target="#auth-modal">
           <a id="login-btn" class="p-2 text-white" href="#">Login</a>
           <a id="signup-btn" class="btn btn-outline-warning">Sign up</a>
         </span>
@@ -55,7 +55,7 @@
 </header>
 
 <% if (!user) { %>
-  <div class="modal fade" id="modal-windows" tabindex="-1" role="dialog">
+  <div class="modal fade" id="auth-modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
       <div class="modal-content">
 
@@ -102,7 +102,5 @@
   <script src="/javascripts/header.js"></script>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 <% } %>
-
-
 
 <div class="container text-break border">
