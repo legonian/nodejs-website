@@ -1,0 +1,44 @@
+<%- include('../header', {pageTitle: 'New Post'}) %>
+
+<div class="container mt-4 mb-4">
+
+  <div id="on-new">
+    <h2>Creating Post</h2>
+    
+    <form action="/p/upload" method="post" id="upload-form">
+      <div class="input-group mb-4 mt-4">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Title</span>
+        </div>
+        <input name="title" type="text" class="form-control">
+      </div>
+      <textarea name="content" type="text" placeholder="Enter post text here"
+        id="postBody"></textarea>
+      <div class="d-flex justify-content-center">
+        <button type="submit" class="btn btn-success col-4">Save</button>
+      </div>
+    </form>
+  </div>
+  
+  <div id="on-uploaded" class="text-center" hidden>
+    <h2 class="mb-4">Post Uploaded</h2>
+    <h4 class="mb-4">Now you can click to following links</h4>
+    <div class="d-flex justify-content-center">
+      <a class="bg-info text-white p-3 mr-3" href="/">
+        <h3>Go to Home Page</h3>
+      </a>
+      <a class="bg-info text-white p-3 mr-3" href="/u/">
+        <h3>Go to Profile</h3>
+      </a>
+      <a class="bg-info text-white p-3" id="post-link" href="#">
+        <h3>Show Post</h3>
+      </a>
+    </div>
+  </div>
+  
+</div>
+
+<script src="/javascripts/simplemde.min.js"></script>
+<script src="/javascripts/newpost.js"></script>
+
+<%- include('../footer') %>

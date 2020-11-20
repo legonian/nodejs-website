@@ -19,7 +19,7 @@ router.get('/',
 
 router.get('/:userId/posts', async function (req, res) {
   const postlist = await Post.getAll('user_id', req.params.userId)
-  res.render('post-list', { postlist })
+  res.render('post/list-of-posts', { postlist })
 })
 
 router.get('/:userId', async function (req, res, next) {

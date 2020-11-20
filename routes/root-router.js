@@ -12,7 +12,7 @@ router.get('/', function (_req, res) {
 router.get('/new_post', 
   validateSession,
   function (_req, res) {
-    res.render('post-new')
+    res.render('post/new-post')
 })
 
 router.get('/signup_page',

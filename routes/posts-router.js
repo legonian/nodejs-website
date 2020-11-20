@@ -5,6 +5,7 @@ const Post = require('../models/post-model')
 
 const validateSession = require('../middleware/validate-session-middleware')
 const validateForm = require('../middleware/validate-form-middleware')
+const { change } = require('../models/user-model')
 
 router.get('/:postId', async function (req, res, next) {
   const postId = parseInt(req.params.postId)
@@ -12,7 +13,7 @@ router.get('/:postId', async function (req, res, next) {
     next()
   } else {
     const postData = await Post.get('post_id', req.params.postId)
-    res.render('post-page', { post: postData })
+    res.render('post/single-post', { post: postData })
   }
 })
 
@@ -24,9 +25,10 @@ router.post('/upload',
   validateForm,
   async function (req, res, next) {
     req.body.user = req.session.user
+    req.body.meta_title = req.body.content.slice(0, 100)
     const postData = await Post.create(req.body)
     if (postData){
-      res.send('Uploaded! <a href="/">Go to Home Page</a> / <a href="/u">Go to Profile</a>')
+      res.json({ post_id: postData.post_id })
     } else {
       req.session.error = 'Title must be unique'
       next('route')
@@ -34,10 +36,10 @@ router.post('/upload',
   }
 )
 
-router.post('/update', async function (req, res) {
+router.post('/update_post', async function (req, res) {
 })
 
-router.post('/delete', async function (req, res) {
+router.post('/delete_post', async function (req, res) {
 })
 
 module.exports = router

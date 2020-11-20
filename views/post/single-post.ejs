@@ -1,9 +1,9 @@
-<%- include('header', {pageTitle: post.title}) %>
+<%- include('../header', {pageTitle: post.title}) %>
 
 <div class="mt-4 mx-4">
   <h2 class="mb-2"><%=post.title%></h2>
   <p class="border-bottom">
-    <%=post.create_date.toLocaleDateString('en-GB')%> by
+    <%=post.create_date.toLocaleDateString('it-IT')%> by
     <a href="/u/<%=post.user_id%>">
       <%=post.username%>
     </a>
@@ -11,4 +11,4 @@
   <%-post.content%>
 </div>
 
-<%- include('footer') %>
+<%- include('../footer') %>
