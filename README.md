@@ -9,7 +9,7 @@ This website include following features:
 + Express framework that provide minimalist design and long support from developers
 + EJS templating engine
 + Following MVC design pattern
-+ Bootstrap with almost none of CSS-code
++ Bootstrap with almost none of CSS-code with full mobile support
 + Authentication of website users to have possibility to create posts
 + Google reCaptcha when authenticating user
 + PostgreSQL as database for all data
