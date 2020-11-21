@@ -1,7 +1,7 @@
 <%- include('../header', {pageTitle: post.title}) %>
 
 <div class="mt-4 mx-4">
-  <h2 class="mb-2"><%=post.title%></h2>
+  <h1 class="mb-2 display-4 font-weight-bold font-italic"><%=post.title%></h1>
   <p class="border-bottom">
     <%=post.create_date.toLocaleDateString('it-IT')%> by
     <a href="/u/<%=post.user_id%>">

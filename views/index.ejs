@@ -1,22 +1,55 @@
 <%- include('header', {pageTitle: 'Home Page'}) %>
 
 <div class="px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center mw-10">
-  <h1 class="display-4">Forum</h1>
-  <p class="lead">Here you can create your own blog post. To do it just simply
-    sign up and start writing in markdown editor.</p>
+  <h1 class="display-4">Home Page</h1>
+  <p class="lead">Here you can create your own blog posts. To do it just simply
+    sign up and start writing through markdown editor.</p>
 </div>
 
 <div>
-  <h3 class="pb-3 mb-4 font-italic border-bottom">
+  <h3 class="pb-3 mb-2 font-italic border-bottom">
     Pinned Posts
   </h3>
 
   <div>
-    <h2>Example Post Title</h2>
+    <h1 class="mb-2 display-4 font-weight-bold font-italic">Example Post</h1>
     <p><%=(new Date).toLocaleDateString('en-GB')%> by <a href="#">Anonymous</a></p>
-    <p>Here you can see the example post text that can be created after
-      registration.</p>
-    <p>Blogs are written in markdown and </p>
+    <p>This repository present website written in NodeJS using Express framework.
+      It provides basic functionality of creating posts and managing your account.</p>
+    <h2 id="features">Features</h2>
+    <p>This website include following features:</p>
+    <ul>
+      <li>Express framework that provide minimalist design and long support from developers</li>
+      <li>EJS templating engine</li>
+      <li>Following MVC design pattern</li>
+      <li>Bootstrap with almost none of CSS-code</li>
+      <li>Authentication of website users to have possibility to create posts</li>
+      <li>Google reCaptcha when authenticating user</li>
+      <li>PostgreSQL as database for all data</li>
+      <li>Usage of Content Security Policy to prevent basic vulnerabilities</li>
+      <li>Client and server side validation of any content coming to database</li>
+      <li>Messaging between registered users</li>
+      <li>Posts editing using SimpleMDE markdown editor</li>
+    </ul>
+    <h2 id="demo">Demo</h2>
+    <p>Demo app example is running in Heroku Cloud (free dynos):</p>
+    <p>https://guarded-dusk-85683.herokuapp.com/</p>
+    <h2 id="installation">Installation</h2>
+    <p>To install type in console:</p>
+    <pre><code>$ git clone https://github.com/legonian/nodejs-website
+$ cd nodejs-website
+$ npm ci</code></pre>
+    <h2 id="usage">Usage</h2>
+    <p>Before runing the server Postgress database need to be created with script
+      <code>create_db.sql</code> and <code>./node_modules/connect-pg-simple/table.sql</code>.
+      Also credentials for database, google recaptcha and cookies placed in
+      environment variables: <code>$DATABASE_URL</code>, <code>$RECAPTCHA_SECRET</code>,
+      <code>$SESSION_SECRET</code>. If <code>$NODE_ENV</code> variable did not equal <code>production</code>
+      when captcha will be disabled.</p>
+    <p>After running commands and setting up environment variables type:</p>
+    <pre><code>$ npm run dev</code></pre>
+    <p>And access website by typing in browser <code>http://localhost:3000</code>.</p>
+    
   </div>
 </div>
 
