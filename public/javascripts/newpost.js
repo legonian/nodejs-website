@@ -1,8 +1,6 @@
 const submitPostForm = document.getElementById('upload-form')
-
 const onNewDiv = document.getElementById('on-new')
 const onUploadedDiv = document.getElementById('on-uploaded')
-
 const postLink = document.getElementById('post-link')
 
 const simplemde = new window.SimpleMDE({
@@ -10,7 +8,6 @@ const simplemde = new window.SimpleMDE({
   autoDownloadFontAwesome: false,
   spellChecker: false
 })
-
 simplemde.value()
 
 function checkUploadForm(form) {
@@ -37,7 +34,6 @@ function checkUploadForm(form) {
     return false
   }
 }
-
 submitPostForm.onsubmit = async function (event) {
   event.preventDefault()
   if (checkUploadForm(this)) {
@@ -59,4 +55,9 @@ submitPostForm.onsubmit = async function (event) {
       window.alert('Error while uploading! Check your data.')
     }
   }
+}
+
+window.onbeforeunload = function (event) {
+  event.preventDefault()
+  event.returnValue = 'Are you sure want to leave this page?'
 }
