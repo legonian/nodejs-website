@@ -117,6 +117,7 @@ function displayChat(user) {
 
     chatHeader.querySelector('#chat-header > h5').innerText = text
     backBtn.onclick = function (){
+      selectedUser = false
       // hide chatPanel show userPanel
       chatPanel.classList.add('d-none', 'd-md-block')
       userPanel.classList.remove('d-none', 'd-md-block')
@@ -129,32 +130,37 @@ function displayChat(user) {
 
       displayChatWarning('Choose user to chat at left panel')
       messageInputBox.hidden = true
+
+      const usernames = document.querySelectorAll('.div-to-select')
+      for (username of usernames) {
+        const usernameText = username.querySelector('.div-to-select > div > h5')
+        username.classList.remove('bg-secondary', 'text-white')
+        usernameText.classList.add('text-dark')
+      }
     }
   }
-  messChat.innerHTML = ''
   selectedUser = user
+
+  messChat.innerHTML = ''
   messageInputBox.hidden = false
-  if (typeof user === 'undefined') {
+  if (typeof selectedUser === 'undefined') {
     displayChatWarning('Choose user to chat at left panel')
     messageInputBox.hidden = true
     return
-  // } else if (user.messages.length === 0) {
-  //   displayChatWarning('This chat is empty. Type new message!')
-  //   displayChatHead(user.username)
   } else {
-    displayChatHead(user.username)
-    for (m of user.messages) {
+    displayChatHead(selectedUser.username)
+    for (m of selectedUser.messages) {
       if (m.from_me) {
         displaySentMessage(m)
       } else {
-        displayReceivedMessage(m, user.avatar)
+        displayReceivedMessage(m, selectedUser.avatar)
       }
     }
   }
   const usernames = document.querySelectorAll('.div-to-select')
   for (username of usernames) {
     const usernameText = username.querySelector('.div-to-select > div > h5')
-    if (user.username === usernameText.innerText) {
+    if (selectedUser.username === usernameText.innerText) {
       username.classList.add('bg-secondary', 'text-white')
       usernameText.classList.remove('text-dark')
     } else {
@@ -216,7 +222,7 @@ function displayUserList(dataJson) {
     }
   })
   sendBtn.onclick = async function () {
-    if (messageInput.value !== '') {
+    if (messageInput.value !== '' && selectedUser) {
       const sent_to = selectedUser.user_id
       const content = messageInput.value
       const formBody = JSON.stringify({ sent_to, content })
@@ -242,9 +248,6 @@ function displayUserList(dataJson) {
         console.log('cant download messages')
       }
     }
-  }
-  backBtn.onclick = function () {
-
   }
   const urlParams = new URLSearchParams(window.location.search)
   const newUserId = Number(urlParams.get('user_id'))
