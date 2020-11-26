@@ -14,12 +14,11 @@ module.exports = [
   helmet.contentSecurityPolicy({
     directives: {
       'default-src': [
-        "'self'",
-        'https://www.google.com/'
+        "'self'"
       ],
       'script-src': [
         "'self'",
-        'https://www.google.com/recaptcha/api.js',
+        'https://www.google.com/recaptcha/',
         'https://www.gstatic.com/recaptcha/'
       ],
       'object-src': [
@@ -28,6 +27,9 @@ module.exports = [
       'img-src': [
         "'self'",
         'https: data:'
+      ],
+      'frame-src': [
+        'https://www.google.com/recaptcha/'
       ]
     }
   }),
