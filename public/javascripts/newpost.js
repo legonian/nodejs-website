@@ -51,6 +51,7 @@ submitPostForm.onsubmit = async function (event) {
       onNewDiv.hidden = true
       onUploadedDiv.hidden = false
       postLink.href = `/p/${postId}`
+      window.onbeforeunload = function (event) {}
     } else {
       window.alert('Error while uploading! Check your data.')
     }
