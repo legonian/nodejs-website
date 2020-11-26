@@ -33,7 +33,7 @@ module.exports = [
       ]
     }
   }),
-  (req, res, next) => {
+  function (_req, res, next) {
     res.set('Cache-Control', 'no-cache, no-store, must-revalidate')
     res.set('Pragma', 'no-cache')
     res.set('Expires', '-1')
@@ -55,8 +55,8 @@ module.exports = [
     }
   }),
   logger('dev'),
-  express.json(),
-  express.urlencoded({ extended: true }),
+  express.json({ limit: '5kb' }),
+  express.urlencoded({ extended: true, limit: "5kb" }),
   cookieParser(),
   express.static(path.join(__dirname, 'public')),
   function (req, res, next) {
