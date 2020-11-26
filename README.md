@@ -7,7 +7,7 @@ It provides basic functionality of creating posts and managing your account.
 
 This website include following features:
 + Express framework that provide minimalist design and long support from developers
-+ EJS templating engine
++ EJS templating engine as well as AJAX
 + Following MVC design pattern
 + Bootstrap with almost none of CSS-code with full mobile support
 + Authentication of website users to have possibility to create posts
@@ -48,13 +48,27 @@ Before runing the server Postgress database need to be created with script
 ``create_db.sql`` and ``./node_modules/connect-pg-simple/table.sql``.
 Also credentials for database, google recaptcha and cookies placed in
 environment variables: ``$DATABASE_URL``, ``$RECAPTCHA_SECRET``,
-``$SESSION_SECRET``. If ``$NODE_ENV`` variable did not equal ``production``
-when captcha will be disabled.
+``$SESSION_SECRET``.
+
+The ``$DATABASE_URL`` follows this naming convention:
+
+```
+postgres://<username>:<password>@<host>/<dbname>
+```
+
+Also when running in local use ``sslmode=disable`` URI query.
+
+If ``$NODE_ENV`` variable did not equal ``production``
+when captcha will be disabled. It's can be useful before setup your reCaptcha
+account or to use in local network.
+
+To get info about what is ``$SESSION_SECRET`` variable read:
+https://github.com/expressjs/session#secret
 
 After running commands and setting up environment variables type:
 
 ```
-$ npm run dev
+$ npm run start
 ```
 
 And access website by typing in browser ``http://localhost:3000``.
