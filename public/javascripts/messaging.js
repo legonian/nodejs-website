@@ -12,7 +12,6 @@ const chatHeader = document.querySelector('#chat-header')
 const userPanel = document.querySelector('#user-panel')
 const chatPanel = document.querySelector('#chat-panel')
 
-
 let selectedUser
 
 async function downloadMessages() {
@@ -137,11 +136,13 @@ function displayChat(user) {
         username.classList.remove('bg-secondary', 'text-white')
         usernameText.classList.add('text-dark')
       }
+      messageInput.value = ''
     }
   }
   selectedUser = user
 
   messChat.innerHTML = ''
+  messageInput.value = ''
   messageInputBox.hidden = false
   if (typeof selectedUser === 'undefined') {
     displayChatWarning('Choose user to chat at left panel')
