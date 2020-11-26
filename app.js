@@ -1,8 +1,9 @@
-const app = require('express')()
+const express = require('express')
+const app = express()
 const path = require('path')
 
-const configSetup = require('./config_on_start')
-const errorHandling = require('./error_handling')
+const configSetup = require('./middleware/app-config')
+const errorHandling = require('./middleware/app-error')
 
 const rootRoute = require('./routes/root-router')
 const userRoute = require('./routes/users-router')
@@ -15,6 +16,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use(configSetup)
 
+app.use(express.static(path.join(__dirname, 'public')))
 app.use('/', rootRoute)
 app.use('/u', userRoute)
 app.use('/p', postRoute)

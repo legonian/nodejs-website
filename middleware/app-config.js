@@ -1,14 +1,12 @@
-const path = require('path')
 const logger = require('morgan')
 const express = require('express')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const compression = require('compression')
-
 const dbSessionStore = require('connect-pg-simple')
 
-const dbPool = require('./models/pool')
+const dbPool = require('../models/pool')
 
 module.exports = [
   compression(),
@@ -17,12 +15,12 @@ module.exports = [
     directives: {
       'default-src': [
         "'self'",
-        "https://www.google.com/"
+        'https://www.google.com/'
       ],
       'script-src': [
         "'self'",
-        "https://www.google.com/recaptcha/api.js",
-        "https://www.gstatic.com/recaptcha/"
+        'https://www.google.com/recaptcha/api.js',
+        'https://www.gstatic.com/recaptcha/'
       ],
       'object-src': [
         "'none'"
@@ -56,9 +54,8 @@ module.exports = [
   }),
   logger('dev'),
   express.json({ limit: '5kb' }),
-  express.urlencoded({ extended: true, limit: "5kb" }),
+  express.urlencoded({ extended: true, limit: '5kb' }),
   cookieParser(),
-  express.static(path.join(__dirname, 'public')),
   function (req, res, next) {
     if (req.session.user) {
       res.locals.user = req.session.user
