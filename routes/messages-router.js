@@ -12,11 +12,11 @@ router.get('/',
   }
 )
 
-router.post('/get_chat', 
+router.post('/get_chat',
   validateSession,
   async function (req, res) {
     const chat = await Message.getChat(req.session.user.user_id)
-    if (chat){
+    if (chat) {
       res.json({ ok: true, user: req.session.user, chat })
     } else {
       res.json({ ok: false })

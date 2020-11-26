@@ -1,9 +1,10 @@
 class FormValidator {
-  constructor(req) {
+  constructor (req) {
     this.route = String(req.route.path)
     this.form = req.body
   }
-  get listofRoutes(){
+
+  get listofRoutes () {
     return [
       {
         path: '/login', // Login User
@@ -27,7 +28,8 @@ class FormValidator {
       }
     ]
   }
-  check(param, val) {
+
+  check (param, val) {
     try {
       if (typeof param === 'undefined') {
         return false
@@ -36,13 +38,13 @@ class FormValidator {
       } else if (param === 'password') {
         return val.match(/(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g) !== null
       } else if (param === 'email') {
-        return val.match(/^([a-zA-Z0-9_\.-]{1,50})@([\da-z\.-]{1,40})\.([a-z\.]{2,5})$/g) !== null
+        return val.match(/^([a-zA-Z0-9_.-]{1,50})@([\da-z.-]{1,40})\.([a-z.]{2,5})$/g) !== null
       } else if (param === 'first_name') {
         return val.match(/^[a-zA-Z0-9]{1,30}$/g) !== null
       } else if (param === 'last_name') {
         return val.match(/^[a-zA-Z0-9]{1,30}$/g) !== null
-      } else if (param === 'avatar'){
-        return val.match(/^https:\/\/[a-zA-Z0-9_.\-]+\.[a-zA-Z0-9_\-]+\/[\S]+$/g) !== null
+      } else if (param === 'avatar') {
+        return val.match(/^https:\/\/[a-zA-Z0-9_.-]+\.[a-zA-Z0-9_-]+\/[\S]+$/g) !== null
       } else if (param === 'country') {
         return val.match(/^[a-zA-Z0-9&(),. ]{1,30}$/g) !== null
       } else if (param === 'title') {
@@ -66,8 +68,8 @@ class FormValidator {
         ]
         return params.includes(val)
       } else if (param === 'value') {
-        if (this.form['param'] !== 'value'){
-          return this.check(this.form['param'], val)
+        if (this.form.param !== 'value') {
+          return this.check(this.form.param, val)
         } else {
           return false
         }
@@ -80,10 +82,11 @@ class FormValidator {
       return false
     }
   }
-  validate() {
-    try{
+
+  validate () {
+    try {
       let isValid = false
-      for (const r of this.listofRoutes){
+      for (const r of this.listofRoutes) {
         if (this.route === r.path) {
           isValid = true
           for (const p of r.requeredParams) {
@@ -117,7 +120,7 @@ module.exports = async function (req, _res, next) {
     }
   } catch (error) {
     console.log('Error while checking form:', error)
-    req.session.error = "Error while checking form"
+    req.session.error = 'Error while checking form'
     next('route')
   }
 }

@@ -1,7 +1,7 @@
 const fullSignupForm = document.getElementById('signup-form')
 
-function checkForm(form) {
-  function checkInput(input, regex){
+function checkForm (form) {
+  function checkInput (input, regex) {
     if (input.value.match(regex) === null) {
       input.classList.remove('is-valid')
       input.classList.add('is-invalid')
@@ -15,7 +15,7 @@ function checkForm(form) {
   try {
     const isUsername = /^[a-z0-9_]{1,20}$/g
     const isPassword = /(?=(.*[0-9]))((?=.*[A-Za-z0-9])(?=.*[A-Z])(?=.*[a-z]))^.{8,60}$/g
-    const isEmail = /^([a-zA-Z0-9_\.-]{1,50})@([\da-z\.-]{1,40})\.([a-z\.]{2,5})$/g
+    const isEmail = /^([a-zA-Z0-9_.-]{1,50})@([\da-z.-]{1,40})\.([a-z.]{2,5})$/g
     const isName = /^[a-zA-Z0-9 ]{1,30}$/g
     const isCountry = /^[a-zA-Z0-9&(),. ]{1,30}$/g
     let isValid = true
@@ -23,7 +23,7 @@ function checkForm(form) {
     if (!checkInput(form.password, isPassword)) isValid = false
     if (!checkInput(form.email, isEmail)) isValid = false
     if (!checkInput(form.first_name, isName)) isValid = false
-    if (form.last_name.value !== ''){
+    if (form.last_name.value !== '') {
       if (!checkInput(form.last_name, isName)) isValid = false
     }
     if (!checkInput(form.country, isCountry)) isValid = false
@@ -50,15 +50,15 @@ fullSignupForm.onsubmit = async function (event) {
       method: 'post',
       headers: {
         'Content-Type': 'application/json;charset=UTF-8',
-        'Accept': 'application/json'
+        Accept: 'application/json'
       },
       body: formBody
-    }).catch(e =>{
+    }).catch(e => {
       console.log('Bad request')
       window.grecaptcha.reset(1)
     })
     if (res.status === 200) {
-      if (this.go_profile.checked){
+      if (this.go_profile.checked) {
         window.location.assign(res.url)
       } else {
         window.history.back()

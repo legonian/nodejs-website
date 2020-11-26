@@ -71,7 +71,7 @@ router.post('/delete',
   validateForm,
   async function (req, res, next) {
     req.body.username = req.session.user.username
-    if(await User.delete(req.body)){
+    if (await User.delete(req.body)) {
       req.session.destroy(function () {
         res.send('done')
       })

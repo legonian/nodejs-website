@@ -1,5 +1,5 @@
-function setupBtns(){
-  function clearValidators() {
+function setupBtns () {
+  function clearValidators () {
     const pw = document.querySelector('#edit_form > div:nth-child(1) > input')
     const newVal = document.querySelector('#new-value > div > input')
 
@@ -13,7 +13,7 @@ function setupBtns(){
   const modalParanName = document.querySelector('#new-value > label')
   const modalParanInput = document.querySelector('#new-value > div > input')
 
-  document.getElementById('change-username').onclick = function() {
+  document.getElementById('change-username').onclick = function () {
     clearValidators()
     modalTitle.innerText = 'Change Your Username'
     modalParanName.innerText = 'New Username'
@@ -88,8 +88,8 @@ function setupBtns(){
 }
 setupBtns()
 
-function checkEditForm(form, param) {
-  function checkInput(input, regex) {
+function checkEditForm (form, param) {
+  function checkInput (input, regex) {
     if (input.value.match(regex) === null) {
       input.classList.remove('is-valid')
       input.classList.add('is-invalid')
@@ -108,13 +108,13 @@ function checkEditForm(form, param) {
     } else if (param === 'password') {
       regexOfParam = isPassword
     } else if (param === 'email') {
-      regexOfParam = /^([a-zA-Z0-9_\.-]{1,50})@([\da-z\.-]{1,40})\.([a-z\.]{2,5})$/g
+      regexOfParam = /^([a-zA-Z0-9_.-]{1,50})@([\da-z.-]{1,40})\.([a-z.]{2,5})$/g
     } else if (param === 'first_name') {
       regexOfParam = /^[a-zA-Z0-9 ]{1,30}$/g
     } else if (param === 'last_name') {
       regexOfParam = /^[a-zA-Z0-9 ]{1,30}$/g
     } else if (param === 'avatar') {
-      regexOfParam = /^https:\/\/[a-zA-Z0-9_.\-]+\.[a-zA-Z0-9_\-]+\/[\S]+$/g
+      regexOfParam = /^https:\/\/[a-zA-Z0-9_.-]+\.[a-zA-Z0-9_-]+\/[\S]+$/g
     } else if (param === 'user_info') {
       regexOfParam = /^[a-zA-Z0-9 :,.?!'"#$%;()&-]{1,420}$/g
     } else if (param === 'country') {
@@ -137,7 +137,7 @@ function checkEditForm(form, param) {
 document.getElementById('edit_form').onsubmit = async function (event) {
   event.preventDefault()
   let paramToCheck
-  for (const param of this.querySelectorAll('[name]')){
+  for (const param of this.querySelectorAll('[name]')) {
     if (param.name !== 'password') paramToCheck = param.name
   }
   if (checkEditForm(this, paramToCheck)) {

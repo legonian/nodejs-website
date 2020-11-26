@@ -1,31 +1,31 @@
-const loginTab = document.getElementById("login-tab")
-const loginPanel = document.getElementById("login")
+const loginTab = document.getElementById('login-tab')
+const loginPanel = document.getElementById('login')
 const loginForm = document.getElementById('login_form')
-const loginBtn = document.getElementById("login-btn")
+const loginBtn = document.getElementById('login-btn')
 
-const signupTab = document.getElementById("signup-tab")
-const signupPanel = document.getElementById("signup")
+const signupTab = document.getElementById('signup-tab')
+const signupPanel = document.getElementById('signup')
 const signupForm = document.getElementById('signup_form')
-const signupBtn = document.getElementById("signup-btn")
+const signupBtn = document.getElementById('signup-btn')
 
 signupBtn.onclick = () => {
-  loginPanel.classList.remove("active", "show")
-  loginTab.classList.remove("active")
+  loginPanel.classList.remove('active', 'show')
+  loginTab.classList.remove('active')
 
-  signupPanel.classList.add("active", "show")
-  signupTab.classList.add("active")
+  signupPanel.classList.add('active', 'show')
+  signupTab.classList.add('active')
 }
 
 loginBtn.onclick = () => {
-  loginPanel.classList.add("active", "show")
-  loginTab.classList.add("active")
+  loginPanel.classList.add('active', 'show')
+  loginTab.classList.add('active')
 
-  signupPanel.classList.remove("active", "show")
-  signupTab.classList.remove("active")
+  signupPanel.classList.remove('active', 'show')
+  signupTab.classList.remove('active')
 }
 
-function checkLoginForm(form) {
-  function checkInput(input, regex) {
+function checkLoginForm (form) {
+  function checkInput (input, regex) {
     if (input.value.match(regex) === null) {
       input.classList.remove('is-valid')
       input.classList.add('is-invalid')
@@ -49,10 +49,10 @@ function checkLoginForm(form) {
   }
 }
 
-function checkUsernameForm(form) {
-  try{
+function checkUsernameForm (form) {
+  try {
     const isUsername = /^[a-z0-9_]{1,20}$/g
-    if (form.username.value.match(isUsername) === null){
+    if (form.username.value.match(isUsername) === null) {
       form.username.classList.remove('is-valid')
       form.username.classList.add('is-invalid')
       return false
@@ -61,7 +61,7 @@ function checkUsernameForm(form) {
       form.username.classList.add('is-valid')
       return true
     }
-  }catch(e){
+  } catch (e) {
     console.log('Error:', e)
     return false
   }

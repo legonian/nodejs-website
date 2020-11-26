@@ -2,9 +2,9 @@ const bcrypt = require('bcrypt')
 const pool = require('./pool')
 
 const User = {
-  async authenticate(obj) {
+  async authenticate (obj) {
     try {
-      if (typeof obj['username'] !== 'undefined') {
+      if (typeof obj.username !== 'undefined') {
         const query = 'SELECT * FROM users WHERE username = $1'
         const queryParameters = [obj.username]
         const { rows } = await pool.query(query, queryParameters)
@@ -22,14 +22,12 @@ const User = {
       console.log('Error on authentication:', error)
       return false
     }
-    
   },
-  async create(obj) {
+  async create (obj) {
     try {
       const hash = await bcrypt.hash(obj.password, 12)
-      let query, queryParameters
-      query = `SELECT * FROM add_user($1, $2, $3, $4, $5, $6)`
-      queryParameters = [
+      const query = 'SELECT * FROM add_user($1, $2, $3, $4, $5, $6)'
+      const queryParameters = [
         obj.username,
         hash,
         obj.email,
@@ -45,9 +43,9 @@ const User = {
       return false
     }
   },
-  async get(param, val) {
+  async get (param, val) {
     try {
-      if (['username', 'user_id', 'email'].includes(param) ){
+      if (['username', 'user_id', 'email'].includes(param)) {
         const query = `SELECT * FROM users WHERE ${param} = $1`
         const queryParameters = [val]
         const { rows } = await pool.query(query, queryParameters)
@@ -62,7 +60,7 @@ const User = {
       return false
     }
   },
-  async change(obj) {
+  async change (obj) {
     try {
       const pastUserData = await User.authenticate(obj)
       const paramToChange = [
@@ -85,7 +83,7 @@ const User = {
         const res = rows[0]
         delete res.hash
         return res
-      } else if (pastUserData && obj.param === 'password'){
+      } else if (pastUserData && obj.param === 'password') {
         const hash = await bcrypt.hash(obj.value, 12)
         const query = `
         UPDATE users SET hash = $1
@@ -96,7 +94,7 @@ const User = {
         const res = rows[0]
         delete res.hash
         return res
-      }else {
+      } else {
         return false
       }
     } catch (error) {
@@ -104,7 +102,7 @@ const User = {
       return false
     }
   },
-  async delete(obj) {
+  async delete (obj) {
     try {
       const pastUserData = await User.authenticate(obj)
       if (pastUserData) {
@@ -121,7 +119,7 @@ const User = {
       return false
     }
   },
-  async getAllUsers() {
+  async getAllUsers () {
     try {
       const query = 'SELECT * FROM users'
       const { rows } = await pool.query(query, [])

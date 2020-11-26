@@ -4,9 +4,9 @@ const showdown = require('showdown')
 const converter = new showdown.Converter()
 
 const Post = {
-  async create(obj){
+  async create (obj) {
     try {
-      const query = `SELECT * FROM add_post($1, $2, $3, $4)`
+      const query = 'SELECT * FROM add_post($1, $2, $3, $4)'
       const queryParameters = [
         obj.user.user_id,
         obj.title,
@@ -21,7 +21,7 @@ const Post = {
       return false
     }
   },
-  async get(param, val){
+  async get (param, val) {
     try {
       if (['post_id'].includes(param)) {
         const query = `SELECT * FROM posts JOIN users USING(user_id) WHERE ${param} = $1`
@@ -38,7 +38,7 @@ const Post = {
       return false
     }
   },
-  async getAll(param, val) {
+  async getAll (param, val) {
     try {
       if (['user_id', 'title', 'rating'].includes(param)) {
         const query = `SELECT * FROM posts JOIN users USING(user_id) WHERE ${param} = $1`
@@ -54,7 +54,7 @@ const Post = {
       return false
     }
   },
-  async change(obj, param, val) {
+  async change (obj, param, val) {
     try {
       const validUser = await User.authenticate(obj.user)
       const paramToChange = ['title', 'content']
@@ -76,7 +76,7 @@ const Post = {
       return false
     }
   },
-  async delete(obj){
+  async delete (obj) {
     try {
       const validUser = await User.authenticate(obj.user)
       if (validUser) {

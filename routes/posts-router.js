@@ -5,7 +5,6 @@ const Post = require('../models/post-model')
 
 const validateSession = require('../middleware/validate-session-middleware')
 const validateForm = require('../middleware/validate-form-middleware')
-const { change } = require('../models/user-model')
 
 router.get('/:postId', async function (req, res, next) {
   const postId = parseInt(req.params.postId)
@@ -27,7 +26,7 @@ router.post('/upload',
     req.body.user = req.session.user
     req.body.meta_title = req.body.content.slice(0, 100)
     const postData = await Post.create(req.body)
-    if (postData){
+    if (postData) {
       res.json({ post_id: postData.post_id })
     } else {
       req.session.error = 'Title must be unique'

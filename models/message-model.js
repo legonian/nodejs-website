@@ -1,7 +1,7 @@
 const pool = require('./pool')
 
 const Message = {
-  async create(obj) {
+  async create (obj) {
     try {
       const query = `
       INSERT INTO messages(sent_from, sent_to, content)
@@ -21,15 +21,15 @@ const Message = {
       return false
     }
   },
-  async getChat(user_id) {
+  async getChat (userId) {
     try {
-      const query = `SELECT * FROM get_chat($1)`
-      const queryParameters = [user_id]
+      const query = 'SELECT * FROM get_chat($1)'
+      const queryParameters = [userId]
       const { rows } = await pool.query(query, queryParameters)
       return rows
     } catch (error) {
       console.log('Error on getting chat:', error)
-      console.log('Input:', [user_id])
+      console.log('Input:', [userId])
       return false
     }
   }

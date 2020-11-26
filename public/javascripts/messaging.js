@@ -14,7 +14,7 @@ const chatPanel = document.querySelector('#chat-panel')
 
 let selectedUser
 
-async function downloadMessages() {
+async function downloadMessages () {
   const res = await window.fetch('/m/get_chat', { method: 'post' })
   if (res.status !== 200) {
     console.log('cant download messages')
@@ -25,15 +25,15 @@ async function downloadMessages() {
     console.log('no data from server')
     return false
   }
-  let resJson = { user: rawJson.user, users: {} }
+  const resJson = { user: rawJson.user, users: {} }
   for (const mess of rawJson.chat) {
-    if (typeof resJson.users[mess.user_id] === 'undefined'){
+    if (typeof resJson.users[mess.user_id] === 'undefined') {
       resJson.users[mess.user_id] = {
         user_id: mess.user_id,
         username: mess.username,
         avatar: mess.avatar,
         first_name: mess.first_name,
-        messages:[]
+        messages: []
       }
     }
     resJson.users[mess.user_id].messages.push({
@@ -45,32 +45,32 @@ async function downloadMessages() {
   return resJson
 }
 
-function displaySentMessage(m) {
+function displaySentMessage (m) {
   const newMess = document.createElement('div')
-  newMess.classList.add('d-flex','align-items-end', 'flex-column', 'mr-2', 'mb-2')
+  newMess.classList.add('d-flex', 'align-items-end', 'flex-column', 'mr-2', 'mb-2')
 
   const messP = document.createElement('p')
   messP.classList.add('bg-info', 'm-0', 'p-1', 'rounded', 'text-white')
   messP.innerText = m.content
 
   const timeSmall = document.createElement('small')
-  timeSmall.classList.add("text-muted")
+  timeSmall.classList.add('text-muted')
   timeSmall.innerText = (new Date(m.created)).toLocaleString('it-IT')
-  
+
   newMess.appendChild(messP)
   newMess.appendChild(timeSmall)
-  
+
   messChat.appendChild(newMess)
   messChat.scrollTop = messChat.scrollHeight
 }
 
-function displayChat(user) {
-  function displayReceivedMessage(m, avatarUrl) {
+function displayChat (user) {
+  function displayReceivedMessage (m, avatarUrl) {
     const newMess = document.createElement('div')
     newMess.classList.add('d-flex', 'align-items-start', 'ml-2', 'mb-2')
 
     const avatarImg = document.createElement('img')
-    avatarImg.classList.add("rounded-circle")
+    avatarImg.classList.add('rounded-circle')
     avatarImg.src = avatarUrl
     avatarImg.width = '25'
 
@@ -79,7 +79,7 @@ function displayChat(user) {
     messP.innerText = m.content
 
     const timeSmall = document.createElement('small')
-    timeSmall.classList.add("text-muted")
+    timeSmall.classList.add('text-muted')
     timeSmall.innerText = (new Date(m.created)).toLocaleString('it-IT')
 
     const childDiv = document.createElement('div')
@@ -92,16 +92,16 @@ function displayChat(user) {
     messChat.appendChild(newMess)
     messChat.scrollTop = messChat.scrollHeight
   }
-  function displayChatWarning(errorText) {
+  function displayChatWarning (errorText) {
     messChat.innerHTML = ''
     const chatTitle = document.createElement('h4')
-    chatTitle.classList.add("text-muted")
-    chatTitle.classList.add("text-center")
+    chatTitle.classList.add('text-muted')
+    chatTitle.classList.add('text-center')
     chatTitle.innerText = errorText
     messChat.appendChild(chatTitle)
     chatHeader.hidden = true
   }
-  function displayChatHead(text) {
+  function displayChatHead (text) {
     const chatHeader = document.querySelector('#chat-header')
     chatHeader.hidden = false
 
@@ -115,7 +115,7 @@ function displayChat(user) {
     userPanel.classList.add('col-4')
 
     chatHeader.querySelector('#chat-header > h5').innerText = text
-    backBtn.onclick = function (){
+    backBtn.onclick = function () {
       selectedUser = false
       // hide chatPanel show userPanel
       chatPanel.classList.add('d-none', 'd-md-block')
@@ -131,7 +131,7 @@ function displayChat(user) {
       messageInputBox.hidden = true
 
       const usernames = document.querySelectorAll('.div-to-select')
-      for (username of usernames) {
+      for (const username of usernames) {
         const usernameText = username.querySelector('.div-to-select > div > h5')
         username.classList.remove('bg-secondary', 'text-white')
         usernameText.classList.add('text-dark')
@@ -150,7 +150,7 @@ function displayChat(user) {
     return
   } else {
     displayChatHead(selectedUser.username)
-    for (m of selectedUser.messages) {
+    for (const m of selectedUser.messages) {
       if (m.from_me) {
         displaySentMessage(m)
       } else {
@@ -159,7 +159,7 @@ function displayChat(user) {
     }
   }
   const usernames = document.querySelectorAll('.div-to-select')
-  for (username of usernames) {
+  for (const username of usernames) {
     const usernameText = username.querySelector('.div-to-select > div > h5')
     if (selectedUser.username === usernameText.innerText) {
       username.classList.add('bg-secondary', 'text-white')
@@ -171,17 +171,17 @@ function displayChat(user) {
   }
 }
 
-function displayUserList(dataJson) {
+function displayUserList (dataJson) {
   userList.innerHTML = ''
-  if (Object.keys(dataJson.users).length < 1){
+  if (Object.keys(dataJson.users).length < 1) {
     const emptyMess = document.createElement('h5')
-    emptyMess.classList.add("text-muted")
-    emptyMess.classList.add("text-center")
+    emptyMess.classList.add('text-muted')
+    emptyMess.classList.add('text-center')
     emptyMess.innerText = 'No users'
     userList.appendChild(emptyMess)
   }
-  for (const user_id in dataJson.users){
-    const user = dataJson.users[user_id]
+  for (const userId in dataJson.users) {
+    const user = dataJson.users[userId]
 
     const userLink = document.createElement('a')
     userLink.href = '#'
@@ -215,23 +215,23 @@ function displayUserList(dataJson) {
   }
 }
 
-;(async ()=>{
-  let messJson = await downloadMessages()
-  messageInput.addEventListener("keyup", function (event) {
+;(async () => {
+  const messJson = await downloadMessages()
+  messageInput.addEventListener('keyup', function (event) {
     if (event.key === 'Enter') {
       sendBtn.click()
     }
   })
   sendBtn.onclick = async function () {
     if (messageInput.value !== '' && selectedUser) {
-      const sent_to = selectedUser.user_id
+      const sentTo = selectedUser.user_id
       const content = messageInput.value
-      const formBody = JSON.stringify({ sent_to, content })
+      const formBody = JSON.stringify({ sent_to: sentTo, content })
       const res = await window.fetch('/m/send', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json;charset=UTF-8',
-          'Accept': 'application/json'
+          Accept: 'application/json'
         },
         body: formBody
       })

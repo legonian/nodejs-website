@@ -10,8 +10,8 @@ const simplemde = new window.SimpleMDE({
 })
 simplemde.value()
 
-function checkUploadForm(form) {
-  function checkInput(input, regex) {
+function checkUploadForm (form) {
+  function checkInput (input, regex) {
     if (input.value === '' && input.value.match(regex) === null) {
       input.classList.remove('is-valid')
       input.classList.add('is-invalid')
@@ -47,10 +47,10 @@ submitPostForm.onsubmit = async function (event) {
       body: formBody
     })
     if (res.status === 200) {
-      const post_id = (await res.json()).post_id
+      const postId = (await res.json()).post_id
       onNewDiv.hidden = true
       onUploadedDiv.hidden = false
-      postLink.href = `/p/${post_id}`
+      postLink.href = `/p/${postId}`
     } else {
       window.alert('Error while uploading! Check your data.')
     }

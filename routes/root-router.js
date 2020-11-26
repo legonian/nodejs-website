@@ -9,11 +9,12 @@ router.get('/', function (_req, res) {
   res.render('index')
 })
 
-router.get('/new_post', 
+router.get('/new_post',
   validateSession,
   function (_req, res) {
     res.render('post/new-post')
-})
+  }
+)
 
 router.get('/signup_page',
   function (req, res) {
@@ -74,7 +75,7 @@ router.get('/settings',
         res.locals.user.country,
         'change-country']
     ]
-    res.render('user-settings',{profile})
+    res.render('user-settings', { profile })
   }
 )
 
