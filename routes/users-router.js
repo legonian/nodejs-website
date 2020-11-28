@@ -4,6 +4,7 @@ const router = express.Router()
 const User = require('../models/user-model')
 const Post = require('../models/post-model')
 
+const rateLimiter = require('../middleware/rate-limiter')
 const checkCaptcha = require('../middleware/check_captcha')
 const validateSession = require('../middleware/validate-session-middleware')
 const validateForm = require('../middleware/validate-form-middleware')
@@ -34,6 +35,7 @@ router.get('/:userId', async function (req, res, next) {
 })
 
 router.post('/login',
+  rateLimiter,
   checkCaptcha,
   validateForm,
   authUser,
@@ -43,6 +45,7 @@ router.post('/login',
 )
 
 router.post('/signup',
+  rateLimiter,
   checkCaptcha,
   validateForm,
   authUser,

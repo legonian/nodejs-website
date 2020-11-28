@@ -11,7 +11,8 @@ This website include following features:
 + Following MVC design pattern
 + Bootstrap with almost none of CSS-code with full mobile support
 + Authentication of website users to have possibility to create posts
-+ Google reCaptcha when authenticating user
++ Simple brute-force attack protection
++ Authenticating with Google reCaptcha
 + PostgreSQL as database for all data
 + Usage of Content Security Policy to prevent basic vulnerabilities
 + Client and server side validation of any content coming to database
