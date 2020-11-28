@@ -80,6 +80,7 @@ router.get('/settings',
 )
 
 router.get('/log_out',
+  validateSession,
   function (req, res) {
     req.session.destroy(function () {
       res.redirect('/')
