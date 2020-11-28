@@ -84,7 +84,7 @@ loginForm.onsubmit = async function (event) {
       window.location.assign(res.url)
     } else {
       window.grecaptcha.reset(0)
-      window.alert('User not exist')
+      window.alert('Wrong username or password')
     }
   } else {
     window.grecaptcha.reset(0)
