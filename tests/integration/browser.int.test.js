@@ -1,7 +1,7 @@
 const puppeteer = require('puppeteer')
 const portfinder = require('portfinder')
 
-const app = require('../app')
+const app = require('../../app')
 
 const puppeteerOption = {
   headless: true,
