@@ -59,7 +59,7 @@ fullSignupForm.onsubmit = async function (event) {
     })
     if (res.status === 200) {
       if (this.go_profile.checked) {
-        window.location.assign(res.url)
+        window.location.href = '/u'
       } else {
         window.history.back()
       }

@@ -81,7 +81,7 @@ loginForm.onsubmit = async function (event) {
       body: formBody
     })
     if (res.status === 200) {
-      window.location.assign(res.url)
+      window.location.href = '/u'
     } else {
       window.grecaptcha.reset(0)
       window.alert('Wrong username or password')
