@@ -18,15 +18,14 @@ function checkIp (ipDates) {
 module.exports = async function (req, _res, next) {
   if (typeof req.app.locals.ipList[req.ip] === 'undefined') {
     req.app.locals.ipList[req.ip] = [Date.now()]
-    console.log('req.app.locals.ipList =', req.app.locals.ipList)
+    console.log('new IP:', req.ip)
     next()
   } else if (checkIp(req.app.locals.ipList[req.ip])) {
     req.app.locals.ipList[req.ip].push(Date.now())
-    console.log('req.app.locals.ipList =', req.app.locals.ipList)
     next()
   } else {
     req.session.error = 'Blocked for spam. Please try later.'
-    console.log('req.app.locals.ipList =', req.app.locals.ipList)
+    console.log('IP blocked:', req.ip)
     next('route')
   }
 }
