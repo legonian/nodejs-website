@@ -1,4 +1,3 @@
-const { default: expectCt } = require('helmet/dist/middlewares/expect-ct')
 const User = require('../../models/user-model')
 // const Post = require('../../models/post-model')
 // const Message = require('../../models/message-model')
