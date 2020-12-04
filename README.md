@@ -13,6 +13,7 @@ This website using following server-side tools:
 + PostgreSQL database storage
 + Simple brute-force attack protection
 + Password hashing
++ Unit and integration tests using Jest and Puppeteer
 
 Client-side tools include:
 + Full Bootstrap and responsive UI
