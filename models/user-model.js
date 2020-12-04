@@ -49,6 +49,9 @@ const User = {
         const query = `SELECT * FROM users WHERE ${param} = $1`
         const queryParameters = [val]
         const { rows } = await pool.query(query, queryParameters)
+        if (rows.length === 0) {
+          return false
+        }
         const res = rows[0]
         delete res.hash
         return res
