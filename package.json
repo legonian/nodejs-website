@@ -6,7 +6,9 @@
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "lint": "npx standard",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --testPathPattern=.*unit.test.js$ --silent",
+    "test:db": "jest --testPathPattern=.*db.test.js$ --silent --detectOpenHandles",
+    "test:int": "jest --testPathPattern=.*int.test.js$ --silent --detectOpenHandles"
   },
   "jest": {
     "testEnvironment": "node",
