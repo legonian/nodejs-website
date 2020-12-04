@@ -1,10 +1,10 @@
-const logger = require('morgan')
 const express = require('express')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const compression = require('compression')
 const dbSessionStore = require('connect-pg-simple')
+// const logger = require('morgan')
 
 const dbPool = require('../models/pool')
 
@@ -54,7 +54,7 @@ module.exports = [
       secure: process.env.NODE_ENV === 'production'
     }
   }),
-  logger('dev'),
+  // logger('dev'),
   express.json({ limit: '5kb' }),
   express.urlencoded({ extended: true, limit: '5kb' }),
   cookieParser(),
