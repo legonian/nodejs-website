@@ -1,87 +1,22 @@
 const express = require('express')
 const router = express.Router()
 
-const User = require('../models/user-model')
-const Post = require('../models/post-model')
-
 const rateLimiter = require('../middleware/rate-limiter')
 const checkCaptcha = require('../middleware/check_captcha')
 const validateSession = require('../middleware/validate-session-middleware')
 const validateForm = require('../middleware/validate-form-middleware')
 const authUser = require('../middleware/user-authorize-middleware')
+const changeUser = require('../middleware/user-change-middleware')
+const deleteUser = require('../middleware/user-delete-middleware')
 
-router.get('/',
-  validateSession,
-  function (req, res) {
-    const userURL = `/u/${req.session.user.user_id}`
-    res.redirect(userURL)
-  }
-)
+const { yourProfile, userProfile, userPosts, ok } = require('../handlers/users-handler')
 
-router.get('/:userId/posts', async function (req, res) {
-  const postlist = await Post.getAll('user_id', req.params.userId)
-  res.render('post/list-of-posts', { postlist })
-})
-
-router.get('/:userId', async function (req, res, next) {
-  const userId = parseInt(req.params.userId)
-  const userData = await User.get('user_id', req.params.userId)
-  if (userData && !isNaN(userId)) {
-    res.render('user-page', { profile: userData })
-  } else {
-    req.session.error = 'No such user'
-    next()
-  }
-})
-
-router.post('/login',
-  rateLimiter,
-  checkCaptcha,
-  validateForm,
-  authUser,
-  async function (_req, res) {
-    res.redirect('/u')
-  }
-)
-
-router.post('/signup',
-  rateLimiter,
-  checkCaptcha,
-  validateForm,
-  authUser,
-  async function (_req, res) {
-    res.redirect('/u')
-  }
-)
-
-router.post('/update',
-  validateSession,
-  validateForm,
-  async function (req, res, next) {
-    req.body.username = req.session.user.username
-    const changedUser = await User.change(req.body)
-    if (changedUser) {
-      req.session.user = changedUser
-      res.send('done')
-    } else {
-      next()
-    }
-  }
-)
-
-router.post('/delete',
-  validateSession,
-  validateForm,
-  async function (req, res, next) {
-    req.body.username = req.session.user.username
-    if (await User.delete(req.body)) {
-      req.session.destroy(function () {
-        res.send('done')
-      })
-    } else {
-      next()
-    }
-  }
-)
+router.get('/', validateSession, yourProfile)
+router.get('/:userId/posts', userPosts)
+router.get('/:userId', userProfile)
+router.post('/login', rateLimiter, checkCaptcha, validateForm, authUser, ok)
+router.post('/signup', rateLimiter, checkCaptcha, validateForm, authUser, ok)
+router.post('/update', validateSession, validateForm, changeUser, ok)
+router.post('/delete', validateSession, validateForm, deleteUser, ok)
 
 module.exports = router
