@@ -1,7 +1,8 @@
 const captchaMiddleware = require('../middleware/check_captcha')
 const rateLimiter = require('../middleware/rate-limiter')
 const validateSession = require('../middleware/validate-session-middleware')
-const { authUser, changeUser, deleteUser } = require('../middleware/user-middleware')
+const { authUser } = require('../middleware/user-middleware')
+// add { changeUser, deleteUser} in future
 
 jest.mock('../models/user-model.js')
 const User = require('../models/user-model')
