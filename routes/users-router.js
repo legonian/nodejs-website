@@ -5,9 +5,7 @@ const rateLimiter = require('../middleware/rate-limiter')
 const checkCaptcha = require('../middleware/check_captcha')
 const validateSession = require('../middleware/validate-session-middleware')
 const validateForm = require('../middleware/validate-form-middleware')
-const authUser = require('../middleware/user-authorize-middleware')
-const changeUser = require('../middleware/user-change-middleware')
-const deleteUser = require('../middleware/user-delete-middleware')
+const { authUser, changeUser, deleteUser } = require('../middleware/user-middleware')
 
 const { yourProfile, userProfile, userPosts, ok } = require('../handlers/users-handler')
 
