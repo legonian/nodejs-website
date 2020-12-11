@@ -25,8 +25,8 @@ test('new post page', () => {
 
   newPost(req, res)
   expect(res.render.mock.calls.length).toBe(1)
-  expect(res.render.mock.calls[0].length).toBe(1)
-  expect(res.render.mock.calls[0][0]).toBe('post/new-post')
+  expect(res.render.mock.calls[0].length).toBe(2)
+  expect(res.render.mock.calls[0][0]).toBe('post/edit-post')
 })
 
 test('signup page', () => {

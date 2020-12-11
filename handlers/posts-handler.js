@@ -11,7 +11,7 @@ exports.readPost = async function (req, res) {
 }
 
 exports.editPost = async function (req, res) {
-  res.send('done')
+  res.render('post/edit-post', { postAction: 'edit' })
 }
 
 exports.sendPostIdJson = async function (_req, res) {

@@ -1,9 +1,17 @@
+<% if (postAction === 'new' ) { %>
 <%- include('../header', {pageTitle: 'New Post'}) %>
+<% } else if (postAction === 'edit') {%>
+<%- include('../header', {pageTitle: 'New Post'}) %>
+<% }%>
 
 <div class="container mt-4 mb-4">
 
   <div id="on-new">
+    <% if (postAction === 'new' ) { %>
     <h2>Creating Post</h2>
+    <% } else if (postAction === 'edit') { %>
+    <h2>Edit Post</h2>
+    <% } %>
     
     <form action="/p/upload" method="post" id="upload-form">
       <div class="input-group mb-4 mt-4">
@@ -39,6 +47,11 @@
 </div>
 
 <script src="/javascripts/simplemde.min.js"></script>
+
+<% if (postAction === 'new') { %>
 <script src="/javascripts/newpost.js"></script>
+<% } else if (postAction === 'edit') { %>
+<script src="/javascripts/editpost.js"></script>
+<% } %>
 
 <%- include('../footer') %>

@@ -5,7 +5,7 @@ exports.root = function (_req, res) {
 }
 
 exports.newPost = function (_req, res) {
-  res.render('post/new-post')
+  res.render('post/edit-post', { postAction: 'new' })
 }
 
 exports.signup = function (req, res) {
